@@ -1,0 +1,42 @@
+# @oxpo/nest-kit — LLM Context
+
+## Project
+
+A single npm package `@oxpo/nest-kit` with 5 module groups under
+`packages/`. Sub-path exports allow granular imports.
+
+## Module groups
+
+| Import path                            | Directory               | Purpose                              |
+| -------------------------------------- | ----------------------- | ------------------------------------ |
+| `@oxpo/nest-kit` / `./core`        | `packages/core`         | Shared types, utilities              |
+| `@oxpo/nest-kit/bootstrap`          | `packages/bootstrap`    | NestJS app bootstrap helpers         |
+| `@oxpo/nest-kit/auth`              | `packages/auth`         | RBAC, OAuth, SSO, JWT, API keys      |
+| `@oxpo/nest-kit/saas`              | `packages/saas`         | Orgs, teams, multi-tenancy           |
+| `@oxpo/nest-kit/infra`             | `packages/infra`        | Infrastructure integrations          |
+| `@oxpo/nest-kit/infra/logger`      | `packages/infra/logger` | Structured logging                   |
+| `@oxpo/nest-kit/infra/notification`| `packages/infra/notification` | Email, SMS, Push                |
+| `@oxpo/nest-kit/infra/storage`     | `packages/infra/storage`| S3, GCS, Azure, local storage        |
+| `@oxpo/nest-kit/infra/stripe`      | `packages/infra/stripe` | Stripe webhooks, subscriptions       |
+| `@oxpo/nest-kit/infra/audit-log`   | `packages/infra/audit-log` | Audit trails, data change capture |
+| `@oxpo/nest-kit/infra/metrics`     | `packages/infra/metrics`| Prometheus, OpenTelemetry            |
+
+## Tech stack
+
+- **Runtime**: Node.js >= 18
+- **Language**: TypeScript 5.7 (strict mode)
+- **Framework**: NestJS 11 (peer dependency)
+- **Build**: tsc
+- **Testing**: Jest
+- **Linting**: ESLint 9 + Prettier
+- **Commit**: Conventional Commits + Commitlint + Husky
+- **Release**: GitHub Actions → npm
+
+## Conventions
+
+- All code and comments in English
+- JSDoc required on every exported symbol
+- Tests required (`.spec.ts` alongside source)
+- Conventional Commits with types: feat, fix, chore, docs, refactor, test,
+  style, perf, ci, build, revert
+- Scopes: root, core, bootstrap, auth, saas, infra, docs, release, deps
