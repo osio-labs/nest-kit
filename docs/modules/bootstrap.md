@@ -1,55 +1,83 @@
 # Bootstrap
 
-> One-liner setup functions for Swagger, Cache, TypeORM, Mongoose, and other popular NestJS modules.
+> One-liner setup functions for Swagger, Cache, and TypeORM.
 
-🚧 **Not yet implemented** — coming in an alpha release.
+---
+
+## Navigation
+
+| Path                | Module                          | Exports                                                                                                              |
+| ------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `bootstrap/swagger` | Swagger API Doc                 | `configSwagger`                                                                                                      |
+| `bootstrap/scalar`  | Scalar API Reference            | `configScalarApiDoc`                                                                                                 |
+| `bootstrap/cache`   | Cache (memory / Redis / Valkey) | `configCache`, `configCacheAsync`                                                                                    |
+| `bootstrap/typeorm` | TypeORM connection, CRUD, UoW   | `configTypeOrm`, `configTypeOrmAsync`, `createCrudService`, `createCrudController`, `UnitOfWork`, `@Transactional()` |
+
+---
 
 ## Sub-modules
 
-| Import path                         | Functions                                                                                        |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `@os.io/nest-kit/bootstrap`         | Re-exports all sub-modules                                                                       |
-| `@os.io/nest-kit/bootstrap/swagger` | `configSwagger`                                                                                  |
-| `@os.io/nest-kit/bootstrap/scalar`  | `configScalarApiDoc`                                                                             |
-| `@os.io/nest-kit/bootstrap/cache`   | `configCache`, `configCacheAsync`                                                                |
-| `@os.io/nest-kit/bootstrap/typeorm` | `configTypeOrm`, `configTypeOrmAsync`, `createCrudController`, `createCrudService`, `UnitOfWork` |
+### `bootstrap/swagger` — Swagger API Doc
 
-## Planned API
+Set up Swagger UI in one call:
 
 ```ts
 import { configSwagger } from '@os.io/nest-kit/bootstrap/swagger';
+
+const app = await NestFactory.create(AppModule);
+configSwagger(app, { title: 'My API', version: '1.0.0' });
+```
+
+[→ Full docs](./bootstrap-swagger)
+
+### `bootstrap/scalar` — Scalar API Reference
+
+Set up the Scalar API reference UI in one call:
+
+```ts
+import { configScalarApiDoc } from '@os.io/nest-kit/bootstrap/scalar';
+
+const app = await NestFactory.create(AppModule);
+configScalarApiDoc(app, { title: 'My API', version: '1.0.0' });
+```
+
+[→ Full docs](./bootstrap-scalar)
+
+### `bootstrap/cache` — Cache Module
+
+Build `CacheModule.register()` options from env or `ConfigService`:
+
+```ts
+import { CacheModule } from '@nestjs/cache-manager';
 import { configCache } from '@os.io/nest-kit/bootstrap/cache';
-import { configTypeOrm } from '@os.io/nest-kit/bootstrap/typeorm';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  configSwagger(app, { title: 'My API', version: '1.0.0' });
-  configCache(app, { ttl: 60 });
-  configTypeOrm(app, { type: 'postgres', url: process.env.DB_URL });
-
-  await app.listen(3000);
-}
+@Module({
+  imports: [CacheModule.register(configCache())],
+})
+export class AppModule {}
 ```
 
-### CRUD factories
+Supports memory, Redis, Valkey, multi-store, named stores, and RDS TLS mode.
+
+[→ Full docs](./bootstrap-cache)
+
+### `bootstrap/typeorm` — TypeORM
+
+Three toolkits in one module:
+
+| Sub-module | Purpose                                                                                 |
+| ---------- | --------------------------------------------------------------------------------------- |
+| `config`   | `configTypeOrm` / `configTypeOrmAsync` — connection setup from env or `ConfigService`   |
+| `crud`     | `createCrudService` / `createCrudController` — generic REST factories                   |
+| `uow`      | `UnitOfWork`, `@Transactional()`, `@TransactionalController()` — transaction management |
 
 ```ts
-import { createCrudController, createCrudService } from '@os.io/nest-kit/bootstrap/typeorm';
-
-const UserService = createCrudService(User);
-const UserController = createCrudController(User);
+import {
+  configTypeOrm,
+  createCrudService,
+  createCrudController,
+  UnitOfWork,
+} from '@os.io/nest-kit/bootstrap/typeorm';
 ```
 
-### Unit of Work
-
-```ts
-import { UnitOfWork } from '@os.io/nest-kit/bootstrap/typeorm';
-
-// Runs multiple DB operations in a single transaction
-const result = await uow.execute(async (manager) => {
-  const user = await manager.save(User, { name: 'Alice' });
-  const profile = await manager.save(Profile, { userId: user.id });
-  return { user, profile };
-});
-```
+[→ Full docs](./bootstrap-typeorm)

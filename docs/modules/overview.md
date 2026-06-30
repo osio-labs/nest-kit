@@ -7,7 +7,8 @@ sub-path exports. Use only what you need.
 | ------------------------------------ | ---------------------------------------- |
 | `@os.io/nest-kit` (or `./core`)      | Shared types, utilities, base classes    |
 | `@os.io/nest-kit/bootstrap`          | NestJS app bootstrap helpers             |
-| `@os.io/nest-kit/bootstrap/swagger`  | Swagger / Scalar API Doc config          |
+| `@os.io/nest-kit/bootstrap/swagger`  | Swagger API Doc config                   |
+| `@os.io/nest-kit/bootstrap/scalar`   | Scalar API Reference config              |
 | `@os.io/nest-kit/bootstrap/cache`    | CacheModule setup                        |
 | `@os.io/nest-kit/bootstrap/typeorm`  | TypeORM setup, CRUD factories, UoW       |
 | `@os.io/nest-kit/auth`               | RBAC, OAuth, SSO, JWT, API keys          |
