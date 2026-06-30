@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.0.1] — 2026-06-29
+
+### Changed
+
+- **bootstrap**: Split swagger/scalar into separate sub-paths (`@os.io/nest-kit/bootstrap/swagger`, `@os.io/nest-kit/bootstrap/scalar`)
+- **bootstrap**: Inlined cache config into single `index.ts`
+- **bootstrap**: Added `@nestjs/config`, `@nestjs/typeorm`, `typeorm` as optional peer deps
+- **ci**: Migrated publish to OIDC-based `npm publish --provenance` (no token needed)
+- **ci**: Bumped Node.js version to 24
+- **lint**: Fixed all ESLint `no-unsafe-*` errors for strict mode compliance
+- **test**: Fixed pre-existing bug in typeorm config spec (hardcoded `'oracle'` → `dbType`)
+
+### Added
+
+- `@os.io/nest-kit/bootstrap/scalar` sub-path export
+- `docs/modules/bootstrap-scalar.md` documentation
+- Fully automated release workflow (tag → publish with dist-tags)
+
+### Documentation
+
+- Updated bootstrap docs for split swagger/scalar modules
+- Fixed stale package references in docs
+
 ## [0.0.1-alpha.0] — 2025-06-29
 
 ### Added

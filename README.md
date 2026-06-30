@@ -71,19 +71,23 @@ import { setupSwagger } from '@os.io/nest-kit/bootstrap';
 import { RBACGuard } from '@os.io/nest-kit/auth';
 ```
 
-> **All modules are in early alpha.** APIs are subject to change.
+> **Ready for production use.** Requires NestJS 11+.
 
 ## 🚀 Quick Start
 
 ```ts
-// main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import { setupSwagger } from '@os.io/nest-kit/bootstrap';
+import { configCache } from '@os.io/nest-kit/bootstrap/cache';
+import { CacheModule } from '@nestjs/cache-manager';
 
-async function bootstrap() {
+@Module({
+  imports: [CacheModule.register(configCache())],
+})
+export class AppModule {}
+
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  // setupSwagger(app, { title: 'My API', version: '1.0.0' });
   await app.listen(3000);
 }
 bootstrap();
@@ -92,6 +96,7 @@ bootstrap();
 ## 📖 Documentation
 
 Full documentation is available at:
+➡️ **https://osio-labs.github.io/nest-kit**
 ➡️ **https://osio-labs.github.io/nest-kit** (coming soon)
 
 Or browse the [docs](./docs) folder locally.
