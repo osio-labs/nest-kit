@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/infra/audit-log
+ * @os.io/nest-kit/infra/audit-log
  *
  * Audit logging for NestJS. Automatically captures and persists user actions,
  * data changes, and security events in a structured format. Supports multiple

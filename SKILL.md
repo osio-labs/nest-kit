@@ -2,7 +2,7 @@
 
 ## 1. Architecture
 
-This is a **single npm package** `@oxpo/nest-kit` with sub-path exports:
+This is a **single npm package** `@os.io/nest-kit` with sub-path exports:
 
 ```
 packages/

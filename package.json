@@ -1,5 +1,5 @@
 {
-  "name": "@oxpo/nest-kit",
+  "name": "@os.io/nest-kit",
   "version": "0.0.1-alpha.0",
   "description": "A modular, production-ready NestJS toolkit — Bootstrap, Auth, SaaS, and Infra integrations in a single package.",
   "keywords": [
@@ -18,15 +18,15 @@
     "metrics",
     "typescript"
   ],
-  "homepage": "https://github.com/oxpo-io/nest-kit#readme",
+  "homepage": "https://github.com/osio-labs/nest-kit#readme",
   "bugs": {
-    "url": "https://github.com/oxpo-io/nest-kit/issues"
+    "url": "https://github.com/osio-labs/nest-kit/issues"
   },
   "license": "MIT",
-  "author": "Wind Blade <vn.chemgio@yahoo.com> (https://github.com/oxpo-io)",
+  "author": "Wind Blade <vn.chemgio@yahoo.com> (https://github.com/osio-labs)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oxpo-io/nest-kit.git"
+    "url": "git+https://github.com/osio-labs/nest-kit.git"
   },
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
@@ -45,6 +45,26 @@
       "types": "./dist/bootstrap/index.d.ts",
       "import": "./dist/bootstrap/index.js",
       "require": "./dist/bootstrap/index.js"
+    },
+    "./bootstrap/swagger": {
+      "types": "./dist/bootstrap/swagger/index.d.ts",
+      "import": "./dist/bootstrap/swagger/index.js",
+      "require": "./dist/bootstrap/swagger/index.js"
+    },
+    "./bootstrap/scalar": {
+      "types": "./dist/bootstrap/scalar/index.d.ts",
+      "import": "./dist/bootstrap/scalar/index.js",
+      "require": "./dist/bootstrap/scalar/index.js"
+    },
+    "./bootstrap/cache": {
+      "types": "./dist/bootstrap/cache/index.d.ts",
+      "import": "./dist/bootstrap/cache/index.js",
+      "require": "./dist/bootstrap/cache/index.js"
+    },
+    "./bootstrap/typeorm": {
+      "types": "./dist/bootstrap/typeorm/index.d.ts",
+      "import": "./dist/bootstrap/typeorm/index.js",
+      "require": "./dist/bootstrap/typeorm/index.js"
     },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
@@ -112,6 +132,20 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/swagger": "^11.0.0",
+    "@scalar/nestjs-api-reference": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/swagger": {
+      "optional": true
+    },
+    "@scalar/nestjs-api-reference": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -145,7 +179,9 @@
     "@eslint/js": "^9.18.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/swagger": "^11.4.4",
     "@nestjs/testing": "^11.0.1",
+    "@scalar/nestjs-api-reference": "^1.2.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
     "eslint": "^9.18.0",

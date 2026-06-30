@@ -1,21 +1,21 @@
-# AI Agent Guidelines — @oxpo/nest-kit
+# AI Agent Guidelines — @os.io/nest-kit
 
 This file instructs AI coding assistants (Cursor, Copilot, Codeium, etc.) on
 how to contribute to this repository correctly.
 
 ## Project structure
 
-This is a **single npm package** (`@oxpo/nest-kit`) with 5 module groups:
+This is a **single npm package** (`@os.io/nest-kit`) with 5 module groups:
 
-| Module group | Directory             | Description                              |
-| ------------ | --------------------- | ---------------------------------------- |
-| `core`       | `packages/core/`      | Shared types, utilities, base classes    |
-| `bootstrap`  | `packages/bootstrap/` | NestJS app bootstrap helpers             |
-| `auth`       | `packages/auth/`      | RBAC, OAuth, SSO, JWT, API keys          |
-| `saas`       | `packages/saas/`      | Orgs, teams, multi-tenancy               |
-| `infra`      | `packages/infra/`     | Logger, Notification, Storage, Stripe, … |
+| Module group | Directory             | Description                                            |
+| ------------ | --------------------- | ------------------------------------------------------ |
+| `core`       | `packages/core/`      | Shared types, utilities, base classes                  |
+| `bootstrap`  | `packages/bootstrap/` | NestJS app bootstrap helpers (swagger, cache, typeorm) |
+| `auth`       | `packages/auth/`      | RBAC, OAuth, SSO, JWT, API keys                        |
+| `saas`       | `packages/saas/`      | Orgs, teams, multi-tenancy                             |
+| `infra`      | `packages/infra/`     | Logger, Notification, Storage, Stripe, …               |
 
-Sub-path imports: `@oxpo/nest-kit/<group>` or `@oxpo/nest-kit/infra/<sub>`.
+Sub-path imports: `@os.io/nest-kit/<group>` or `@os.io/nest-kit/infra/<sub>`.
 
 ## Before you write code
 

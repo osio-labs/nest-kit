@@ -1,4 +1,4 @@
-# Contributing to @oxpo/nest-kit
+# Contributing to @os.io/nest-kit
 
 First off, thank you for considering contributing! We welcome contributions
 from everyone.
@@ -12,7 +12,7 @@ By participating, you are expected to uphold this code.
 
 ### Reporting bugs
 
-Open an [issue](https://github.com/oxpo-io/nest-kit/issues) with:
+Open an [issue](https://github.com/osio-labs/nest-kit/issues) with:
 
 - A clear, descriptive title
 - Steps to reproduce
@@ -88,7 +88,7 @@ test(saas): add organisation crud tests
 ### Development setup
 
 ```bash
-git clone https://github.com/oxpo-io/nest-kit.git
+git clone https://github.com/osio-labs/nest-kit.git
 cd nest-kit
 npm install
 npm run build
@@ -97,4 +97,4 @@ npm test
 
 ## Questions?
 
-Open a [discussion](https://github.com/oxpo-io/nest-kit/discussions).
+Open a [discussion](https://github.com/osio-labs/nest-kit/discussions).

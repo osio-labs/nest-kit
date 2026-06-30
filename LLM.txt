@@ -1,25 +1,28 @@
-# @oxpo/nest-kit — LLM Context
+# @os.io/nest-kit — LLM Context
 
 ## Project
 
-A single npm package `@oxpo/nest-kit` with 5 module groups under
+A single npm package `@os.io/nest-kit` with 5 module groups under
 `packages/`. Sub-path exports allow granular imports.
 
 ## Module groups
 
 | Import path                            | Directory               | Purpose                              |
 | -------------------------------------- | ----------------------- | ------------------------------------ |
-| `@oxpo/nest-kit` / `./core`        | `packages/core`         | Shared types, utilities              |
-| `@oxpo/nest-kit/bootstrap`          | `packages/bootstrap`    | NestJS app bootstrap helpers         |
-| `@oxpo/nest-kit/auth`              | `packages/auth`         | RBAC, OAuth, SSO, JWT, API keys      |
-| `@oxpo/nest-kit/saas`              | `packages/saas`         | Orgs, teams, multi-tenancy           |
-| `@oxpo/nest-kit/infra`             | `packages/infra`        | Infrastructure integrations          |
-| `@oxpo/nest-kit/infra/logger`      | `packages/infra/logger` | Structured logging                   |
-| `@oxpo/nest-kit/infra/notification`| `packages/infra/notification` | Email, SMS, Push                |
-| `@oxpo/nest-kit/infra/storage`     | `packages/infra/storage`| S3, GCS, Azure, local storage        |
-| `@oxpo/nest-kit/infra/stripe`      | `packages/infra/stripe` | Stripe webhooks, subscriptions       |
-| `@oxpo/nest-kit/infra/audit-log`   | `packages/infra/audit-log` | Audit trails, data change capture |
-| `@oxpo/nest-kit/infra/metrics`     | `packages/infra/metrics`| Prometheus, OpenTelemetry            |
+| `@os.io/nest-kit` / `./core`        | `packages/core`         | Shared types, utilities              |
+| `@os.io/nest-kit/bootstrap`          | `packages/bootstrap`    | NestJS app bootstrap helpers         |
+| `@os.io/nest-kit/bootstrap/swagger`  | `packages/bootstrap/swagger` | Swagger / Scalar API Doc       |
+| `@os.io/nest-kit/bootstrap/cache`   | `packages/bootstrap/cache`| CacheModule setup                   |
+| `@os.io/nest-kit/bootstrap/typeorm` | `packages/bootstrap/typeorm`| TypeORM config, CRUD, UoW         |
+| `@os.io/nest-kit/auth`              | `packages/auth`         | RBAC, OAuth, SSO, JWT, API keys      |
+| `@os.io/nest-kit/saas`              | `packages/saas`         | Orgs, teams, multi-tenancy           |
+| `@os.io/nest-kit/infra`             | `packages/infra`        | Infrastructure integrations          |
+| `@os.io/nest-kit/infra/logger`      | `packages/infra/logger` | Structured logging                   |
+| `@os.io/nest-kit/infra/notification`| `packages/infra/notification` | Email, SMS, Push                |
+| `@os.io/nest-kit/infra/storage`     | `packages/infra/storage`| S3, GCS, Azure, local storage        |
+| `@os.io/nest-kit/infra/stripe`      | `packages/infra/stripe` | Stripe webhooks, subscriptions       |
+| `@os.io/nest-kit/infra/audit-log`   | `packages/infra/audit-log` | Audit trails, data change capture |
+| `@os.io/nest-kit/infra/metrics`     | `packages/infra/metrics`| Prometheus, OpenTelemetry            |
 
 ## Tech stack
 

@@ -3,10 +3,10 @@
   <br/>
   <strong>+</strong>
   <br/>
-  <img src="https://raw.githubusercontent.com/oxpo-io/nest-kit/main/docs/public/nest-kit-logo.svg" width="240" alt="@oxpo/nest-kit" />
+  <img src="https://raw.githubusercontent.com/osio-labs/nest-kit/main/docs/public/nest-kit-logo.svg" width="240" alt="@os.io/nest-kit" />
 </p>
 
-<h1 align="center">@oxpo/nest-kit</h1>
+<h1 align="center">@os.io/nest-kit</h1>
 
 <p align="center">
   <em>A modular, production-ready NestJS toolkit.</em>
@@ -15,17 +15,17 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@oxpo/nest-kit">
-    <img src="https://img.shields.io/npm/v/@oxpo/nest-kit?logo=npm" alt="npm version" />
+  <a href="https://www.npmjs.com/package/@os.io/nest-kit">
+    <img src="https://img.shields.io/npm/v/@os.io/nest-kit?logo=npm" alt="npm version" />
   </a>
-  <a href="https://github.com/oxpo-io/nest-kit/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/oxpo-io/nest-kit/ci.yml?branch=main&logo=github" alt="CI" />
+  <a href="https://github.com/osio-labs/nest-kit/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/osio-labs/nest-kit/ci.yml?branch=main&logo=github" alt="CI" />
   </a>
-  <a href="https://github.com/oxpo-io/nest-kit/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/oxpo-io/nest-kit" alt="License" />
+  <a href="https://github.com/osio-labs/nest-kit/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/osio-labs/nest-kit" alt="License" />
   </a>
   <a href="https://nodejs.org/">
-    <img src="https://img.shields.io/node/v/@oxpo/nest-kit" alt="Node version" />
+    <img src="https://img.shields.io/node/v/@os.io/nest-kit" alt="Node version" />
   </a>
   <a href="https://www.typescriptlang.org/">
     <img src="https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript" alt="TypeScript" />
@@ -39,36 +39,36 @@
 
 ## ✨ Module Groups
 
-| Import path                    | Directory            | Description                                  |
-| ------------------------------ | -------------------- | -------------------------------------------- |
-| `@oxpo/nest-kit` (or `./core`) | `packages/core`      | Shared types, utilities, base classes        |
-| `@oxpo/nest-kit/bootstrap`     | `packages/bootstrap` | One-liner setup for Swagger, Cache, TypeORM… |
-| `@oxpo/nest-kit/auth`          | `packages/auth`      | RBAC, OAuth 2.0, SSO, JWT, API Keys          |
-| `@oxpo/nest-kit/saas`          | `packages/saas`      | Orgs, Teams, Multi-tenancy, Subscriptions    |
-| `@oxpo/nest-kit/infra`         | `packages/infra`     | Infrastructure integrations                  |
+| Import path                     | Directory            | Description                                  |
+| ------------------------------- | -------------------- | -------------------------------------------- |
+| `@os.io/nest-kit` (or `./core`) | `packages/core`      | Shared types, utilities, base classes        |
+| `@os.io/nest-kit/bootstrap`     | `packages/bootstrap` | One-liner setup for Swagger, Cache, TypeORM… |
+| `@os.io/nest-kit/auth`          | `packages/auth`      | RBAC, OAuth 2.0, SSO, JWT, API Keys          |
+| `@os.io/nest-kit/saas`          | `packages/saas`      | Orgs, Teams, Multi-tenancy, Subscriptions    |
+| `@os.io/nest-kit/infra`         | `packages/infra`     | Infrastructure integrations                  |
 
 **Infra sub-modules** (import via sub-path):
 
-| Import path                         | Purpose                                         |
-| ----------------------------------- | ----------------------------------------------- |
-| `@oxpo/nest-kit/infra/logger`       | Structured logging (Pino, Winston)              |
-| `@oxpo/nest-kit/infra/notification` | Email (SES, SendGrid), SMS (Twilio), Push (FCM) |
-| `@oxpo/nest-kit/infra/storage`      | Unified file API: LocalFS, S3, GCS, Azure       |
-| `@oxpo/nest-kit/infra/stripe`       | Webhooks, subscriptions, checkout               |
-| `@oxpo/nest-kit/infra/audit-log`    | Audit trails, data change capture               |
-| `@oxpo/nest-kit/infra/metrics`      | Prometheus, OpenTelemetry, health checks        |
+| Import path                          | Purpose                                         |
+| ------------------------------------ | ----------------------------------------------- |
+| `@os.io/nest-kit/infra/logger`       | Structured logging (Pino, Winston)              |
+| `@os.io/nest-kit/infra/notification` | Email (SES, SendGrid), SMS (Twilio), Push (FCM) |
+| `@os.io/nest-kit/infra/storage`      | Unified file API: LocalFS, S3, GCS, Azure       |
+| `@os.io/nest-kit/infra/stripe`       | Webhooks, subscriptions, checkout               |
+| `@os.io/nest-kit/infra/audit-log`    | Audit trails, data change capture               |
+| `@os.io/nest-kit/infra/metrics`      | Prometheus, OpenTelemetry, health checks        |
 
 ## 📦 Installation
 
 ```bash
-npm install @oxpo/nest-kit
+npm install @os.io/nest-kit
 ```
 
 Then import only what you need:
 
 ```ts
-import { setupSwagger } from '@oxpo/nest-kit/bootstrap';
-import { RBACGuard } from '@oxpo/nest-kit/auth';
+import { setupSwagger } from '@os.io/nest-kit/bootstrap';
+import { RBACGuard } from '@os.io/nest-kit/auth';
 ```
 
 > **All modules are in early alpha.** APIs are subject to change.
@@ -79,7 +79,7 @@ import { RBACGuard } from '@oxpo/nest-kit/auth';
 // main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import { setupSwagger } from '@oxpo/nest-kit/bootstrap';
+// import { setupSwagger } from '@os.io/nest-kit/bootstrap';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -92,7 +92,7 @@ bootstrap();
 ## 📖 Documentation
 
 Full documentation is available at:
-➡️ **https://oxpo-io.github.io/nest-kit** (coming soon)
+➡️ **https://osio-labs.github.io/nest-kit** (coming soon)
 
 Or browse the [docs](./docs) folder locally.
 
@@ -107,5 +107,5 @@ This project is [MIT licensed](./LICENSE).
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/oxpo-io">Wind Blade</a>
+  Made with ❤️ by <a href="https://github.com/osio-labs">Wind Blade</a>
 </p>

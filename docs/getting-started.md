@@ -3,24 +3,24 @@
 ## Installation
 
 ```bash
-npm install @oxpo/nest-kit
+npm install @os.io/nest-kit
 ```
 
 ## Quick example
 
 ```ts
 // Import only what you need via sub-path exports
-import { setupSwagger } from '@oxpo/nest-kit/bootstrap';
-import { RBACGuard } from '@oxpo/nest-kit/auth';
+import { setupSwagger } from '@os.io/nest-kit/bootstrap';
+import { RBACGuard } from '@os.io/nest-kit/auth';
 
 // Core utilities are available at the package root
-import { someUtil } from '@oxpo/nest-kit';
+import { someUtil } from '@os.io/nest-kit';
 // or explicitly:
-import { someUtil } from '@oxpo/nest-kit/core';
+import { someUtil } from '@os.io/nest-kit/core';
 
 // Infra sub-modules
-import { LoggerService } from '@oxpo/nest-kit/infra/logger';
-import { S3Storage } from '@oxpo/nest-kit/infra/storage';
+import { LoggerService } from '@os.io/nest-kit/infra/logger';
+import { S3Storage } from '@os.io/nest-kit/infra/storage';
 ```
 
 > **Note**: All modules are currently in **alpha** state. APIs may change.

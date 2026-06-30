@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/infra/storage
+ * @os.io/nest-kit/infra/storage
  *
  * File storage abstraction for NestJS. Provides a unified interface over
  * local filesystem, AWS S3 / S3-compatible, Google Cloud Storage, and

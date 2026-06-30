@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/saas
+ * @os.io/nest-kit/saas
  *
  * SaaS primitives for NestJS applications: Organisation & Team management,
  * multi-tenancy, subscription plans, invitations, and billing integration.

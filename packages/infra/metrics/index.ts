@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/infra/metrics
+ * @os.io/nest-kit/infra/metrics
  *
  * Metrics & observability for NestJS. Exposes Prometheus metrics,
  * OpenTelemetry tracing, health checks, and structured monitoring endpoints.

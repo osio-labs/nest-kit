@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/infra/stripe
+ * @os.io/nest-kit/infra/stripe
  *
  * Stripe integration for NestJS. Provides a NestJS-idiomatic wrapper around
  * the Stripe SDK: webhook handling, subscription management, checkout

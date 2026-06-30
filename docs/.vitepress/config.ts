@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: '@oxpo/nest-kit',
+  title: '@os.io/nest-kit',
   description:
     'A modular, production-ready NestJS toolkit — Bootstrap, Auth, SaaS, and Infra integrations in a single package.',
   base: '/nest-kit/',
@@ -9,7 +9,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Modules', link: '/modules/overview' },
-      { text: 'GitHub', link: 'https://github.com/oxpo-io/nest-kit' },
+      { text: 'GitHub', link: 'https://github.com/osio-labs/nest-kit' },
     ],
     sidebar: [
       {
@@ -25,6 +25,9 @@ export default defineConfig({
           { text: 'Overview', link: '/modules/overview' },
           { text: 'Core', link: '/modules/core' },
           { text: 'Bootstrap', link: '/modules/bootstrap' },
+          { text: 'Bootstrap / Swagger', link: '/modules/bootstrap-swagger' },
+          { text: 'Bootstrap / Cache', link: '/modules/bootstrap-cache' },
+          { text: 'Bootstrap / TypeORM', link: '/modules/bootstrap-typeorm' },
           { text: 'Auth', link: '/modules/auth' },
           { text: 'SaaS', link: '/modules/saas' },
           { text: 'Infra', link: '/modules/infra' },
@@ -44,6 +47,6 @@ export default defineConfig({
         ],
       },
     ],
-    socialLinks: [{ icon: 'github', link: 'https://github.com/oxpo-io/nest-kit' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/osio-labs/nest-kit' }],
   },
 });

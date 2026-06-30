@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Single-package scaffold with 5 module groups: core, bootstrap, auth, saas, infra
-- Sub-path exports: `@oxpo/nest-kit/<group>` and `@oxpo/nest-kit/infra/<sub>`
+- Sub-path exports: `@os.io/nest-kit/<group>` and `@os.io/nest-kit/infra/<sub>`
 - ESLint + Prettier configuration
 - Husky + Commitlint hooks
 - CI/CD via GitHub Actions

@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: '@oxpo/nest-kit'
+  name: '@os.io/nest-kit'
   text: 'Modular NestJS Toolkit'
   tagline: 'Bootstrap, Auth, SaaS, Infra — all in a single package with tree-shakeable sub-path imports.'
   image:
@@ -14,7 +14,7 @@ hero:
       link: /getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/oxpo-io/nest-kit
+      link: https://github.com/osio-labs/nest-kit
 
 features:
   - title: Core

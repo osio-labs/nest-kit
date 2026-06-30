@@ -1,22 +1,19 @@
 /**
- * @oxpo/nest-kit/bootstrap
+ * @os.io/nest-kit/bootstrap
  *
  * Helpers and configuration bootstrappers for popular NestJS modules such as
- * Swagger, Cache, TypeORM, Mongoose, etc. Designed to be called directly from
+ * Swagger, Scalar, Cache, TypeORM, Mongoose, etc. Designed to be called directly from
  * your application's `main.ts` or `app.module.ts`.
  *
- * ## Usage
+ * ## Sub-modules
  *
- * ```ts
- * import { setupSwagger } from '@oxpo/nest-kit/bootstrap';
- * ```
+ * - `@os.io/nest-kit/bootstrap/swagger`   — Swagger UI
+ * - `@os.io/nest-kit/bootstrap/scalar`    — Scalar API Reference
+ * - `@os.io/nest-kit/bootstrap/cache`     — CacheModule setup
+ * - `@os.io/nest-kit/bootstrap/typeorm`   — TypeORM setup, CRUD factories, Unit of Work
  *
  * @module
  * @packageDocumentation
  */
 
-throw new Error(
-  'The bootstrap module has not been implemented yet. Stay tuned for an upcoming alpha release.',
-);
-
-export {};
+export * from './swagger';

@@ -1,5 +1,5 @@
 /**
- * @oxpo/nest-kit/auth
+ * @os.io/nest-kit/auth
  *
  * Authentication & Authorization toolkit for NestJS applications.
  * Supports RBAC, OAuth 2.0, SSO, API keys, JWT, and more.

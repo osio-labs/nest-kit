@@ -5,7 +5,7 @@
 🚧 **Not yet implemented** — coming in an alpha release.
 
 ```ts
-import { someUtil } from '@oxpo/nest-kit';
+import { someUtil } from '@os.io/nest-kit';
 // or explicitly:
-import { someUtil } from '@oxpo/nest-kit/core';
+import { someUtil } from '@os.io/nest-kit/core';
 ```
