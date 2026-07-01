@@ -1,0 +1,11 @@
+export { BaseStrategy } from './base/base.strategy';
+export { CredentialsStrategy } from './credentials/credentials.strategy';
+export { OAuthProviderRegistry } from './oauth/oauth-provider-registry';
+export { OAuthStrategy } from './oauth/oauth.strategy';
+export { TotpStrategy } from './totp/totp.strategy';
+export { AnonymousStrategy } from './anonymous/anonymous.strategy';
+export { MagicLinkStrategy } from './magic-link/magic-link.strategy';
+export { OtpStrategy } from './otp/otp.strategy';
+export { PasskeyStrategy } from './passkey/passkey.strategy';
+export { OneTapStrategy } from './onetap/onetap.strategy';
+export { SsoStrategy } from './sso/sso.strategy';
