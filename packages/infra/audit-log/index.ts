@@ -1,16 +1,66 @@
 /**
  * @os.io/nest-kit/infra/audit-log
  *
- * Audit logging for NestJS. Automatically captures and persists user actions,
- * data changes, and security events in a structured format. Supports multiple
- * backends (database, S3, Elasticsearch).
+ * Audit trail for NestJS — track who did what and when. Automatically
+ * captures user actions, data changes, and security events with structured
+ * diffs, IP, user-agent, and organization scoping.
+ *
+ * ## Quick Start
+ *
+ * ```typescript
+ * // TypeORM backend
+ * import { AuditLogModule } from '@os.io/nest-kit/infra/audit-log';
+ *
+ * @Module({
+ *   imports: [
+ *     AuditLogModule.forFeature(),
+ *     AuditLogModule.forRoot(),
+ *   ],
+ * })
+ * export class AppModule {}
+ * ```
+ *
+ * Custom backend:
+ * ```typescript
+ * import { AuditLogModule } from '@os.io/nest-kit/infra/audit-log';
+ *
+ * @Module({
+ *   imports: [
+ *     AuditLogModule.forRoot({ repository: myCustomRepo }),
+ *   ],
+ * })
+ * export class AppModule {}
+ * ```
  *
  * @module
  * @packageDocumentation
  */
 
-throw new Error(
-  'The infra/audit-log module has not been implemented yet. Stay tuned for an upcoming alpha release.',
-);
+// ──────── Entity ────────
+export { AuditLogEntity } from './audit-log.entity';
 
-export {};
+// ──────── Types ────────
+export type {
+  AuditAction,
+  AuditLogEntry,
+  AuditLogQuery,
+  AuditLogRepository,
+  AuditLogModuleOptions,
+  AuditLogModuleAsyncOptions,
+} from './audit-log.types';
+
+// ──────── Constants ────────
+export {
+  AUDIT_LOG_MODULE_OPTIONS,
+  AUDIT_LOG_REPOSITORY,
+  DEFAULT_AUDIT_LOG_TABLE,
+} from './audit-log.constants';
+
+// ──────── Service ────────
+export { AuditLogService } from './audit-log.service';
+
+// ──────── NestJS Module ────────
+export { AuditLogModule } from './audit-log.module';
+
+// ──────── Built-in Adapters ────────
+export * from './adapters';
