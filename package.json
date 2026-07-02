@@ -158,6 +158,7 @@
     "exceljs": "^4.4.0",
     "keyv": "^5.0.0",
     "otpauth": "^9.0.0",
+    "pino": "^9.0.0",
     "sharp": "^0.33.0",
     "stripe": "^17.0.0",
     "typeorm": "^1.0.0"
@@ -200,6 +201,9 @@
       "optional": true
     },
     "otpauth": {
+      "optional": true
+    },
+    "pino": {
       "optional": true
     },
     "@simplewebauthn/server": {
@@ -271,6 +275,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.20.0",
     "bcrypt": "^5.1.0",
+    "pino": "^9.0.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
