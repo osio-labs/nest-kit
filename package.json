@@ -1,6 +1,6 @@
 {
   "name": "@os.io/nest-kit",
-  "version": "0.0.2",
+  "version": "0.0.3-alpha.1",
   "description": "A modular, production-ready NestJS toolkit — Bootstrap, Auth, SaaS, and Infra integrations in a single package.",
   "keywords": [
     "nestjs",
@@ -110,6 +110,11 @@
       "types": "./dist/infra/metrics/index.d.ts",
       "import": "./dist/infra/metrics/index.js",
       "require": "./dist/infra/metrics/index.js"
+    },
+    "./infra/excel": {
+      "types": "./dist/infra/excel/index.d.ts",
+      "import": "./dist/infra/excel/index.js",
+      "require": "./dist/infra/excel/index.js"
     }
   },
   "files": [
@@ -149,6 +154,7 @@
     "cacheable": "^1.0.0",
     "keyv": "^5.0.0",
     "otpauth": "^9.0.0",
+    "exceljs": "^4.4.0",
     "typeorm": "^1.0.0"
   },
   "peerDependenciesMeta": {
@@ -195,6 +201,9 @@
       "optional": true
     },
     "typeorm": {
+      "optional": true
+    },
+    "exceljs": {
       "optional": true
     }
   },
@@ -245,6 +254,7 @@
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
+    "exceljs": "^4.4.0",
     "globals": "^16.0.0",
     "husky": "^9.1.0",
     "jest": "^30.0.0",
