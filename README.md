@@ -3,7 +3,7 @@
   <br/>
   <strong>+</strong>
   <br/>
-  <img src="https://raw.githubusercontent.com/osio-labs/nest-kit/main/docs/public/nest-kit-logo.svg" width="240" alt="@os.io/nest-kit" />
+  <img src="https://raw.githubusercontent.com/osio-labs/nest-kit/master/docs/public/nest-kit-logo.svg" width="240" alt="@os.io/nest-kit" />
 </p>
 
 <h1 align="center">@os.io/nest-kit</h1>
@@ -19,9 +19,9 @@
     <img src="https://img.shields.io/npm/v/@os.io/nest-kit?logo=npm" alt="npm version" />
   </a>
   <a href="https://github.com/osio-labs/nest-kit/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/osio-labs/nest-kit/ci.yml?branch=main&logo=github" alt="CI" />
+    <img src="https://img.shields.io/github/actions/workflow/status/osio-labs/nest-kit/ci.yml?logo=github" alt="CI" />
   </a>
-  <a href="https://github.com/osio-labs/nest-kit/blob/main/LICENSE">
+  <a href="https://github.com/osio-labs/nest-kit/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/osio-labs/nest-kit" alt="License" />
   </a>
   <a href="https://nodejs.org/">
