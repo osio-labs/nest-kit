@@ -20,3 +20,4 @@ sub-path exports. Use only what you need.
 | `@os.io/nest-kit/infra/stripe`       | Stripe webhooks, subscriptions           |
 | `@os.io/nest-kit/infra/audit-log`    | Audit trails, data change capture        |
 | `@os.io/nest-kit/infra/metrics`      | Prometheus, OpenTelemetry, health checks |
+| `@os.io/nest-kit/infra/excel`        | Export arrays of objects to .xlsx        |

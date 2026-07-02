@@ -37,4 +37,6 @@ features:
     details: Automatic capture of user actions, data changes, and security events.
   - title: Infra / Metrics
     details: Prometheus, OpenTelemetry, health checks, and custom decorators.
+  - title: Infra / Excel Export
+    details: Export arrays of objects to .xlsx with custom columns, styling, multi-sheet.
 ---

@@ -66,6 +66,7 @@ export default defineConfig({
           { text: 'Stripe', link: '/modules/infra-stripe' },
           { text: 'Audit Log', link: '/modules/infra-audit-log' },
           { text: 'Metrics', link: '/modules/infra-metrics' },
+          { text: 'Excel Export', link: '/modules/infra-excel' },
         ],
       },
       {

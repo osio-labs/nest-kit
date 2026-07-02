@@ -12,3 +12,4 @@
 - [Stripe](./infra-stripe) — Webhooks, subscriptions, checkout
 - [Audit Log](./infra-audit-log) — Audit trails, data change capture
 - [Metrics](./infra-metrics) — Prometheus, OpenTelemetry, health checks
+- [Excel Export](./infra-excel) — Export arrays of objects to .xlsx
