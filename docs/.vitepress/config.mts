@@ -60,15 +60,16 @@ export default defineConfig({
         link: '/modules/infra',
         collapsed: true,
         items: [
+          { text: 'Storage', link: '/modules/infra-storage' },
+          { text: 'Excel', link: '/modules/infra-excel' },
           { text: 'Logger', link: '/modules/infra-logger' },
           { text: 'Notification', link: '/modules/infra-notification' },
-          { text: 'Storage', link: '/modules/infra-storage' },
           { text: 'Stripe', link: '/modules/infra-stripe' },
           { text: 'Audit Log', link: '/modules/infra-audit-log' },
           { text: 'Metrics', link: '/modules/infra-metrics' },
-          { text: 'Excel Export', link: '/modules/infra-excel' },
         ],
       },
+      // ──────── Coming soon ────────
       {
         text: 'More',
         items: [

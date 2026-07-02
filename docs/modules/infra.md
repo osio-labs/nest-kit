@@ -2,14 +2,16 @@
 
 > Infrastructure & third-party integrations.
 
-🚧 **Not yet implemented** — coming in an alpha release.
+**Package:** [`@os.io/nest-kit`](https://www.npmjs.com/package/@os.io/nest-kit)
 
 ## Sub-modules
 
-- [Logger](./infra-logger) — Structured logging with Pino, Winston
-- [Notification](./infra-notification) — Email, SMS, Push, in-app
-- [Storage](./infra-storage) — S3, GCS, Azure, local filesystem
-- [Stripe](./infra-stripe) — Webhooks, subscriptions, checkout
-- [Audit Log](./infra-audit-log) — Audit trails, data change capture
-- [Metrics](./infra-metrics) — Prometheus, OpenTelemetry, health checks
-- [Excel Export](./infra-excel) — Export arrays of objects to .xlsx
+| Module                               | Import path                          | Status         |
+| ------------------------------------ | ------------------------------------ | -------------- |
+| [Storage](./infra-storage)           | `@os.io/nest-kit/infra/storage`      | ✅ Implemented |
+| [Excel](./infra-excel)               | `@os.io/nest-kit/infra/excel`        | ✅ Implemented |
+| [Logger](./infra-logger)             | `@os.io/nest-kit/infra/logger`       | 🚧 Not yet     |
+| [Notification](./infra-notification) | `@os.io/nest-kit/infra/notification` | 🚧 Not yet     |
+| [Stripe](./infra-stripe)             | `@os.io/nest-kit/infra/stripe`       | 🚧 Not yet     |
+| [Audit Log](./infra-audit-log)       | `@os.io/nest-kit/infra/audit-log`    | 🚧 Not yet     |
+| [Metrics](./infra-metrics)           | `@os.io/nest-kit/infra/metrics`      | 🚧 Not yet     |

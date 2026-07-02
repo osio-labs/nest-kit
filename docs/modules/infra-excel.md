@@ -1,6 +1,6 @@
-# Infra / Excel Export
+# Infra / Excel
 
-> Export arrays of objects to Excel (.xlsx) using the full `exceljs` type system.
+> Export and import Excel (.xlsx) files with the full `exceljs` type system.
 
 ```
 @os.io/nest-kit/infra/excel
@@ -10,80 +10,93 @@
 
 ## Installation
 
-The `exceljs` package is an optional peer dependency:
-
 ```bash
-npm install exceljs
+npm install @os.io/nest-kit exceljs
 ```
+
+`exceljs` is an **optional peer dependency** — safe to import without it; errors are thrown only on use.
 
 ---
 
 ## Quick Start
 
+### Export
+
 ```typescript
-import { ExcelService } from '@os.io/nest-kit/infra/excel';
+import { exportToBuffer, exportToFile } from '@os.io/nest-kit/infra/excel';
 
 const users = [
-  { id: 1, name: 'Alice', email: 'alice@example.com', score: 95.5 },
-  { id: 2, name: 'Bob', email: 'bob@example.com', score: 87.0 },
+  { name: 'Alice', email: 'alice@example.com', score: 95.5 },
+  { name: 'Bob', email: 'bob@example.com', score: 87.0 },
 ];
 
-const buffer = await ExcelService.fromData(users).then((wb) => wb.toBuffer());
+const buffer = await exportToBuffer(users);
+await exportToFile(users, './report.xlsx');
+```
+
+### Import
+
+```typescript
+import { importFromBuffer, importFromFile } from '@os.io/nest-kit/infra/excel';
+
+const rows = await importFromFile('./data.xlsx');
+const rows = await importFromBuffer(uploadedFile.buffer);
+// rows → [{ name: 'Alice', email: 'alice@example.com', ... }, ...]
 ```
 
 ---
 
-## Output Formats
+## Export
 
-### Buffer — upload to S3, MinIO, API response
+### Output Formats
 
-```typescript
-const buffer = await ExcelService.fromData(data).then((wb) => wb.toBuffer());
-```
-
-### File — save to disk
+**Buffer** — upload to S3, MinIO, API response:
 
 ```typescript
-await ExcelService.fromData(data).then((wb) => wb.toFile('./report.xlsx'));
+const buffer = await exportToBuffer(data);
 ```
 
-### Stream — API download
+**File** — save to disk:
+
+```typescript
+await exportToFile(data, './report.xlsx');
+```
+
+**Stream** — pipe to HTTP response:
 
 ```typescript
 import { Response } from 'express';
 
 @Get('export')
 async export(@Res() res: Response) {
-  const stream = await ExcelService.fromData(data).then((wb) => wb.toStream());
+  const stream = exportToStream(data);
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   res.setHeader('Content-Disposition', 'attachment; filename="report.xlsx"');
   stream.pipe(res);
 }
 ```
 
-### Express / NestJS Response — single call
+**Base64** — embed in JSON or email:
+
+```typescript
+const b64 = await exportToBase64(data);
+```
+
+**Express / NestJS Response** — single call:
 
 ```typescript
 import { Response } from 'express';
 
-@Get('export')
-async export(@Res() res: Response) {
+@Get('download')
+async download(@Res() res: Response) {
   const data = await this.service.findAll();
-  await ExcelService.exportToResponse(data, res, 'users.xlsx');
+  await exportToResponse(data, res, 'users.xlsx');
 }
 ```
 
-### Base64 — embed or inline
+### Column Definitions
 
-```typescript
-const b64 = await ExcelService.fromData(data).then((wb) => wb.toBase64());
-```
-
----
-
-## Column Definitions
-
-### Full exceljs `Column` objects
+Full `exceljs` Partial\<Column\> objects:
 
 ```typescript
 import type { Column } from 'exceljs';
@@ -94,47 +107,34 @@ const columns: Partial<Column>[] = [
   { header: 'Score', key: 'score', width: 12, style: { numFmt: '#,##0.00' } },
 ];
 
-const buffer = await ExcelService.fromData(users, { sheetName: 'Users', columns }).then((wb) =>
-  wb.toBuffer(),
-);
+const buffer = await exportToBuffer(users, { columns });
 ```
 
-### String shorthand (keys only)
+String shorthand (keys only):
 
 ```typescript
-const buffer = await ExcelService.fromData(data, { columns: ['name', 'email', 'score'] }).then(
-  (wb) => wb.toBuffer(),
-);
+const buffer = await exportToBuffer(data, { columns: ['name', 'email', 'score'] });
 ```
 
 Auto-detected from object keys when omitted.
 
----
+### Header Style
 
-## Custom Styling
-
-Uses `exceljs` `Style` type directly for header and cell styles.
+Override with full `exceljs` `Style` type:
 
 ```typescript
-import type { Column, Style } from 'exceljs';
+import type { Style } from 'exceljs';
 
-const buffer = await ExcelService.fromData(users, {
-  sheetName: 'Users',
+const buffer = await exportToBuffer(data, {
   headerStyle: {
     font: { bold: true, color: { argb: 'FFFFFFFF' }, size: 12, name: 'Calibri' },
     fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF2F5496' } },
     alignment: { horizontal: 'center', vertical: 'middle' },
-    border: {
-      top: { style: 'thin' },
-      bottom: { style: 'thin' },
-      left: { style: 'thin' },
-      right: { style: 'thin' },
-    },
   },
-}).then((wb) => wb.toBuffer());
+});
 ```
 
-Per-column cell styles via `Column.style`:
+### Per-column Cell Style
 
 ```typescript
 const columns: Partial<Column>[] = [
@@ -151,56 +151,54 @@ const columns: Partial<Column>[] = [
 ];
 ```
 
----
-
-## Formatters
+### Formatters
 
 Transform cell values for display without mutating source data.
 
 ```typescript
-const buffer = await ExcelService.fromData(data, {
+const buffer = await exportToBuffer(data, {
   columns: ['name', 'active', 'salary'],
   formatters: {
     active: (v) => (v ? 'Active' : 'Inactive'),
     salary: (v) => `$${(v as number).toLocaleString()}`,
   },
-}).then((wb) => wb.toBuffer());
+});
 ```
 
----
+### Exclude Columns
 
-## Auto-filter
+```typescript
+const buffer = await exportToBuffer(data, { excludeColumns: ['internalId', 'hash'] });
+```
+
+### Auto-filter
 
 Enabled by default. Set `useAutoFilter: false` to disable.
 
 ```typescript
-await ExcelService.fromData(data, { useAutoFilter: false });
+await exportToBuffer(data, { useAutoFilter: false });
 ```
 
----
-
-## Freeze Panes
-
-Freeze rows, columns, or both by specifying the top-left visible cell.
+### Freeze Panes
 
 ```typescript
 // Freeze first row
-await ExcelService.fromData(data, { freezePane: 'A2' });
+await exportToBuffer(data, { freezePane: 'A2' });
 
 // Freeze first column
-await ExcelService.fromData(data, { freezePane: 'B1' });
+await exportToBuffer(data, { freezePane: 'B1' });
 
 // Freeze first row + first column
-await ExcelService.fromData(data, { freezePane: 'B2' });
+await exportToBuffer(data, { freezePane: 'B2' });
 ```
 
----
-
-## Multi-Sheet Workbooks
+### Multi-sheet Workbooks
 
 ```typescript
-const wb = await ExcelService.create({ author: 'MyApp' })
-  .addSheet('Users', users, userColumns)
+import { createBuilder } from '@os.io/nest-kit/infra/excel';
+
+const wb = await createBuilder({ author: 'MyApp' })
+  .addSheet('Users', users)
   .addSheet('Orders', orders, orderColumns)
   .build();
 
@@ -209,15 +207,69 @@ const buffer = await wb.toBuffer();
 
 ---
 
+## Import
+
+Parse `.xlsx` files back into arrays of objects.
+
+### From Buffer
+
+```typescript
+const rows = await importFromBuffer(buf);
+```
+
+### From File
+
+```typescript
+const rows = await importFromFile('./data.xlsx');
+```
+
+### From URL
+
+```typescript
+const rows = await importFromUrl('https://example.com/data.xlsx');
+```
+
+### From Stream
+
+```typescript
+const rows = await importFromStream(readableStream);
+```
+
+### Options
+
+```typescript
+const rows = await importFromFile('./data.xlsx', {
+  sheet: 'Sheet1', // or 0 (0-based index)
+  headerRow: 1, // 0 = no header (returns indexed keys)
+  skipEmpty: true, // skip rows where all cells are empty
+  trim: true, // trim string values
+});
+```
+
+---
+
 ## API
 
-### ExcelService
+### Export Functions
 
-| Method                                          | Returns         | Description                       |
-| ----------------------------------------------- | --------------- | --------------------------------- |
-| `fromData(data, opts?)`                         | `ExcelWorkbook` | Create workbook from object array |
-| `exportToResponse(data, res, filename?, opts?)` | `Promise<void>` | Send as HTTP download             |
-| `create(opts?)`                                 | `ExcelBuilder`  | Start multi-sheet builder         |
+| Function                           | Returns                  | Description                   |
+| ---------------------------------- | ------------------------ | ----------------------------- |
+| `exportToBuffer(data, opts?)`      | `Promise<Buffer>`        | Export to Node.js Buffer      |
+| `exportToFile(data, path, opts?)`  | `Promise<void>`          | Write to disk                 |
+| `exportToStream(data, opts?)`      | `PassThrough`            | Export as readable stream     |
+| `exportToBase64(data, opts?)`      | `Promise<string>`        | Export as base64 string       |
+| `exportToResponse(data, res, fn?)` | `Promise<void>`          | Send as HTTP download         |
+| `buildWorkbook(data, opts?)`       | `Promise<ExcelWorkbook>` | Build a single-sheet workbook |
+| `createBuilder(opts?)`             | `ExcelBuilder`           | Create multi-sheet builder    |
+
+### Import Functions
+
+| Function                          | Returns                              | Description             |
+| --------------------------------- | ------------------------------------ | ----------------------- |
+| `importFromBuffer(buf, opts?)`    | `Promise<Record<string, unknown>[]>` | Parse a Buffer          |
+| `importFromFile(path, opts?)`     | `Promise<Record<string, unknown>[]>` | Parse a file from disk  |
+| `importFromUrl(url, opts?)`       | `Promise<Record<string, unknown>[]>` | Fetch and parse a URL   |
+| `importFromStream(stream, opts?)` | `Promise<Record<string, unknown>[]>` | Parse a readable stream |
 
 ### ExcelBuilder
 
@@ -235,30 +287,25 @@ const buffer = await wb.toBuffer();
 | `toStream()`   | `PassThrough`     | Readable stream       |
 | `toBase64()`   | `Promise<string>` | Base64-encoded string |
 
-### Options
+### ExcelExportOptions
 
-| Param           | Type                            | Default                 | Description                |
-| --------------- | ------------------------------- | ----------------------- | -------------------------- |
-| `sheetName`     | `string`                        | `'Sheet1'`              | Worksheet name             |
-| `columns`       | `string[] \| Partial<Column>[]` | Auto-detected           | Column defs or key names   |
-| `headerStyle`   | `Partial<Style>`                | Bold white on `#1F4E79` | Header row style           |
-| `useAutoFilter` | `boolean`                       | `true`                  | Enable auto-filter         |
-| `freezePane`    | `string`                        | —                       | Freeze panes (e.g. `'A2'`) |
-| `formatters`    | `Record<string, FormatterFn>`   | —                       | Global value formatters    |
-| `author`        | `string`                        | —                       | Document author            |
+| Param            | Type                            | Default                 | Description                 |
+| ---------------- | ------------------------------- | ----------------------- | --------------------------- |
+| `sheetName`      | `string`                        | `'Sheet1'`              | Worksheet name              |
+| `columns`        | `string[] \| Partial<Column>[]` | Auto-detected           | Column defs or key names    |
+| `headerStyle`    | `Partial<Style>`                | Bold white on `#1F4E79` | Header row style            |
+| `useAutoFilter`  | `boolean`                       | `true`                  | Enable auto-filter          |
+| `freezePane`     | `string`                        | —                       | Freeze panes (e.g. `'A2'`)  |
+| `formatters`     | `Record<string, FormatterFn>`   | —                       | Global value formatters     |
+| `excludeColumns` | `string[]`                      | —                       | Keys to exclude from output |
+| `author`         | `string`                        | —                       | Document author             |
+| `createdBy`      | `string`                        | —                       | Document creator            |
 
-### Types
+### ExcelImportOptions
 
-All column and style types come directly from `exceljs` — no wrappers:
-
-| Type                 | Source    | Description                                        |
-| -------------------- | --------- | -------------------------------------------------- |
-| `Column`             | `exceljs` | Column definition                                  |
-| `Style`              | `exceljs` | Cell style (font, fill, alignment, border, numFmt) |
-| `Font`               | `exceljs` | Font properties                                    |
-| `Fill`               | `exceljs` | Fill / background                                  |
-| `Alignment`          | `exceljs` | Text alignment                                     |
-| `Borders` / `Border` | `exceljs` | Cell borders                                       |
-| `FormatterFn`        | nest-kit  | `(value, row) => unknown`                          |
-| `ExportResponse`     | nest-kit  | `Writable & { setHeader }`                         |
-| `ExcelOptions`       | nest-kit  | All export options                                 |
+| Param       | Type               | Default | Description                            |
+| ----------- | ------------------ | ------- | -------------------------------------- |
+| `sheet`     | `number \| string` | `0`     | Sheet index (0-based) or name          |
+| `headerRow` | `number`           | `1`     | Row number of header (`0` = no header) |
+| `skipEmpty` | `boolean`          | `true`  | Skip rows where all cells are empty    |
+| `trim`      | `boolean`          | `true`  | Trim string cell values                |

@@ -1,39 +1,6 @@
-# Infra / Storage
+# @os.io/nest-kit/infra/storage
 
 > Multi-disk file storage for NestJS — local, S3, GCS, and in-memory drivers with a uniform interface.
-
-```
-@os.io/nest-kit/infra/storage
-```
-
----
-
-## Installation
-
-```bash
-npm install @os.io/nest-kit
-```
-
-Optional peer dependencies:
-
-```bash
-# S3 / MinIO / R2 / B2
-npm install @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
-
-# Google Cloud Storage
-npm install @google-cloud/storage
-
-# Image processing
-npm install sharp
-```
-
-All optional deps are loaded lazily — safe to import without them; errors thrown only on use.
-
----
-
-## Quick Start
-
-Register the module with one or more named disks:
 
 ```typescript
 import { StorageModule } from '@os.io/nest-kit/infra/storage';
@@ -42,17 +9,56 @@ import { StorageModule } from '@os.io/nest-kit/infra/storage';
   imports: [
     StorageModule.forRoot({
       disks: {
-        avatars: { driver: 'local', root: './uploads/avatars', baseUrl: '/avatars' },
-        backups: { driver: 's3', bucket: 'my-backups', region: 'us-east-1' },
+        uploads: { driver: 'local', root: './uploads', baseUrl: '/uploads' },
       },
-      defaultDisk: 'avatars',
     }),
   ],
 })
 export class AppModule {}
 ```
 
-Then inject `StorageManager`:
+## Installation
+
+```bash
+npm install @os.io/nest-kit
+```
+
+### Optional peer dependencies
+
+Only install what you need:
+
+```bash
+# S3 / MinIO / R2 / B2
+npm install @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+
+# Google Cloud Storage
+npm install @google-cloud/storage
+
+# Image processing (sharp)
+npm install sharp
+```
+
+All optional deps are loaded lazily — the module is safe to import without them; errors are thrown only on use.
+
+---
+
+## Quick Start
+
+### 1. Register the module
+
+```typescript
+import { StorageModule } from '@os.io/nest-kit/infra/storage';
+
+StorageModule.forRoot({
+  disks: {
+    avatars: { driver: 'local', root: './uploads/avatars', baseUrl: '/avatars' },
+    backups: { driver: 's3', bucket: 'my-backups', region: 'us-east-1' },
+  },
+  defaultDisk: 'avatars',
+});
+```
+
+### 2. Inject and use
 
 ```typescript
 import { StorageManager } from '@os.io/nest-kit/infra/storage';
@@ -66,6 +72,10 @@ export class UploadService {
     await this.storage.disk().put(key, file, { mimeType: 'image/png' });
     return this.storage.disk().url(key);
   }
+
+  async listBackups() {
+    return this.storage.disk('backups').list();
+  }
 }
 ```
 
@@ -75,11 +85,13 @@ export class UploadService {
 
 ### Local
 
-Store files on the local filesystem. `url(key)` returns `${baseUrl}/${key}` when `baseUrl` is set, otherwise `file://...`.
+Files are stored on the local filesystem.
 
 ```typescript
 { driver: 'local', root: './uploads', baseUrl: '/uploads' }
 ```
+
+`url(key)` returns `${baseUrl}/${key}` when `baseUrl` is set, otherwise `file://...`.
 
 ### Memory
 
@@ -127,37 +139,61 @@ Google Cloud Storage. Requires `@google-cloud/storage`.
 ```typescript
 const disk = storage.disk(); // default disk
 
+// Write
 await disk.put('file.txt', Buffer.from('hello'));
 await disk.put('stream.txt', readableStream, { mimeType: 'text/plain' });
 
+// Read
 const buf = await disk.get('file.txt');
+
+// Check
 const exists = await disk.exists('file.txt');
-await disk.delete('file.txt'); // idempotent
+
+// Delete (idempotent)
+await disk.delete('file.txt');
 ```
 
 ### URLs
 
 ```typescript
+// Public URL
 disk.url('file.txt'); // → '/uploads/file.txt'
 
-await disk.signedUrl('file.txt', 3600); // pre-signed, expires in 1 hour
+// Pre-signed (time-limited) URL — S3/GCS generates a signed URL; local returns public URL
+await disk.signedUrl('file.txt', 3600); // expires in 1 hour
 ```
 
-### Copy / Move / List
+### Copy / Move
 
 ```typescript
 await disk.copy('from.txt', 'to.txt');
 await disk.move('src.txt', 'dst.txt'); // copy + delete, atomic on S3/GCS
+```
 
-await disk.list(); // all files
-await disk.list('users/'); // under a prefix
+### List
+
+```typescript
+// All files
+await disk.list();
+
+// Under a prefix
+await disk.list('users/');
 ```
 
 ---
 
-## Async Configuration
+## NestJS Module
 
-Load disk config from `ConfigService`:
+### Synchronous config
+
+```typescript
+StorageModule.forRoot({
+  disks: { ... },
+  defaultDisk: 'uploads',
+});
+```
+
+### Async config (e.g. from ConfigService)
 
 ```typescript
 StorageModule.forRootAsync({
@@ -194,7 +230,7 @@ await storage.disk().put('thumb.webp', thumb);
 
 ## Custom Drivers
 
-Register any backend via the driver registry:
+Register any custom backend via the driver registry.
 
 ```typescript
 import { registerDriver } from '@os.io/nest-kit/infra/storage';
@@ -205,13 +241,17 @@ registerDriver('azure', async (config) => {
 });
 ```
 
-Then use it: `{ driver: 'azure', container: 'my-container', ... }`.
+Then use it in config:
+
+```typescript
+{ driver: 'azure', container: 'my-container', connectionString: '...' }
+```
 
 ---
 
 ## API
 
-### StorageDriver
+### `StorageDriver`
 
 | Method                       | Returns             | Description                               |
 | ---------------------------- | ------------------- | ----------------------------------------- |
@@ -225,21 +265,28 @@ Then use it: `{ driver: 'azure', container: 'my-container', ... }`.
 | `move(from, to)`             | `Promise<void>`     | Move / rename a file                      |
 | `list(prefix?)`              | `Promise<string[]>` | List object keys under an optional prefix |
 
-### StorageManager
+### `StorageManager`
 
 | Method        | Returns         | Description                               |
 | ------------- | --------------- | ----------------------------------------- |
 | `disk(name?)` | `StorageDriver` | Resolve a named disk (default if omitted) |
 | `disksList()` | `string[]`      | List configured disk names                |
 
-### Module Options
+### `StorageModuleOptions`
 
 | Option        | Type                                  | Default        | Description               |
 | ------------- | ------------------------------------- | -------------- | ------------------------- |
 | `disks`       | `Record<string, StorageDriverConfig>` | —              | Named disk configurations |
 | `defaultDisk` | `string`                              | First disk key | Default disk name         |
 
-### ImageOptions
+### `StoragePutOptions`
+
+| Option     | Type                     | Description                  |
+| ---------- | ------------------------ | ---------------------------- |
+| `mimeType` | `string`                 | MIME type of the file        |
+| `metadata` | `Record<string, string>` | Arbitrary metadata (S3 only) |
+
+### `ImageOptions`
 
 | Option    | Type                                                      | Default   | Description              |
 | --------- | --------------------------------------------------------- | --------- | ------------------------ |
@@ -249,24 +296,11 @@ Then use it: `{ driver: 'azure', container: 'my-container', ... }`.
 | `format`  | `'jpeg' \| 'png' \| 'webp' \| 'avif' \| 'tiff'`           | —         | Output format (converts) |
 | `quality` | `number`                                                  | —         | Output quality (1–100)   |
 
-### Driver Config Types
+### Driver configuration types
 
-| Type                 | `driver` value | Description                       |
-| -------------------- | -------------- | --------------------------------- |
-| `LocalDriverConfig`  | `'local'`      | Local filesystem                  |
-| `S3DriverConfig`     | `'s3'`         | S3 / S3-compatible object storage |
-| `MemoryDriverConfig` | `'memory'`     | In-memory store (testing/dev)     |
-| `GCSDriverConfig`    | `'gcs'`        | Google Cloud Storage              |
-
-### Exported Values
-
-| Export                   | Kind     | Description                          |
-| ------------------------ | -------- | ------------------------------------ |
-| `StorageModule`          | Class    | NestJS dynamic module                |
-| `StorageManager`         | Class    | Multi-disk manager                   |
-| `processImage`           | Function | Image processing with sharp          |
-| `registerDriver`         | Function | Register a custom driver             |
-| `getDriverFactory`       | Function | Resolve a driver factory by type     |
-| `hasDriver`              | Function | Check if a driver type is registered |
-| `STORAGE_MODULE_OPTIONS` | Constant | Injection token                      |
-| `STORAGE_MANAGER`        | Constant | Injection token                      |
+| Type                 | driver value | Description                       |
+| -------------------- | ------------ | --------------------------------- |
+| `LocalDriverConfig`  | `'local'`    | Local filesystem                  |
+| `S3DriverConfig`     | `'s3'`       | S3 / S3-compatible object storage |
+| `MemoryDriverConfig` | `'memory'`   | In-memory store (testing/dev)     |
+| `GCSDriverConfig`    | `'gcs'`      | Google Cloud Storage              |
