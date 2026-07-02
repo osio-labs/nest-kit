@@ -17,6 +17,7 @@ Use only what you need.
 | `@os.io/nest-kit/infra/storage`     | Multi-disk file storage (local, S3, GCS, memory) | [Docs](./infra-storage)     |
 | `@os.io/nest-kit/infra/excel`       | Excel import & export with exceljs               | [Docs](./infra-excel)       |
 | `@os.io/nest-kit/infra/stripe`      | Stripe webhooks, subscriptions, payments         | [Docs](./infra-stripe)      |
+| `@os.io/nest-kit/infra/logger`      | Structured logging (Pino)                        | [Docs](./infra-logger)      |
 
 ## Coming Soon
 
@@ -26,7 +27,6 @@ Use only what you need.
 | `@os.io/nest-kit/bootstrap`          | NestJS app bootstrap helpers             |
 | `@os.io/nest-kit/saas`               | Orgs, teams, multi-tenancy               |
 | `@os.io/nest-kit/infra`              | Infrastructure integrations              |
-| `@os.io/nest-kit/infra/logger`       | Structured logging (Pino, Winston)       |
 | `@os.io/nest-kit/infra/notification` | Email, SMS, Push, in-app                 |
 | `@os.io/nest-kit/infra/audit-log`    | Audit trails, data change capture        |
 | `@os.io/nest-kit/infra/metrics`      | Prometheus, OpenTelemetry, health checks |

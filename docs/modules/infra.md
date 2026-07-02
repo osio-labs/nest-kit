@@ -10,7 +10,7 @@
 | ------------------------------------ | ------------------------------------ | -------------- |
 | [Storage](./infra-storage)           | `@os.io/nest-kit/infra/storage`      | ✅ Implemented |
 | [Excel](./infra-excel)               | `@os.io/nest-kit/infra/excel`        | ✅ Implemented |
-| [Logger](./infra-logger)             | `@os.io/nest-kit/infra/logger`       | 🚧 Not yet     |
+| [Logger](./infra-logger)             | `@os.io/nest-kit/infra/logger`       | ✅ Implemented |
 | [Notification](./infra-notification) | `@os.io/nest-kit/infra/notification` | 🚧 Not yet     |
 | [Stripe](./infra-stripe)             | `@os.io/nest-kit/infra/stripe`       | ✅ Implemented |
 | [Audit Log](./infra-audit-log)       | `@os.io/nest-kit/infra/audit-log`    | 🚧 Not yet     |
