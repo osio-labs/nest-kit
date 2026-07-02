@@ -155,6 +155,10 @@
     "keyv": "^5.0.0",
     "otpauth": "^9.0.0",
     "exceljs": "^4.4.0",
+    "@aws-sdk/client-s3": "^3.700.0",
+    "@aws-sdk/s3-request-presigner": "^3.700.0",
+    "@google-cloud/storage": "^7.0.0",
+    "sharp": "^0.33.0",
     "typeorm": "^1.0.0"
   },
   "peerDependenciesMeta": {
@@ -204,6 +208,18 @@
       "optional": true
     },
     "exceljs": {
+      "optional": true
+    },
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@aws-sdk/s3-request-presigner": {
+      "optional": true
+    },
+    "@google-cloud/storage": {
+      "optional": true
+    },
+    "sharp": {
       "optional": true
     }
   },

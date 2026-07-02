@@ -1,16 +1,34 @@
-/**
- * @os.io/nest-kit/infra/storage
- *
- * File storage abstraction for NestJS. Provides a unified interface over
- * local filesystem, AWS S3 / S3-compatible, Google Cloud Storage, and
- * Azure Blob Storage.
- *
- * @module
- * @packageDocumentation
- */
+// ──────── Types ────────
+export type {
+  StorageDriver,
+  StoragePutOptions,
+  LocalDriverConfig,
+  S3DriverConfig,
+  MemoryDriverConfig,
+  GCSDriverConfig,
+  StorageDriverConfig,
+  StorageModuleOptions,
+  StorageModuleAsyncOptions,
+  ImageOptions,
+} from './storage.types';
 
-throw new Error(
-  'The infra/storage module has not been implemented yet. Stay tuned for an upcoming alpha release.',
-);
+// ──────── Registry ────────
+export { registerDriver, getDriverFactory, hasDriver } from './drivers/registry';
 
-export {};
+// ──────── Drivers ────────
+export { createLocalDriver } from './drivers/local.driver';
+export { createS3Driver } from './drivers/s3.driver';
+export { createMemoryDriver } from './drivers/memory.driver';
+export { createGcsDriver } from './drivers/gcs.driver';
+
+// ──────── Manager ────────
+export { StorageManager } from './manager/manager';
+
+// ──────── Image processing ────────
+export { processImage } from './image/processor';
+
+// ──────── NestJS module ────────
+export { StorageModule } from './storage.module';
+
+// ──────── Constants ────────
+export { STORAGE_MODULE_OPTIONS, STORAGE_MANAGER } from './storage.constants';
