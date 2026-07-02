@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitepress';
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs';
 
 export default defineConfig({
+  markdown: {
+    config(md) {
+      tabsMarkdownPlugin(md);
+    },
+  },
   title: '@os.io/nest-kit',
   description: 'A modular, production-ready NestJS toolkit',
   base: '/nest-kit/',
