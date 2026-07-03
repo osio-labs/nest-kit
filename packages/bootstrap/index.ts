@@ -11,6 +11,7 @@
  * - `@os.io/nest-kit/bootstrap/scalar`    — Scalar API Reference
  * - `@os.io/nest-kit/bootstrap/cache`     — CacheModule setup
  * - `@os.io/nest-kit/bootstrap/typeorm`   — TypeORM setup, CRUD factories, Unit of Work
+ * - `@os.io/nest-kit/bootstrap/queue`     — BullMQ queue module setup
  *
  * @module
  * @packageDocumentation
@@ -18,4 +19,5 @@
 
 export * from './swagger';
 export * from './scalar';
+export * from './queue';
 export * from './cache';

@@ -66,6 +66,11 @@
       "import": "./dist/bootstrap/typeorm/index.js",
       "require": "./dist/bootstrap/typeorm/index.js"
     },
+    "./bootstrap/queue": {
+      "types": "./dist/bootstrap/queue/index.d.ts",
+      "import": "./dist/bootstrap/queue/index.js",
+      "require": "./dist/bootstrap/queue/index.js"
+    },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "import": "./dist/auth/index.js",
@@ -184,6 +189,7 @@
     "@keyv/redis": "^5.0.0",
     "@keyv/valkey": "^4.0.0",
     "@nestjs/cache-manager": "^2.0.0 || ^3.0.0",
+    "@nestjs/bullmq": "^10.0.0 || ^11.0.0",
     "@nestjs/common": ">=10.0.0 <12.0.0",
     "@nestjs/config": "^3.0.0 || ^4.0.0",
     "@nestjs/core": ">=10.0.0 <12.0.0",
@@ -193,6 +199,7 @@
     "@scalar/nestjs-api-reference": "^1.2.6",
     "@simplewebauthn/server": "^9.0.0 || ^10.0.0",
     "bcrypt": "^5.1.0",
+    "bullmq": "^5.0.0",
     "cache-manager": "^6.0.0",
     "cacheable": "^1.0.0",
     "exceljs": "^4.4.0",
@@ -204,6 +211,9 @@
     "typeorm": "^1.0.0"
   },
   "peerDependenciesMeta": {
+    "@nestjs/bullmq": {
+      "optional": true
+    },
     "@keyv/redis": {
       "optional": true
     },
@@ -223,6 +233,9 @@
       "optional": true
     },
     "@scalar/nestjs-api-reference": {
+      "optional": true
+    },
+    "bullmq": {
       "optional": true
     },
     "cache-manager": {
