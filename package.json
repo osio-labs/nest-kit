@@ -111,6 +111,16 @@
       "import": "./dist/infra/audit-log/adapters/index.js",
       "require": "./dist/infra/audit-log/adapters/index.js"
     },
+    "./infra/activity-feed": {
+      "types": "./dist/infra/activity-feed/index.d.ts",
+      "import": "./dist/infra/activity-feed/index.js",
+      "require": "./dist/infra/activity-feed/index.js"
+    },
+    "./infra/activity-feed/adapters": {
+      "types": "./dist/infra/activity-feed/adapters/index.d.ts",
+      "import": "./dist/infra/activity-feed/adapters/index.js",
+      "require": "./dist/infra/activity-feed/adapters/index.js"
+    },
     "./infra/metrics": {
       "types": "./dist/infra/metrics/index.d.ts",
       "import": "./dist/infra/metrics/index.js",
