@@ -40,6 +40,7 @@ export default defineConfig({
           { text: 'Scalar', link: '/modules/bootstrap-scalar' },
           { text: 'Cache', link: '/modules/bootstrap-cache' },
           { text: 'TypeORM', link: '/modules/bootstrap-typeorm' },
+          { text: 'Queue', link: '/modules/bootstrap-queue' },
         ],
       },
       {
