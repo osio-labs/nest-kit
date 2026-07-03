@@ -91,6 +91,16 @@
       "import": "./dist/infra/notification/index.js",
       "require": "./dist/infra/notification/index.js"
     },
+    "./infra/notification/providers": {
+      "types": "./dist/infra/notification/providers/index.d.ts",
+      "import": "./dist/infra/notification/providers/index.js",
+      "require": "./dist/infra/notification/providers/index.js"
+    },
+    "./infra/notification/stores": {
+      "types": "./dist/infra/notification/stores/index.d.ts",
+      "import": "./dist/infra/notification/stores/index.js",
+      "require": "./dist/infra/notification/stores/index.js"
+    },
     "./infra/storage": {
       "types": "./dist/infra/storage/index.d.ts",
       "import": "./dist/infra/storage/index.js",

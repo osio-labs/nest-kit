@@ -14,6 +14,7 @@
  * - `@os.io/nest-kit/infra/activity-feed` — User activity feeds, follow relationships
  * - `@os.io/nest-kit/infra/metrics`       — Prometheus, OpenTelemetry, health checks
  * - `@os.io/nest-kit/infra/rate-limit`    — Rate limiting with pluggable adapters
+ * - `@os.io/nest-kit/infra/notification`  — Multi-channel notifications (email, SMS, push, Telegram, Slack)
  * - `@os.io/nest-kit/infra/excel`         — Export arrays of objects to .xlsx
  *
  * @module
