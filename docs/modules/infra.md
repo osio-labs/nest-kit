@@ -14,4 +14,4 @@
 | [Notification](./infra-notification) | `@os.io/nest-kit/infra/notification` | 🚧 Not yet     |
 | [Stripe](./infra-stripe)             | `@os.io/nest-kit/infra/stripe`       | ✅ Implemented |
 | [Audit Log](./infra-audit-log)       | `@os.io/nest-kit/infra/audit-log`    | ✅ Implemented |
-| [Metrics](./infra-metrics)           | `@os.io/nest-kit/infra/metrics`      | 🚧 Not yet     |
+| [Metrics](./infra-metrics)           | `@os.io/nest-kit/infra/metrics`      | ✅ Implemented |
