@@ -1,22 +1,55 @@
 /**
  * @os.io/nest-kit/infra/metrics
  *
- * Metrics & observability for NestJS. Exposes Prometheus metrics,
- * OpenTelemetry tracing, health checks, and structured monitoring endpoints.
+ * Metrics & observability — record counters, gauges, histograms, and
+ * timings through a pluggable adapter interface. Supports Prometheus,
+ * OpenTelemetry, Datadog, CloudWatch, GCP Monitoring, InfluxDB, StatsD,
+ * New Relic, Sentry, and a development Console adapter.
  *
- * ## Roadmap
+ * ## Quick Start
  *
- * - Prometheus metric exporters (HTTP request duration, DB query duration, …)
- * - OpenTelemetry integration
- * - Health check endpoint builder
- * - Custom metric decorators
+ * ```typescript
+ * import { MetricsModule } from '@os.io/nest-kit/infra/metrics';
+ * import { ConsoleAdapter } from '@os.io/nest-kit/infra/metrics/adapters';
+ *
+ * @Module({
+ *   imports: [
+ *     MetricsModule.forRoot({
+ *       adapter: new ConsoleAdapter({ format: 'pretty' }),
+ *       defaultTags: { app: 'my-api' },
+ *     }),
+ *   ],
+ * })
+ * export class AppModule {}
+ * ```
+ *
+ * Then inject `MetricsService` anywhere:
+ * ```typescript
+ * constructor(private readonly metrics: MetricsService) {}
+ * // ...
+ * this.metrics.counter('http.requests', 1, { method: 'GET' });
+ * ```
  *
  * @module
  * @packageDocumentation
  */
 
-throw new Error(
-  'The infra/metrics module has not been implemented yet. Stay tuned for an upcoming alpha release.',
-);
+// ──────── Types ────────
+export type {
+  MetricType,
+  MetricsAdapter,
+  MetricsModuleOptions,
+  MetricsModuleAsyncOptions,
+} from './metrics.types';
 
-export {};
+// ──────── Constants ────────
+export { METRICS_MODULE_OPTIONS, METRICS_ADAPTER } from './metrics.constants';
+
+// ──────── Service ────────
+export { MetricsService } from './metrics.service';
+
+// ──────── NestJS Module ────────
+export { MetricsModule } from './metrics.module';
+
+// ──────── Built-in Adapters ────────
+export * from './adapters';

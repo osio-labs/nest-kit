@@ -116,6 +116,11 @@
       "import": "./dist/infra/metrics/index.js",
       "require": "./dist/infra/metrics/index.js"
     },
+    "./infra/metrics/adapters": {
+      "types": "./dist/infra/metrics/adapters/index.d.ts",
+      "import": "./dist/infra/metrics/adapters/index.js",
+      "require": "./dist/infra/metrics/adapters/index.js"
+    },
     "./infra/excel": {
       "types": "./dist/infra/excel/index.d.ts",
       "import": "./dist/infra/excel/index.js",
