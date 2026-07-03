@@ -72,6 +72,7 @@ export default defineConfig({
           { text: 'Notification', link: '/modules/infra-notification' },
           { text: 'Stripe', link: '/modules/infra-stripe' },
           { text: 'Audit Log', link: '/modules/infra-audit-log' },
+          { text: 'Activity Feed', link: '/modules/infra-activity-feed' },
           { text: 'Metrics', link: '/modules/infra-metrics' },
         ],
       },
