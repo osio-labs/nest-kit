@@ -16,3 +16,4 @@
 | [Audit Log](./infra-audit-log)         | `@os.io/nest-kit/infra/audit-log`     | ✅ Implemented |
 | [Activity Feed](./infra-activity-feed) | `@os.io/nest-kit/infra/activity-feed` | ✅ Implemented |
 | [Metrics](./infra-metrics)             | `@os.io/nest-kit/infra/metrics`       | ✅ Implemented |
+| [Rate Limit](./infra-rate-limit)       | `@os.io/nest-kit/infra/rate-limit`    | ✅ Implemented |

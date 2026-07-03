@@ -121,6 +121,16 @@
       "import": "./dist/infra/activity-feed/adapters/index.js",
       "require": "./dist/infra/activity-feed/adapters/index.js"
     },
+    "./infra/rate-limit": {
+      "types": "./dist/infra/rate-limit/index.d.ts",
+      "import": "./dist/infra/rate-limit/index.js",
+      "require": "./dist/infra/rate-limit/index.js"
+    },
+    "./infra/rate-limit/adapters": {
+      "types": "./dist/infra/rate-limit/adapters/index.d.ts",
+      "import": "./dist/infra/rate-limit/adapters/index.js",
+      "require": "./dist/infra/rate-limit/adapters/index.js"
+    },
     "./infra/metrics": {
       "types": "./dist/infra/metrics/index.d.ts",
       "import": "./dist/infra/metrics/index.js",

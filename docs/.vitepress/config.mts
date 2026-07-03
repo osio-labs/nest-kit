@@ -74,6 +74,7 @@ export default defineConfig({
           { text: 'Audit Log', link: '/modules/infra-audit-log' },
           { text: 'Activity Feed', link: '/modules/infra-activity-feed' },
           { text: 'Metrics', link: '/modules/infra-metrics' },
+          { text: 'Rate Limit', link: '/modules/infra-rate-limit' },
         ],
       },
       // ──────── Coming soon ────────

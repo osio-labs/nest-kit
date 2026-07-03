@@ -1,0 +1,5 @@
+export const RATE_LIMIT_MODULE_OPTIONS = 'RATE_LIMIT_MODULE_OPTIONS';
+export const RATE_LIMIT_ADAPTER = 'RATE_LIMIT_ADAPTER';
+export const METADATA_RATE_LIMIT = 'rate-limit:options';
+export const DEFAULT_WINDOW_SECONDS = 60;
+export const DEFAULT_LIMIT = 100;
