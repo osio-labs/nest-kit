@@ -20,6 +20,7 @@ AuthModule.forRoot({
   extraProviders: [],
 
   // ── Strategies (boolean or options) ──
+  apiKey: false,
   credentials: true,
   oauth: false,
   totp: false,
@@ -76,6 +77,7 @@ AuthModule.forRoot({
 
 | Option        | Type                            | Description             |
 | ------------- | ------------------------------- | ----------------------- |
+| `apiKey`      | `boolean \| ApiKeyOptions`      | API key authentication  |
 | `credentials` | `boolean \| CredentialsOptions` | Email/password auth     |
 | `oauth`       | `boolean \| OAuthOptions`       | OAuth 2.0 providers     |
 | `totp`        | `boolean \| TOTPOptions`        | TOTP 2FA                |
@@ -162,6 +164,14 @@ Each provider config:
 | `digits`      | `number` | `6`     | Code length                       |
 | `expiresIn`   | `number` | `300`   | Code TTL (seconds, 5 min)         |
 | `maxAttempts` | `number` | `3`     | Max failed attempts before expiry |
+
+### ApiKeyOptions
+
+| Option         | Type      | Default       | Description                             |
+| -------------- | --------- | ------------- | --------------------------------------- |
+| `headerName`   | `string`  | `'X-API-Key'` | HTTP header for the API key             |
+| `queryParam`   | `string`  | —             | Allow API key via query parameter       |
+| `attachApiKey` | `boolean` | `true`        | Attach full IApiKey to `request.apiKey` |
 
 ### PasskeyOptions
 

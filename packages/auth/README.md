@@ -86,6 +86,7 @@ export class AuthController {
 | `cacheServiceToken` | `string`                        | `'CACHE_SERVICE'` | Injection token for cache        |
 | `userServiceToken`  | `string`                        | `'USER_SERVICE'`  | Injection token for user service |
 | `global`            | `boolean`                       | `true`            | Register module as global        |
+| `apiKey`            | `boolean \| ApiKeyOptions`      | `false`           | Enable API key authentication    |
 | `credentials`       | `boolean \| CredentialsOptions` | `false`           | Enable email/password auth       |
 | `oauth`             | `boolean \| OAuthOptions`       | `false`           | Enable OAuth providers           |
 | `totp`              | `boolean \| TOTPOptions`        | `false`           | Enable TOTP 2FA                  |
@@ -116,6 +117,75 @@ AuthModule.forRoot({
   magicLink: { tokenExpiresIn: 1800 },
 });
 ```
+
+## API Key Authentication
+
+Authenticate third-party requests using API keys via `X-API-Key` header.
+
+### 1. Enable
+
+```typescript
+AuthModule.forRoot({
+  apiKey: true, // or { headerName: 'X-Api-Key', queryParam: 'api_key' }
+});
+```
+
+### 2. Provide an API key store
+
+```typescript
+import { API_KEY_STORE, ApiKeyGuard } from '@os.io/nest-kit/auth';
+import type { IApiKeyStore, IApiKey } from '@os.io/nest-kit/auth';
+
+class MyApiKeyStore implements IApiKeyStore {
+  async validate(key: string): Promise<IApiKey | null> {
+    // Look up the key in your database
+    // Return null if invalid / not found
+    return {
+      id: 'key_abc123',
+      clientName: 'ThirdPartyApp',
+      clientId: 'client_xyz',
+      roles: ['partner'],
+      permissions: ['order:read', 'order:write'],
+      isActive: true,
+      expiresAt: new Date('2027-01-01').getTime(),
+    };
+  }
+}
+
+@Module({
+  providers: [{ provide: API_KEY_STORE, useClass: MyApiKeyStore }],
+})
+export class AppModule {}
+```
+
+### 3. Protect routes
+
+```typescript
+import { ApiKeyGuard } from '@os.io/nest-kit/auth';
+
+@Controller('/api/v3')
+@UseGuards(ApiKeyGuard)
+export class ThirdPartyController {
+  @Get('orders')
+  list(@CurrentUser() user: IAuthUser) {
+    return `Hello ${user.username}`;
+  }
+}
+```
+
+### 4. Route-level metadata
+
+Optionally use `@ApiKeyProtected()` to set per-route options:
+
+```typescript
+import { ApiKeyProtected } from '@os.io/nest-kit/auth';
+
+@ApiKeyProtected({ headerName: 'X-Custom-Key' })
+@Get('special')
+specialEndpoint() { }
+```
+
+---
 
 ## Authorization
 
@@ -224,7 +294,21 @@ The cache is used for:
 - **Device sessions**: Active session tracking
 - **OTP / Magic Link**: Temporary token storage
 - **Login throttling**: Attempt counters
-- **RBAC/ PBAC**: Role-permission and policy caches
+- **RBAC / PBAC**: Role-permission and policy caches
+
+## API Key Store
+
+When using API key authentication, you **must** register a provider under the `'API_KEY_STORE'` injection token implementing `IApiKeyStore`:
+
+```typescript
+import type { IApiKeyStore, IApiKey } from '@os.io/nest-kit/auth';
+
+class YourApiKeyStore implements IApiKeyStore {
+  async validate(key: string): Promise<IApiKey | null> {
+    // Look up key, check expiry, return metadata or null
+  }
+}
+```
 
 ## User Service
 
@@ -245,25 +329,25 @@ class YourUserService implements IUserService {
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  AuthModule (Dynamic Module)                            │
-│  ┌───────────────────────────────────────────────────┐  │
-│  │  AuthGuard (global)                               │  │
-│  │  └─ validates JWT → attaches user to request      │  │
-│  ├───────────────────────────────────────────────────┤  │
-│  │  AuthService (orchestrator)                       │  │
-│  │  └─ authenticate() → refreshToken() → logout()   │  │
-│  ├─────┬─────┬──────┬─────┬──────┬──────┬──────┬────┤  │
-│  │Cred │OAuth│TOTP  │Anon │Magic │ OTP  │Passk │ SSO│  │
-│  │     │     │      │     │ Link │      │ey    │    │  │
-│  ├─────┴─────┴──────┴─────┴──────┴──────┴──────┴────┤  │
-│  │  JWT Service │ Token Blacklist │ Device Sessions  │  │
-│  │  Password Srv│  Throttle Srv   │  Cache Adapter   │  │
-│  ├───────────────────────────────────────────────────┤  │
-│  │  RBAC Guard │ PBAC Guard                          │  │
-│  │  @Roles()   │ @RequirePolicy()                    │  │
-│  └───────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│  AuthModule (Dynamic Module)                                │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  AuthGuard (global) — JWT validation                  │  │
+│  │  ApiKeyGuard — API key auth on select routes          │  │
+│  ├───────────────────────────────────────────────────────┤  │
+│  │  AuthService (orchestrator)                           │  │
+│  │  └─ authenticate() → refreshToken() → logout()       │  │
+│  ├─────┬─────┬──────┬─────┬──────┬──────┬──────┬────┬───┤  │
+│  │Cred │OAuth│TOTP  │Anon │Magic │ OTP  │Passk │ SSO│AK │  │
+│  │     │     │      │     │ Link │      │ey    │    │   │  │
+│  ├─────┴─────┴──────┴─────┴──────┴──────┴──────┴────┴───┤  │
+│  │  JWT Service │ Token Blacklist │ Device Sessions      │  │
+│  │  Password Srv│  Throttle Srv   │  Cache Adapter       │  │
+│  ├───────────────────────────────────────────────────────┤  │
+│  │  RBAC Guard │ PBAC Guard │ API Key Store              │  │
+│  │  @Roles()   │ @RequirePolicy()                        │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Horizontal Scaling
@@ -282,4 +366,3 @@ For horizontal scaling:
 - [ ] SAML assertion parser
 - [ ] OIDC discovery + JWKS verification
 - [ ] Backup code generation and verification for 2FA
-- [ ] API key authentication strategy

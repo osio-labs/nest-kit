@@ -24,6 +24,7 @@ import { OneTapStrategy } from './strategies/onetap/onetap.strategy';
 import { SsoStrategy } from './strategies/sso/sso.strategy';
 import { RbacService, RbacGuard } from './authorization/rbac';
 import { PbacService, PbacGuard } from './authorization/pbac';
+import { ApiKeyGuard } from './api-key.guard';
 import type { IAuthStrategy, ICacheService, IUserService } from './interfaces';
 
 const logger = new Logger('AuthModule');
@@ -80,6 +81,13 @@ export class AuthModule {
       logger.warn(
         'You must register a provider under the "CACHE_SERVICE" injection token. ' +
           'See AuthModuleOptions.cacheServiceToken.',
+      );
+    }
+
+    if (options.apiKey) {
+      logger.warn(
+        'API key authentication is enabled. You must register a provider under the "API_KEY_STORE" ' +
+          'injection token implementing IApiKeyStore.',
       );
     }
 
@@ -274,6 +282,7 @@ export class AuthModule {
       TokenBlacklistService,
       DeviceSessionService,
       ThrottleService,
+      ApiKeyGuard,
     ];
   }
 
@@ -349,6 +358,7 @@ export class AuthModule {
     return [
       AuthService,
       AuthGuard,
+      ApiKeyGuard,
       RbacService,
       RbacGuard,
       PbacService,

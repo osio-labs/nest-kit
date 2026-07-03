@@ -33,3 +33,8 @@ export const OTP_PREFIX = 'otp:';
 export const MAGIC_LINK_PREFIX = 'magic:';
 
 export const LOGIN_ATTEMPT_PREFIX = 'login_attempt:';
+
+// ──────── API Keys ────────
+
+export const API_KEY_STORE = 'API_KEY_STORE';
+export const METADATA_API_KEY_PROTECTED = 'auth:apiKeyProtected';

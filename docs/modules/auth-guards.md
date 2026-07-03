@@ -16,6 +16,43 @@ Registered automatically by `AuthModule`. Validates JWT from:
 
 Skips routes marked with `@Public()`. Attaches decoded `IAuthUser` to `request.user`.
 
+### ApiKeyGuard
+
+Authenticates requests using an API key from the `X-API-Key` header (configurable).
+
+```typescript
+import { ApiKeyGuard, ApiKeyProtected } from '@os.io/nest-kit/auth';
+
+@Controller('/api/v3')
+@UseGuards(ApiKeyGuard)
+export class ThirdPartyController {
+  @Get('orders')
+  list() {}
+
+  @ApiKeyProtected({ headerName: 'X-Custom-Key' })
+  @Get('special')
+  special() {}
+}
+```
+
+Requires a provider under the `'API_KEY_STORE'` injection token implementing `IApiKeyStore`:
+
+```typescript
+import { API_KEY_STORE } from '@os.io/nest-kit/auth';
+import type { IApiKeyStore, IApiKey } from '@os.io/nest-kit/auth';
+
+class MyStore implements IApiKeyStore {
+  async validate(key: string): Promise<IApiKey | null> {
+    // look up and return key metadata, or null if invalid
+  }
+}
+
+// Register in your module:
+{ provide: API_KEY_STORE, useClass: MyStore }
+```
+
+The guard validates the key, checks activity and expiry, then attaches `IAuthUser` to `request.user` — making it fully compatible with `@CurrentUser()`, `@Roles()`, and `@RequirePolicy()` decorators.
+
 ### RbacGuard
 
 ```typescript
@@ -114,14 +151,26 @@ import { RequirePolicy } from '@os.io/nest-kit/auth';
 @RequirePolicy({ action: 'document:read', resource: (req) => req.params.docId })
 ```
 
+### @ApiKeyProtected()
+
+Sets per-route API key options. Works with `ApiKeyGuard`.
+
+```typescript
+import { ApiKeyProtected } from '@os.io/nest-kit/auth';
+
+@ApiKeyProtected({ headerName: 'X-Custom-Key' })
+@ApiKeyProtected({ queryParam: 'api_key' })
+```
+
 ---
 
 ## Quick reference
 
-| Decorator               | Target         | Purpose                                 |
-| ----------------------- | -------------- | --------------------------------------- |
-| `@Public()`             | Class / method | Bypass global AuthGuard                 |
-| `@CurrentUser()`        | Parameter      | Extract authenticated user from request |
-| `@CurrentUser('email')` | Parameter      | Extract a single user property          |
-| `@Roles('admin')`       | Method         | Require specific roles (with RbacGuard) |
-| `@RequirePolicy({...})` | Method         | Require policy check (with PbacGuard)   |
+| Decorator               | Target         | Purpose                                      |
+| ----------------------- | -------------- | -------------------------------------------- |
+| `@Public()`             | Class / method | Bypass global AuthGuard                      |
+| `@CurrentUser()`        | Parameter      | Extract authenticated user from request      |
+| `@CurrentUser('email')` | Parameter      | Extract a single user property               |
+| `@Roles('admin')`       | Method         | Require specific roles (with RbacGuard)      |
+| `@RequirePolicy({...})` | Method         | Require policy check (with PbacGuard)        |
+| `@ApiKeyProtected()`    | Class / method | Configure API key options (with ApiKeyGuard) |

@@ -140,6 +140,17 @@ export interface SessionOptions {
   multiDevice?: boolean;
 }
 
+// ──────── API key options ────────
+
+export interface ApiKeyOptions {
+  /** HTTP header name (default `'X-API-Key'`) */
+  headerName?: string;
+  /** Allow API key via query parameter (default false) */
+  queryParam?: string;
+  /** Whether to attach the full IApiKey to `request.apiKey` (default true) */
+  attachApiKey?: boolean;
+}
+
 // ──────── Rate limiting options ────────
 
 export interface ThrottleOptions {
@@ -177,6 +188,7 @@ export interface AuthModuleOptions {
   // ── Authentication methods ──
   credentials?: boolean | CredentialsOptions;
   oauth?: boolean | OAuthOptions;
+  apiKey?: boolean | ApiKeyOptions;
   totp?: boolean | TOTPOptions;
   anonymous?: boolean | AnonymousOptions;
   magicLink?: boolean | MagicLinkOptions;

@@ -96,6 +96,7 @@ export { AuthMethod } from './interfaces';
 
 // ── Decorators ──
 export { CurrentUser, Public } from './decorators';
+export { ApiKeyProtected } from './api-key.decorator';
 
 // ── Session ──
 export { JwtService, TokenBlacklistService, DeviceSessionService } from './session';
@@ -106,6 +107,11 @@ export { PasswordService } from './password/password.service';
 
 // ── Throttling ──
 export { ThrottleService } from './throttling/throttle.service';
+
+// ── API Keys ──
+export { ApiKeyGuard } from './api-key.guard';
+export { API_KEY_STORE } from './api-key.constants';
+export type { IApiKey, IApiKeyStore, ApiKeyOptions } from './api-key.types';
 
 // ── Strategies ──
 export {
