@@ -156,6 +156,11 @@
       "import": "./dist/infra/metrics/adapters/index.js",
       "require": "./dist/infra/metrics/adapters/index.js"
     },
+    "./infra/webhook": {
+      "types": "./dist/infra/webhook/index.d.ts",
+      "import": "./dist/infra/webhook/index.js",
+      "require": "./dist/infra/webhook/index.js"
+    },
     "./infra/excel": {
       "types": "./dist/infra/excel/index.d.ts",
       "import": "./dist/infra/excel/index.js",
