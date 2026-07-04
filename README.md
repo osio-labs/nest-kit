@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="NestJS Logo" />
+  <img src="https://docs.nestjs.com/assets/logo-small.svg" width="120" alt="NestJS Logo" />
   <br/>
   <strong>+</strong>
   <br/>
@@ -39,25 +39,55 @@
 
 ## ✨ Module Groups
 
-| Import path                     | Directory            | Description                                  |
-| ------------------------------- | -------------------- | -------------------------------------------- |
-| `@os.io/nest-kit` (or `./core`) | `packages/core`      | Shared types, utilities, base classes        |
-| `@os.io/nest-kit/bootstrap`     | `packages/bootstrap` | One-liner setup for Swagger, Cache, TypeORM… |
-| `@os.io/nest-kit/auth`          | `packages/auth`      | RBAC, OAuth 2.0, SSO, JWT, API Keys          |
-| `@os.io/nest-kit/saas`          | `packages/saas`      | Orgs, Teams, Multi-tenancy, Subscriptions    |
-| `@os.io/nest-kit/infra`         | `packages/infra`     | Infrastructure integrations                  |
+| Import path                     | Directory            | Description                               |
+| ------------------------------- | -------------------- | ----------------------------------------- |
+| `@os.io/nest-kit` (or `./core`) | `packages/core`      | Shared types, utilities, base classes     |
+| `@os.io/nest-kit/bootstrap`     | `packages/bootstrap` | Swagger, Scalar, Cache, TypeORM, Queue    |
+| `@os.io/nest-kit/auth`          | `packages/auth`      | RBAC, OAuth 2.0, SSO, JWT, API Keys       |
+| `@os.io/nest-kit/saas`          | `packages/saas`      | Orgs, Teams, Multi-tenancy, Subscriptions |
+| `@os.io/nest-kit/infra`         | `packages/infra`     | Infrastructure integrations               |
+
+**Bootstrap sub-modules** (import via sub-path):
+
+| Import path                         | Purpose                                         |
+| ----------------------------------- | ----------------------------------------------- |
+| `@os.io/nest-kit/bootstrap/swagger` | Swagger/OpenAPI setup from env vars             |
+| `@os.io/nest-kit/bootstrap/scalar`  | Scalar API reference UI configuration           |
+| `@os.io/nest-kit/bootstrap/cache`   | Cache module (Keyv, Redis, Valkey, multi-store) |
+| `@os.io/nest-kit/bootstrap/typeorm` | TypeORM connection setup, CRUD factories, UoW   |
+| `@os.io/nest-kit/bootstrap/queue`   | BullMQ queue bootstrapper with Redis/Valkey     |
 
 **Infra sub-modules** (import via sub-path):
 
-| Import path                          | Purpose                                         |
-| ------------------------------------ | ----------------------------------------------- |
-| `@os.io/nest-kit/infra/logger`       | Structured logging (Pino, Winston)              |
-| `@os.io/nest-kit/infra/notification` | Email (SES, SendGrid), SMS (Twilio), Push (FCM) |
-| `@os.io/nest-kit/infra/storage`      | Unified file API: LocalFS, S3, GCS, Azure       |
-| `@os.io/nest-kit/infra/stripe`       | Webhooks, subscriptions, checkout               |
-| `@os.io/nest-kit/infra/audit-log`    | Audit trails, data change capture               |
-| `@os.io/nest-kit/infra/metrics`      | Prometheus, OpenTelemetry, health checks        |
-| `@os.io/nest-kit/infra/excel`        | Export arrays of objects to .xlsx               |
+| Import path                           | Purpose                                           |
+| ------------------------------------- | ------------------------------------------------- |
+| `@os.io/nest-kit/infra/activity-feed` | Activity feeds (in-memory, Redis, database)       |
+| `@os.io/nest-kit/infra/audit-log`     | Audit trails, data change capture                 |
+| `@os.io/nest-kit/infra/excel`         | Import/export Excel files (XLSX/CSV)              |
+| `@os.io/nest-kit/infra/logger`        | Structured logging (Pino)                         |
+| `@os.io/nest-kit/infra/metrics`       | Prometheus metrics (counters, histograms, gauges) |
+| `@os.io/nest-kit/infra/notification`  | Email (SES, SendGrid), SMS (Twilio), Push (FCM)   |
+| `@os.io/nest-kit/infra/rate-limit`    | Multi-adapter rate limiting (memory, Redis, DB)   |
+| `@os.io/nest-kit/infra/storage`       | Unified file API: LocalFS, S3, GCS, Azure         |
+| `@os.io/nest-kit/infra/stripe`        | Webhooks, subscriptions, checkout                 |
+| `@os.io/nest-kit/infra/webhook`       | Incoming/outgoing webhooks with HMAC, retry, CB   |
+
+**Infra adapter/store sub-paths** (deep imports):
+
+| Import path                                    | Purpose                               |
+| ---------------------------------------------- | ------------------------------------- |
+| `@os.io/nest-kit/infra/activity-feed/adapters` | Activity feed adapter implementations |
+| `@os.io/nest-kit/infra/audit-log/adapters`     | Audit log adapter implementations     |
+| `@os.io/nest-kit/infra/metrics/adapters`       | Metrics adapter implementations       |
+| `@os.io/nest-kit/infra/notification/providers` | Notification provider implementations |
+| `@os.io/nest-kit/infra/notification/stores`    | Notification store implementations    |
+| `@os.io/nest-kit/infra/rate-limit/adapters`    | Rate limit adapter implementations    |
+
+**Auth sub-modules** (import via sub-path):
+
+| Import path                    | Purpose                                  |
+| ------------------------------ | ---------------------------------------- |
+| `@os.io/nest-kit/auth/api-key` | API key authentication and authorization |
 
 ## 📦 Installation
 
