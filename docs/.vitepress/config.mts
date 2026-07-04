@@ -76,6 +76,7 @@ export default defineConfig({
           { text: 'Activity Feed', link: '/modules/infra-activity-feed' },
           { text: 'Metrics', link: '/modules/infra-metrics' },
           { text: 'Rate Limit', link: '/modules/infra-rate-limit' },
+          { text: 'Webhook', link: '/modules/infra-webhook' },
         ],
       },
       // ──────── Coming soon ────────
