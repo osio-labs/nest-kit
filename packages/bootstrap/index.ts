@@ -21,3 +21,4 @@ export * from './swagger';
 export * from './scalar';
 export * from './queue';
 export * from './cache';
+export * from './sentry';

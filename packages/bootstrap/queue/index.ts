@@ -8,5 +8,5 @@
  * @packageDocumentation
  */
 
-export { configQueue, configQueueAsync } from './config';
+export { configQueue } from './config';
 export type { QueueConfigOptions, QueueRegisterConfig, BullDefaultJobOptions } from './config';

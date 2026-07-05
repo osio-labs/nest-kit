@@ -1,5 +1,7 @@
 import { type TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
+import type { ConfigReader } from '../../shared';
+import { fromEnv } from '../../shared';
 
 export interface TypeOrmConfigOptions {
   schema?: string;
@@ -18,15 +20,8 @@ const DEFAULTS: Partial<
   'better-sqlite3': { port: 0, database: ':memory:' },
 };
 
-interface EnvReader {
-  str: (key: string) => string | undefined;
-  num: (key: string) => number | undefined;
-  bool: (key: string, def: boolean) => boolean;
-}
-
-function buildConfig(get: EnvReader, options?: TypeOrmConfigOptions): TypeOrmModuleOptions {
-  const defaults =
-    DEFAULTS[(get.str('DB_TYPE') as Required<TypeOrmModuleOptions>['type']) ?? 'postgres'];
+function buildConfig(get: ConfigReader, options?: TypeOrmConfigOptions): TypeOrmModuleOptions {
+  const defaults = DEFAULTS[(get.str('DB_TYPE') ?? 'postgres') as keyof typeof DEFAULTS];
 
   return {
     type: get.str('DB_TYPE') ?? 'postgres',
@@ -64,34 +59,18 @@ function buildConfig(get: EnvReader, options?: TypeOrmConfigOptions): TypeOrmMod
   } as TypeOrmModuleOptions;
 }
 
-/* ---------- for TypeOrmModule.forRoot (reads process.env) ---------- */
-
-export function configTypeOrm(options?: TypeOrmConfigOptions): TypeOrmModuleOptions {
-  return buildConfig(
-    {
-      str: (key) => process.env[key],
-      num: (key) => (process.env[key] !== undefined ? Number(process.env[key]) : undefined),
-      bool: (key, def) =>
-        process.env[key] !== undefined
-          ? process.env[key] === 'true' || process.env[key] === '1'
-          : def,
-    },
-    options,
-  );
-}
-
-/* ---------- for TypeOrmModule.forRootAsync (uses ConfigService) ---------- */
-
-export function configTypeOrmAsync(
+export function configTypeOrm(options?: TypeOrmConfigOptions): TypeOrmModuleOptions;
+export function configTypeOrm(
   configService: ConfigService,
   options?: TypeOrmConfigOptions,
+): TypeOrmModuleOptions;
+export function configTypeOrm(
+  configServiceOrOptions?: ConfigService | TypeOrmConfigOptions,
+  options?: TypeOrmConfigOptions,
 ): TypeOrmModuleOptions {
-  return buildConfig(
-    {
-      str: (key) => configService.get<string>(key),
-      num: (key) => configService.get<number>(key),
-      bool: (key, def) => configService.get<boolean>(key, def) ?? def,
-    },
-    options,
-  );
+  if (configServiceOrOptions && 'get' in configServiceOrOptions) {
+    return buildConfig(fromEnv(configServiceOrOptions), options);
+  }
+
+  return buildConfig(fromEnv(), configServiceOrOptions);
 }

@@ -8,4 +8,4 @@
  * @packageDocumentation
  */
 
-export { configCache, configCacheAsync } from './config';
+export { configCache } from './config';

@@ -1,4 +1,6 @@
 import { ConfigService } from '@nestjs/config';
+import type { ConfigReader } from '../shared';
+import { fromEnv } from '../shared';
 
 /** Per-store configuration. */
 export interface CacheStoreConfig {
@@ -89,12 +91,6 @@ export interface CacheConfigOptions {
   keyv?: new (options?: Record<string, unknown>) => Record<string, unknown>;
 }
 
-interface EnvReader {
-  str: (key: string) => string | undefined;
-  num: (key: string) => number | undefined;
-  bool: (key: string, def: boolean) => boolean;
-}
-
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
@@ -117,7 +113,7 @@ interface KeyvStoreData {
 /* ------------------------------------------------------------------ */
 
 function readStr(
-  get: EnvReader,
+  get: ConfigReader,
   name: string | undefined,
   ...suffixes: string[]
 ): string | undefined {
@@ -133,7 +129,7 @@ function readStr(
 }
 
 function readNum(
-  get: EnvReader,
+  get: ConfigReader,
   name: string | undefined,
   ...suffixes: string[]
 ): number | undefined {
@@ -151,7 +147,7 @@ function readNum(
 function buildAdapterOptions(
   name: string | undefined,
   opt: KeyvStoreData | undefined,
-  get: EnvReader,
+  get: ConfigReader,
   prefix: string,
 ): Record<string, unknown> {
   const rds = opt?.rdsEnabled ?? get.bool('RDS_CACHE_ENABLED', false);
@@ -161,7 +157,7 @@ function buildAdapterOptions(
   return { url, keyPrefix, ...(rds ? { socket: { tls: true } } : {}) };
 }
 
-function parseStores(get: EnvReader, options?: CacheConfigOptions): KeyvStoreData[] {
+function parseStores(get: ConfigReader, options?: CacheConfigOptions): KeyvStoreData[] {
   const userStores = options?.stores;
   const raw = userStores?.map((s) => s.type).join(',') ?? get.str('CACHE_STORE') ?? 'memory';
 
@@ -198,7 +194,7 @@ function toMilliseconds(seconds: number): number {
   return seconds * 1000;
 }
 
-function buildCacheConfig(get: EnvReader, options?: CacheConfigOptions): StoreRecord {
+function buildCacheConfig(get: ConfigReader, options?: CacheConfigOptions): StoreRecord {
   const KeyvClass = options?.keyv;
   const stores = parseStores(get, options);
 
@@ -277,10 +273,14 @@ function buildCacheConfig(get: EnvReader, options?: CacheConfigOptions): StoreRe
 /* ------------------------------------------------------------------ */
 
 /**
- * Build cache module options from environment variables.
+ * Build cache module options from environment variables or `ConfigService`.
+ *
+ * When the first argument is a `ConfigService` instance the bootstrapper
+ * reads from it; otherwise it falls back to `process.env`.
  *
  * @example
  * ```ts
+ * // Sync — reads process.env
  * import Keyv from 'keyv';
  * import KeyvRedis from '@keyv/redis';
  * import { KeyvCacheableMemory } from 'cacheable';
@@ -293,6 +293,13 @@ function buildCacheConfig(get: EnvReader, options?: CacheConfigOptions): StoreRe
  *   ],
  * });
  * CacheModule.register(cfg);
+ *
+ * // Async — reads ConfigService
+ * CacheModule.registerAsync({
+ *   imports: [ConfigModule],
+ *   inject: [ConfigService],
+ *   useFactory: (cs) => configCache(cs, { keyv: Keyv, stores: [...] }),
+ * })
  * ```
  *
  * Environment variables:
@@ -312,42 +319,18 @@ function buildCacheConfig(get: EnvReader, options?: CacheConfigOptions): StoreRe
  * | `VALKEY_KEY_PREFIX`       | —                          | Valkey key prefix                         |
  * | `RDS_CACHE_ENABLED`        | `false`                    | Enable TLS for Redis / Valkey             |
  */
-export function configCache(options?: CacheConfigOptions): StoreRecord {
-  return buildCacheConfig(
-    {
-      str: (key) => process.env[key],
-      num: (key) => (process.env[key] !== undefined ? Number(process.env[key]) : undefined),
-      bool: (key, def) =>
-        process.env[key] !== undefined
-          ? process.env[key] === 'true' || process.env[key] === '1'
-          : def,
-    },
-    options,
-  );
-}
-
-/**
- * Build cache module options from `ConfigService`.
- *
- * @example
- * ```ts
- * CacheModule.registerAsync({
- *   imports: [ConfigModule],
- *   inject: [ConfigService],
- *   useFactory: (cs) => configCacheAsync(cs, { keyv: Keyv, stores: [...] }),
- * })
- * ```
- */
-export function configCacheAsync(
+export function configCache(options?: CacheConfigOptions): StoreRecord;
+export function configCache(
   configService: ConfigService,
   options?: CacheConfigOptions,
+): StoreRecord;
+export function configCache(
+  configServiceOrOptions?: ConfigService | CacheConfigOptions,
+  options?: CacheConfigOptions,
 ): StoreRecord {
-  return buildCacheConfig(
-    {
-      str: (key) => configService.get<string>(key),
-      num: (key) => configService.get<number>(key),
-      bool: (key, def) => configService.get<boolean>(key, def) ?? def,
-    },
-    options,
-  );
+  if (configServiceOrOptions && 'get' in configServiceOrOptions) {
+    return buildCacheConfig(fromEnv(configServiceOrOptions), options);
+  }
+
+  return buildCacheConfig(fromEnv(), configServiceOrOptions);
 }

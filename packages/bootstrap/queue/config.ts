@@ -1,4 +1,6 @@
 import { ConfigService } from '@nestjs/config';
+import type { ConfigReader } from '../shared';
+import { fromEnv } from '../shared';
 
 /** Per-queue configuration. */
 export interface QueueRegisterConfig {
@@ -95,19 +97,13 @@ export interface QueueConfigOptions {
   FlowProducer?: new (...args: unknown[]) => Record<string, unknown>;
 }
 
-interface EnvReader {
-  str: (key: string) => string | undefined;
-  num: (key: string) => number | undefined;
-  bool: (key: string, def: boolean) => boolean;
-}
-
 type QueueResult = Record<string, unknown>;
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
-function parseConnection(get: EnvReader, options?: QueueConfigOptions): Record<string, unknown> {
+function parseConnection(get: ConfigReader, options?: QueueConfigOptions): Record<string, unknown> {
   const optConn = options?.connection;
   const url = get.str('QUEUE_URL') ?? get.str('VALKEY_URL') ?? get.str('REDIS_URL');
 
@@ -137,7 +133,7 @@ function parseConnection(get: EnvReader, options?: QueueConfigOptions): Record<s
 }
 
 function parseDefaultJobOptions(
-  get: EnvReader,
+  get: ConfigReader,
   options?: QueueConfigOptions,
 ): Record<string, unknown> {
   const opt = options?.defaultJobOptions;
@@ -173,7 +169,7 @@ function parseDefaultJobOptions(
   return out;
 }
 
-function buildQueueConfig(get: EnvReader, options?: QueueConfigOptions): QueueResult {
+function buildQueueConfig(get: ConfigReader, options?: QueueConfigOptions): QueueResult {
   const BaseQueue = options?.Queue;
   const FlowProducerClass = options?.FlowProducer;
 
@@ -241,22 +237,31 @@ function buildQueueConfig(get: EnvReader, options?: QueueConfigOptions): QueueRe
 /* ------------------------------------------------------------------ */
 
 /**
- * Build BullMQ module options from environment variables.
+ * Build BullMQ module options from environment variables or `ConfigService`.
+ *
+ * When the first argument is a `ConfigService` instance the bootstrapper
+ * reads from it; otherwise it falls back to `process.env`.
  *
  * @example
  * ```ts
+ * // Sync — reads process.env
  * import { BullModule } from '@nestjs/bullmq';
  * import { Queue } from 'bullmq';
  *
  * @Module({
  *   imports: [
- *     BullModule.forRoot(configQueue({
- *       Queue,
- *     })),
+ *     BullModule.forRoot(configQueue({ Queue })),
  *     BullModule.registerQueue(
  *       ...configQueue({ Queue, queues: [{ name: 'email' }, { name: 'notifications' }] }).queues!,
  *     ),
  *   ],
+ * })
+ *
+ * // Async — reads ConfigService
+ * BullModule.forRootAsync({
+ *   imports: [ConfigModule],
+ *   inject: [ConfigService],
+ *   useFactory: (cs) => configQueue(cs, { Queue }),
  * })
  * ```
  *
@@ -278,42 +283,18 @@ function buildQueueConfig(get: EnvReader, options?: QueueConfigOptions): QueueRe
  * | `QUEUE_MAX_RETRIES_PER_REQUEST` | `null`                     | Max retries per Redis request         |
  * | `QUEUE_ENABLE_READY_CHECK`      | `true`                     | Enable ready check                    |
  */
-export function configQueue(options?: QueueConfigOptions): QueueResult {
-  return buildQueueConfig(
-    {
-      str: (key) => process.env[key],
-      num: (key) => (process.env[key] !== undefined ? Number(process.env[key]) : undefined),
-      bool: (key, def) =>
-        process.env[key] !== undefined
-          ? process.env[key] === 'true' || process.env[key] === '1'
-          : def,
-    },
-    options,
-  );
-}
-
-/**
- * Build BullMQ module options from `ConfigService`.
- *
- * @example
- * ```ts
- * BullModule.forRootAsync({
- *   imports: [ConfigModule],
- *   inject: [ConfigService],
- *   useFactory: (cs) => configQueueAsync(cs, { Queue }),
- * })
- * ```
- */
-export function configQueueAsync(
+export function configQueue(options?: QueueConfigOptions): QueueResult;
+export function configQueue(
   configService: ConfigService,
   options?: QueueConfigOptions,
+): QueueResult;
+export function configQueue(
+  configServiceOrOptions?: ConfigService | QueueConfigOptions,
+  options?: QueueConfigOptions,
 ): QueueResult {
-  return buildQueueConfig(
-    {
-      str: (key) => configService.get<string>(key),
-      num: (key) => configService.get<number>(key),
-      bool: (key, def) => configService.get<boolean>(key, def) ?? def,
-    },
-    options,
-  );
+  if (configServiceOrOptions && 'get' in configServiceOrOptions) {
+    return buildQueueConfig(fromEnv(configServiceOrOptions), options);
+  }
+
+  return buildQueueConfig(fromEnv(), configServiceOrOptions);
 }

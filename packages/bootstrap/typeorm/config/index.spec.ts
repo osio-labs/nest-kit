@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { configTypeOrm, configTypeOrmAsync } from './index';
+import { configTypeOrm } from './index';
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const OLD_ENV: Record<string, string | undefined> = { ...process.env };
@@ -242,7 +242,7 @@ describe('configTypeOrm', () => {
 
 /* ---------- configTypeOrmAsync (ConfigService) ---------- */
 
-describe('configTypeOrmAsync', () => {
+describe('configTypeOrm (with ConfigService)', () => {
   let mockGet: jest.Mock<unknown, [string, unknown?]>;
 
   function createMockService(): ConfigService {
@@ -267,7 +267,7 @@ describe('configTypeOrmAsync', () => {
           return def;
         });
 
-        const result = asTest(configTypeOrmAsync(createMockService()));
+        const result = asTest(configTypeOrm(createMockService()));
 
         expect(result.type).toBe(dbType);
         expect(result.port).toBe(port);
@@ -287,13 +287,13 @@ describe('configTypeOrmAsync', () => {
         return def;
       });
 
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result).not.toHaveProperty('ssl');
       expect(result).not.toHaveProperty('extra');
     });
 
     it('should default to postgres when DB_TYPE is unset', () => {
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.type).toBe('postgres');
       expect(result.port).toBe(5432);
       expect(result.database).toBe('postgres');
@@ -305,7 +305,7 @@ describe('configTypeOrmAsync', () => {
           if (key === 'DB_TYPE') return dbType;
           return def;
         });
-        const result = asTest(configTypeOrmAsync(createMockService()));
+        const result = asTest(configTypeOrm(createMockService()));
         expect(result.username).toBeUndefined();
         expect(result.password).toBeUndefined();
       }
@@ -318,7 +318,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_HOST') return 'db.example.com';
         return undefined;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.host).toBe('db.example.com');
     });
 
@@ -327,7 +327,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_PORT') return 3306;
         return undefined;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.port).toBe(3306);
     });
 
@@ -337,7 +337,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_PASSWORD') return 'secret';
         return undefined;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.username).toBe('admin');
       expect(result.password).toBe('secret');
     });
@@ -347,7 +347,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_DATABASE') return 'myapp';
         return undefined;
       });
-      expect(configTypeOrmAsync(createMockService())).toHaveProperty('database', 'myapp');
+      expect(configTypeOrm(createMockService())).toHaveProperty('database', 'myapp');
     });
 
     it('should enable synchronize when ConfigService returns true', () => {
@@ -355,7 +355,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_SYNCHRONIZE') return true;
         return def;
       });
-      expect(configTypeOrmAsync(createMockService())).toHaveProperty('synchronize', true);
+      expect(configTypeOrm(createMockService())).toHaveProperty('synchronize', true);
     });
 
     it('should set logging to "all" when DB_LOGGING is true', () => {
@@ -363,7 +363,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_LOGGING') return true;
         return def;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.logging).toBe('all');
     });
 
@@ -372,7 +372,7 @@ describe('configTypeOrmAsync', () => {
         if (key === 'DB_SSL_REJECT_UNAUTHORIZED') return true;
         return def;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.ssl).toEqual({ rejectUnauthorized: true });
     });
   });
@@ -387,7 +387,7 @@ describe('configTypeOrmAsync', () => {
 
     it('should force ssl and add extra when DB_RDS_ENABLED=true', () => {
       enableRds();
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.ssl).toEqual({ rejectUnauthorized: true });
       expect(result.extra).toBeDefined();
     });
@@ -395,7 +395,7 @@ describe('configTypeOrmAsync', () => {
     it('should pass TypeOrmConfigOptions through in RDS mode', () => {
       enableRds();
       const result = asTest(
-        configTypeOrmAsync(createMockService(), {
+        configTypeOrm(createMockService(), {
           poolSize: 5,
           idleTimeoutMs: 2000,
           connectionTimeoutMs: 1000,
@@ -419,14 +419,14 @@ describe('configTypeOrmAsync', () => {
         if (key === 'RDS_REGION') return 'eu-west-1';
         return def;
       });
-      const result = asTest(configTypeOrmAsync(createMockService()));
+      const result = asTest(configTypeOrm(createMockService()));
       expect(result.extra).toMatchObject({ region: 'eu-west-1' });
     });
   });
 
   describe('TypeOrmModule.forRootAsync compatibility', () => {
     it('should return config usable as useFactory return value', () => {
-      const options = configTypeOrmAsync(createMockService());
+      const options = configTypeOrm(createMockService());
       expect(options).toBeDefined();
     });
 
@@ -437,14 +437,14 @@ describe('configTypeOrmAsync', () => {
           return def;
         });
 
-        const options = asTest(configTypeOrmAsync(createMockService()));
+        const options = asTest(configTypeOrm(createMockService()));
         expect(options.type).toBe(dbType);
       }
     });
 
     it('should support passing TypeOrmConfigOptions in useFactory', () => {
       const options = asTest(
-        configTypeOrmAsync(createMockService(), {
+        configTypeOrm(createMockService(), {
           schema: 'app_schema',
         }),
       );
@@ -454,7 +454,7 @@ describe('configTypeOrmAsync', () => {
 
   describe('ConfigService.get call expectations', () => {
     it('should call ConfigService.get with expected keys and defaults', () => {
-      configTypeOrmAsync(createMockService());
+      configTypeOrm(createMockService());
 
       expect(mockGet).toHaveBeenCalledWith('DB_TYPE');
       expect(mockGet).toHaveBeenCalledWith('DB_HOST');

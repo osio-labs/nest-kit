@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { configCache, configCacheAsync } from './index';
+import { configCache } from './index';
 
 /* ---------- configCache (sync, reads process.env) ---------- */
 
@@ -268,7 +268,7 @@ describe('configCache', () => {
 
 /* ---------- configCacheAsync (reads ConfigService) ---------- */
 
-describe('configCacheAsync', () => {
+describe('configCache (with ConfigService)', () => {
   function mockCs(map: Record<string, unknown>): ConfigService {
     return {
       get: jest.fn((key: string, def?: unknown) => (key in map ? map[key] : def)),
@@ -277,7 +277,7 @@ describe('configCacheAsync', () => {
 
   it('should return memory store by default', () => {
     const cs = mockCs({});
-    const cfg = configCacheAsync(cs);
+    const cfg = configCache(cs);
 
     expect(cfg.type).toBe('memory');
     expect(cfg.ttl).toBe(60);
@@ -291,7 +291,7 @@ describe('configCacheAsync', () => {
       CACHE_TTL: 180,
     });
 
-    const cfg = configCacheAsync(cs);
+    const cfg = configCache(cs);
 
     expect(cfg.url).toBe('redis://cs.host:6382');
     expect(cfg.ttl).toBe(180);
@@ -300,7 +300,7 @@ describe('configCacheAsync', () => {
   it('should respect options over ConfigService', () => {
     const cs = mockCs({ REDIS_URL: 'redis://cs.host:6379' });
 
-    const cfg = configCacheAsync(cs, {
+    const cfg = configCache(cs, {
       stores: [{ type: 'redis', url: 'redis://opt.host:6379' }],
     });
 
@@ -317,7 +317,7 @@ describe('configCacheAsync', () => {
       }
     };
 
-    const cfg = configCacheAsync(cs, {
+    const cfg = configCache(cs, {
       keyv: KeyvMock as never,
       stores: [{ type: 'memory' }],
     });
