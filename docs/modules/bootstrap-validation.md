@@ -1,22 +1,24 @@
-# @os.io/nest-kit/bootstrap — Validation
+# Bootstrap / Validation
 
-Global validation configuration for NestJS applications. Auto-detects `nestjs-i18n` and selects the appropriate validation pipe.
+> Global validation configuration for NestJS applications. Auto-detects `nestjs-i18n` and selects the appropriate validation pipe.
 
-## Installation
+## Install
 
 ```bash
 npm install @os.io/nest-kit
 ```
 
-### Optional — i18n validation messages (see [nestjs-i18n.com](https://nestjs-i18n.com))
+Optional — i18n validation messages (see [nestjs-i18n.com](https://nestjs-i18n.com)):
 
 ```bash
 npm install nestjs-i18n
 ```
 
-## Usage
+## Quick Start
 
-Call `configValidation` in `main.ts`. Uses `I18nValidationPipe` when `nestjs-i18n` is installed, otherwise falls back to the standard `ValidationPipe`:
+### `configValidation` (auto-detect)
+
+Call in `main.ts`. Uses `I18nValidationPipe` when `nestjs-i18n` is installed, otherwise falls back to `ValidationPipe`:
 
 ```ts
 import { NestFactory } from '@nestjs/core';

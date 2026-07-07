@@ -1,16 +1,19 @@
 # Bootstrap
 
-> One-liner setup functions for Swagger, Cache, and TypeORM.
+> One-liner setup functions for Swagger, Cache, TypeORM, Queue, Sentry, and Validation.
 
 ---
 
 ## Navigation
 
-| Module  | Exports                                                                                        |
-| ------- | ---------------------------------------------------------------------------------------------- |
-| OpenAPI | `configOpenApi`                                                                                |
-| Cache   | `configCache`                                                                                  |
-| TypeORM | `configTypeOrm`, `createCrudService`, `createCrudController`, `UnitOfWork`, `@Transactional()` |
+| Module     | Exports                                                                                        |
+| ---------- | ---------------------------------------------------------------------------------------------- |
+| OpenAPI    | `configOpenApi`                                                                                |
+| Cache      | `configCache`                                                                                  |
+| TypeORM    | `configTypeOrm`, `createCrudService`, `createCrudController`, `UnitOfWork`, `@Transactional()` |
+| Queue      | `configQueue`                                                                                  |
+| Sentry     | `configSentry`, `initSentry`                                                                   |
+| Validation | `configValidation`                                                                             |
 
 ---
 
@@ -67,3 +70,33 @@ import {
 ```
 
 [→ Full docs](./bootstrap-typeorm)
+
+## Sentry
+
+Set up Sentry error monitoring and performance tracing:
+
+```ts
+import { initSentry, configSentry } from '@os.io/nest-kit/bootstrap';
+
+// Option 1: Early instrumentation (instrument.ts pattern)
+await initSentry({ tracesSampleRate: 1.0 });
+
+// Option 2: Module config for SentryModule.forRoot()
+const cfg = configSentry();
+```
+
+[→ Full docs](./bootstrap-sentry)
+
+## Validation
+
+Auto-detects `nestjs-i18n` and configures the appropriate global validation pipe:
+
+```ts
+import { configValidation } from '@os.io/nest-kit/bootstrap';
+
+// In main.ts
+const app = await NestFactory.create(AppModule);
+configValidation(app);
+```
+
+[→ Full docs](./bootstrap-validation)
