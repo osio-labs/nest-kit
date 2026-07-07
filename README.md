@@ -47,15 +47,14 @@
 | `@os.io/nest-kit/saas`          | `packages/saas`      | Orgs, Teams, Multi-tenancy, Subscriptions |
 | `@os.io/nest-kit/infra`         | `packages/infra`     | Infrastructure integrations               |
 
-**Bootstrap sub-modules** (import via sub-path):
+All bootstrap features are available via `@os.io/nest-kit/bootstrap`:
 
-| Import path                         | Purpose                                         |
-| ----------------------------------- | ----------------------------------------------- |
-| `@os.io/nest-kit/bootstrap/swagger` | Swagger/OpenAPI setup from env vars             |
-| `@os.io/nest-kit/bootstrap/scalar`  | Scalar API reference UI configuration           |
-| `@os.io/nest-kit/bootstrap/cache`   | Cache module (Keyv, Redis, Valkey, multi-store) |
-| `@os.io/nest-kit/bootstrap/typeorm` | TypeORM connection setup, CRUD factories, UoW   |
-| `@os.io/nest-kit/bootstrap/queue`   | BullMQ queue bootstrapper with Redis/Valkey     |
+| Feature     | Description                                     |
+| ----------- | ----------------------------------------------- |
+| **OpenAPI** | Swagger / Scalar API doc (auto-detect)          |
+| **Cache**   | Cache module (Keyv, Redis, Valkey, multi-store) |
+| **TypeORM** | Connection setup, CRUD factories, UoW           |
+| **Queue**   | BullMQ queue bootstrapper with Redis/Valkey     |
 
 **Infra sub-modules** (import via sub-path):
 
@@ -98,7 +97,7 @@ npm install @os.io/nest-kit
 Then import only what you need:
 
 ```ts
-import { setupSwagger } from '@os.io/nest-kit/bootstrap';
+import { configOpenApi } from '@os.io/nest-kit/bootstrap';
 import { RBACGuard } from '@os.io/nest-kit/auth';
 ```
 
@@ -109,7 +108,7 @@ import { RBACGuard } from '@os.io/nest-kit/auth';
 ```ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { configCache } from '@os.io/nest-kit/bootstrap/cache';
+import { configCache } from '@os.io/nest-kit/bootstrap';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({

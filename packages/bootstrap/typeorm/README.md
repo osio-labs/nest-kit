@@ -6,12 +6,12 @@ Three toolkits for TypeORM: **config** (connection setup), **CRUD** (generic ser
 
 ```
 typeorm/
-├── config/           — configTypeOrm / configTypeOrmAsync
+├── config/           — configTypeOrm (env or ConfigService)
 ├── crud/             — createCrudService / createCrudController
 └── uow/              — UnitOfWork / @Transactional / @TransactionalController
 ```
 
-- [config/](#config) — `configTypeOrm` / `configTypeOrmAsync`
+- [config/](#config) — `configTypeOrm` (env or ConfigService)
 - [crud/](#crud) — `createCrudService` / `createCrudController`
 - [uow/](#unit-of-work)
   - [Unit of Work](#unit-of-work) — `UnitOfWork` / `createUnitOfWork` / `withUnitOfWork`
@@ -21,14 +21,14 @@ typeorm/
 
 ## Config
 
-Two functions to build `TypeOrmModuleOptions` from environment variables or `ConfigService`.
+Single function to build `TypeOrmModuleOptions` from environment variables or `ConfigService`.
 
 ### Usage
 
 #### Static config (`TypeOrmModule.forRoot`)
 
 ```ts
-import { configTypeOrm } from '@os.io/nest-kit/bootstrap/typeorm';
+import { configTypeOrm } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [TypeOrmModule.forRoot(configTypeOrm())],
@@ -39,14 +39,14 @@ export class AppModule {}
 #### Async config (`TypeOrmModule.forRootAsync`)
 
 ```ts
-import { configTypeOrmAsync } from '@os.io/nest-kit/bootstrap/typeorm';
+import { configTypeOrm } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (cs) => configTypeOrmAsync(cs),
+      useFactory: (cs) => configTypeOrm(undefined, cs),
     }),
   ],
 })
@@ -109,7 +109,7 @@ Generic CRUD service and controller factories. Create a full REST endpoint with 
 ### API
 
 ```ts
-import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap/typeorm';
+import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap';
 ```
 
 #### `createCrudService<T>(repo: Repository<T>): CrudService<T>`
@@ -143,7 +143,7 @@ Generates a NestJS controller class with REST endpoints:
 ```ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap/typeorm';
+import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap';
 import { User } from './user.entity';
 
 const UserService = createCrudService(UserRepository); // or pass a Repository<User>
@@ -182,7 +182,7 @@ Three patterns for managing database transactions.
 ### API
 
 ```ts
-import { UnitOfWork, createUnitOfWork, withUnitOfWork } from '@os.io/nest-kit/bootstrap/typeorm';
+import { UnitOfWork, createUnitOfWork, withUnitOfWork } from '@os.io/nest-kit/bootstrap';
 ```
 
 #### `UnitOfWork` class
@@ -246,7 +246,7 @@ import {
   Transactional,
   TransactionalController,
   getCurrentUnitOfWork,
-} from '@os.io/nest-kit/bootstrap/typeorm';
+} from '@os.io/nest-kit/bootstrap';
 ```
 
 #### `@Transactional(dataSourceProp?)`

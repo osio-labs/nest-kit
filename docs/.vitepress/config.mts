@@ -36,8 +36,7 @@ export default defineConfig({
         link: '/modules/bootstrap',
         collapsed: true,
         items: [
-          { text: 'Swagger', link: '/modules/bootstrap-swagger' },
-          { text: 'Scalar', link: '/modules/bootstrap-scalar' },
+          { text: 'OpenAPI', link: '/modules/bootstrap-openapi' },
           { text: 'Cache', link: '/modules/bootstrap-cache' },
           { text: 'TypeORM', link: '/modules/bootstrap-typeorm' },
           { text: 'Queue', link: '/modules/bootstrap-queue' },

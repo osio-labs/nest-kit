@@ -27,12 +27,12 @@ jest.mock('@scalar/nestjs-api-reference', () => ({
   apiReference: mockApiReference,
 }));
 
-import type { configScalarApiDoc as ConfigScalarFn } from './index';
+import type { configScalarApiDoc as ConfigScalarFn } from './config';
 
 let configScalarApiDoc: typeof ConfigScalarFn;
 
 beforeAll(() => {
-  const mod = jest.requireActual('./index') as unknown as {
+  const mod = jest.requireActual('./config') as unknown as {
     configScalarApiDoc: typeof ConfigScalarFn;
   };
   configScalarApiDoc = mod.configScalarApiDoc;
@@ -45,24 +45,28 @@ beforeEach(() => {
 describe('configScalarApiDoc', () => {
   let app: INestApplication;
   let appUse: jest.Mock;
-  let warnSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     appUse = jest.fn();
     app = { use: appUse } as unknown as INestApplication;
-  });
-
-  afterEach(() => {
-    warnSpy.mockRestore();
   });
 
   it('should register scalar middleware with default path', () => {
     configScalarApiDoc(app);
 
-    expect(warnSpy).not.toHaveBeenCalled();
     expect(appUse).toHaveBeenCalledTimes(1);
     expect(appUse).toHaveBeenCalledWith('api/docs', 'middleware');
+  });
+
+  it('should use defaults when empty options object', () => {
+    configScalarApiDoc(app, {});
+
+    expect(mockSetTitle).toHaveBeenCalledWith('NestJS API');
+    expect(mockSetDescription).toHaveBeenCalledWith('');
+    expect(mockSetVersion).toHaveBeenCalledWith('1.0');
+    expect(mockAddBearerAuth).toHaveBeenCalledTimes(1);
+    expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, undefined);
+    expect(appUse).toHaveBeenCalledWith('api/docs', expect.anything());
   });
 
   it('should register scalar middleware with custom path', () => {
@@ -89,13 +93,13 @@ describe('configScalarApiDoc', () => {
       swaggerDocumentOptions: { deepScanRoutes: true },
     });
 
-    expect(mockCreateDocument).toHaveBeenCalledWith(
-      app,
-      {},
-      {
-        deepScanRoutes: true,
-      },
-    );
+    expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, { deepScanRoutes: true });
+  });
+
+  it('should pass undefined swaggerDocumentOptions when not set', () => {
+    configScalarApiDoc(app, {});
+
+    expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, undefined);
   });
 
   it('should merge scalarOptions', () => {
@@ -111,14 +115,19 @@ describe('configScalarApiDoc', () => {
     );
   });
 
-  it('should log warning and skip middleware when a Scalar error occurs', () => {
+  it('should pass empty scalarOptions when not set', () => {
+    configScalarApiDoc(app, {});
+
+    expect(mockApiReference).toHaveBeenCalledWith({
+      spec: { content: {} },
+    });
+  });
+
+  it('should propagate when Scalar throws', () => {
     mockApiReference.mockImplementation(() => {
       throw new Error('boom');
     });
 
-    configScalarApiDoc(app);
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('@scalar/nestjs-api-reference'));
-    expect(appUse).not.toHaveBeenCalled();
+    expect(() => configScalarApiDoc(app)).toThrow('boom');
   });
 });

@@ -1,5 +1,5 @@
-import { ConfigService } from '@nestjs/config';
-import { configQueue, configQueueAsync } from './index';
+import type { ConfigService } from '@nestjs/config';
+import { configQueue } from './index';
 
 describe('configQueue', () => {
   const OLD_ENV = { ...process.env };
@@ -381,7 +381,7 @@ describe('configQueue', () => {
   });
 });
 
-describe('configQueueAsync', () => {
+describe('configQueue with ConfigService', () => {
   function mockCs(map: Record<string, unknown>): ConfigService {
     return {
       get: jest.fn((key: string, def?: unknown) => (key in map ? map[key] : def)),
@@ -390,7 +390,7 @@ describe('configQueueAsync', () => {
 
   it('should return default connection with auto-removal defaults', () => {
     const cs = mockCs({});
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.connection).toMatchObject({ host: 'localhost', port: 6379 });
     expect(cfg.defaultJobOptions).toMatchObject({
@@ -407,7 +407,7 @@ describe('configQueueAsync', () => {
       QUEUE_DB: 1,
     });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.connection).toMatchObject({
       host: 'config.host',
@@ -422,7 +422,7 @@ describe('configQueueAsync', () => {
       QUEUE_URL: 'redis://cs:6379',
     });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.connection).toMatchObject({
       url: 'redis://cs:6379',
@@ -434,7 +434,7 @@ describe('configQueueAsync', () => {
       VALKEY_URL: 'valkey://cs:6380',
     });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.connection).toMatchObject({
       url: 'valkey://cs:6380',
@@ -444,9 +444,12 @@ describe('configQueueAsync', () => {
   it('should respect options over ConfigService', () => {
     const cs = mockCs({ QUEUE_HOST: 'cs.host' });
 
-    const cfg = configQueueAsync(cs, {
-      connection: { host: 'opt.host' },
-    });
+    const cfg = configQueue(
+      {
+        connection: { host: 'opt.host' },
+      },
+      cs,
+    );
 
     expect(cfg.connection).toMatchObject({ host: 'opt.host' });
   });
@@ -460,10 +463,13 @@ describe('configQueueAsync', () => {
       }
     };
 
-    const cfg = configQueueAsync(cs, {
-      Queue: QueueMock as never,
-      queues: [{ name: 'email' }],
-    });
+    const cfg = configQueue(
+      {
+        Queue: QueueMock as never,
+        queues: [{ name: 'email' }],
+      },
+      cs,
+    );
 
     expect(cfg.queue).toBeInstanceOf(QueueMock);
     expect(cfg.name).toBe('email');
@@ -472,7 +478,7 @@ describe('configQueueAsync', () => {
   it('should read prefix from env', () => {
     const cs = mockCs({ QUEUE_PREFIX: '{cs-prefix}' });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.prefix).toBe('{cs-prefix}');
   });
@@ -480,7 +486,7 @@ describe('configQueueAsync', () => {
   it('should read isGlobal from env', () => {
     const cs = mockCs({ QUEUE_IS_GLOBAL: true });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.isGlobal).toBe(true);
   });
@@ -491,7 +497,7 @@ describe('configQueueAsync', () => {
       QUEUE_DEFAULT_BACKOFF_DELAY: 1500,
     });
 
-    const cfg = configQueueAsync(cs);
+    const cfg = configQueue(undefined, cs);
 
     expect(cfg.defaultJobOptions).toMatchObject({
       attempts: 3,
@@ -504,9 +510,12 @@ describe('configQueueAsync', () => {
   it('should allow opting out of auto-removal via options', () => {
     const cs = mockCs({});
 
-    const cfg = configQueueAsync(cs, {
-      defaultJobOptions: { removeOnComplete: false, removeOnFail: false },
-    });
+    const cfg = configQueue(
+      {
+        defaultJobOptions: { removeOnComplete: false, removeOnFail: false },
+      },
+      cs,
+    );
 
     expect(cfg.defaultJobOptions).toMatchObject({
       removeOnComplete: false,

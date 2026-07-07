@@ -88,31 +88,6 @@
       "import": "./dist/bootstrap/index.js",
       "require": "./dist/bootstrap/index.js"
     },
-    "./bootstrap/swagger": {
-      "types": "./dist/bootstrap/swagger/index.d.ts",
-      "import": "./dist/bootstrap/swagger/index.js",
-      "require": "./dist/bootstrap/swagger/index.js"
-    },
-    "./bootstrap/scalar": {
-      "types": "./dist/bootstrap/scalar/index.d.ts",
-      "import": "./dist/bootstrap/scalar/index.js",
-      "require": "./dist/bootstrap/scalar/index.js"
-    },
-    "./bootstrap/cache": {
-      "types": "./dist/bootstrap/cache/index.d.ts",
-      "import": "./dist/bootstrap/cache/index.js",
-      "require": "./dist/bootstrap/cache/index.js"
-    },
-    "./bootstrap/typeorm": {
-      "types": "./dist/bootstrap/typeorm/index.d.ts",
-      "import": "./dist/bootstrap/typeorm/index.js",
-      "require": "./dist/bootstrap/typeorm/index.js"
-    },
-    "./bootstrap/queue": {
-      "types": "./dist/bootstrap/queue/index.d.ts",
-      "import": "./dist/bootstrap/queue/index.js",
-      "require": "./dist/bootstrap/queue/index.js"
-    },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "import": "./dist/auth/index.js",

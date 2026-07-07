@@ -6,50 +6,34 @@
 
 ## Navigation
 
-| Path                | Module                          | Exports                                                                                                              |
-| ------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `bootstrap/swagger` | Swagger API Doc                 | `configSwagger`                                                                                                      |
-| `bootstrap/scalar`  | Scalar API Reference            | `configScalarApiDoc`                                                                                                 |
-| `bootstrap/cache`   | Cache (memory / Redis / Valkey) | `configCache`, `configCacheAsync`                                                                                    |
-| `bootstrap/typeorm` | TypeORM connection, CRUD, UoW   | `configTypeOrm`, `configTypeOrmAsync`, `createCrudService`, `createCrudController`, `UnitOfWork`, `@Transactional()` |
+| Module  | Exports                                                                                        |
+| ------- | ---------------------------------------------------------------------------------------------- |
+| OpenAPI | `configOpenApi`                                                                                |
+| Cache   | `configCache`                                                                                  |
+| TypeORM | `configTypeOrm`, `createCrudService`, `createCrudController`, `UnitOfWork`, `@Transactional()` |
 
 ---
 
-## Sub-modules
+## OpenAPI
 
-### `bootstrap/swagger` — Swagger API Doc
-
-Set up Swagger UI in one call:
+Auto-detects Scalar UI (if `@scalar/nestjs-api-reference` is installed) or falls back to Swagger UI:
 
 ```ts
-import { configSwagger } from '@os.io/nest-kit/bootstrap/swagger';
+import { configOpenApi } from '@os.io/nest-kit/bootstrap';
 
 const app = await NestFactory.create(AppModule);
-configSwagger(app, { title: 'My API', version: '1.0.0' });
+await configOpenApi(app, { title: 'My API', version: '1.0.0' });
 ```
 
-[→ Full docs](./bootstrap-swagger)
+[→ OpenAPI docs](./bootstrap-openapi)
 
-### `bootstrap/scalar` — Scalar API Reference
-
-Set up the Scalar API reference UI in one call:
-
-```ts
-import { configScalarApiDoc } from '@os.io/nest-kit/bootstrap/scalar';
-
-const app = await NestFactory.create(AppModule);
-configScalarApiDoc(app, { title: 'My API', version: '1.0.0' });
-```
-
-[→ Full docs](./bootstrap-scalar)
-
-### `bootstrap/cache` — Cache Module
+## Cache
 
 Build `CacheModule.register()` options from env or `ConfigService`:
 
 ```ts
 import { CacheModule } from '@nestjs/cache-manager';
-import { configCache } from '@os.io/nest-kit/bootstrap/cache';
+import { configCache } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [CacheModule.register(configCache())],
@@ -61,15 +45,17 @@ Supports memory, Redis, Valkey, multi-store, named stores, and RDS TLS mode.
 
 [→ Full docs](./bootstrap-cache)
 
-### `bootstrap/typeorm` — TypeORM
+## TypeORM
 
 Three toolkits in one module:
 
-| Sub-module | Purpose                                                                                 |
-| ---------- | --------------------------------------------------------------------------------------- |
-| `config`   | `configTypeOrm` / `configTypeOrmAsync` — connection setup from env or `ConfigService`   |
-| `crud`     | `createCrudService` / `createCrudController` — generic REST factories                   |
-| `uow`      | `UnitOfWork`, `@Transactional()`, `@TransactionalController()` — transaction management |
+| Toolkit | Purpose                                                                                 |
+| ------- | --------------------------------------------------------------------------------------- |
+| Config  | `configTypeOrm` — connection setup from env or `ConfigService`                          |
+| CRUD    | `createCrudService` / `createCrudController` — generic REST factories                   |
+| UoW     | `UnitOfWork`, `@Transactional()`, `@TransactionalController()` — transaction management |
+
+All available from `@os.io/nest-kit/bootstrap`:
 
 ```ts
 import {
@@ -77,7 +63,7 @@ import {
   createCrudService,
   createCrudController,
   UnitOfWork,
-} from '@os.io/nest-kit/bootstrap/typeorm';
+} from '@os.io/nest-kit/bootstrap';
 ```
 
 [→ Full docs](./bootstrap-typeorm)

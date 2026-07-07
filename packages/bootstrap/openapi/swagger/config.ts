@@ -4,21 +4,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const DEFAULT_FAVICON_URL = 'https://scalar.com/favicon.svg';
 
-/**
- * Options for {@link configSwagger}.
- */
-export interface ConfigSwaggerOptions {
-  /** OpenAPI title (default: `'NestJS API'`). */
+interface Options {
   title?: string;
-  /** OpenAPI description (default: `''`). */
   description?: string;
-  /** OpenAPI version (default: `'1.0'`). */
   version?: string;
-  /** Mount path (default: `'api/docs'`). */
   path?: string;
-  /** Extra options forwarded to `SwaggerModule.setup`. */
   swaggerCustomOptions?: SwaggerCustomOptions;
-  /** Extra options forwarded to `SwaggerModule.createDocument`. */
   swaggerDocumentOptions?: SwaggerDocumentOptions;
 }
 
@@ -27,18 +18,10 @@ export interface ConfigSwaggerOptions {
  *
  * Mounts the Swagger UI at the given `path` (default `api/docs`).
  *
- * @example
- * ```ts
- * import { configSwagger } from '@os.io/nest-kit/bootstrap/swagger';
- *
- * configSwagger(app);
- * // Browse to http://localhost:3000/api/docs
- * ```
- *
  * @param app - The NestJS application instance.
  * @param options - Configuration overrides.
  */
-export function configSwagger(app: INestApplication, options?: ConfigSwaggerOptions): void {
+export function configSwagger(app: INestApplication, options?: Options): void {
   const builder = new DocumentBuilder()
     .setTitle(options?.title ?? 'NestJS API')
     .setDescription(options?.description ?? '')

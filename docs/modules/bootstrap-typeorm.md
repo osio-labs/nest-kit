@@ -6,12 +6,12 @@
 
 ```
 typeorm/
-├── config/           — configTypeOrm / configTypeOrmAsync
+├── config/           — configTypeOrm (env or ConfigService)
 ├── crud/             — createCrudService / createCrudController
 └── uow/              — UnitOfWork / @Transactional / @TransactionalController
 ```
 
-- [config/](#config) — `configTypeOrm` / `configTypeOrmAsync`
+- [config/](#config) — `configTypeOrm` (env or ConfigService)
 - [crud/](#crud) — `createCrudService` / `createCrudController`
 - [uow/](#unit-of-work)
   - [Unit of Work](#unit-of-work) — `UnitOfWork` / `createUnitOfWork` / `withUnitOfWork`
@@ -21,14 +21,14 @@ typeorm/
 
 ## Config
 
-Two functions to build `TypeOrmModuleOptions` from environment variables or `ConfigService`.
+Single function to build `TypeOrmModuleOptions` from environment variables or `ConfigService`.
 
 ### Usage
 
 #### Static config (`TypeOrmModule.forRoot`)
 
 ```ts
-import { configTypeOrm } from '@os.io/nest-kit/bootstrap/typeorm';
+import { configTypeOrm } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [TypeOrmModule.forRoot(configTypeOrm())],
@@ -39,14 +39,14 @@ export class AppModule {}
 #### Async config (`TypeOrmModule.forRootAsync`)
 
 ```ts
-import { configTypeOrmAsync } from '@os.io/nest-kit/bootstrap/typeorm';
+import { configTypeOrm } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (cs) => configTypeOrmAsync(cs),
+      useFactory: (cs) => configTypeOrm(undefined, cs),
     }),
   ],
 })
@@ -135,7 +135,7 @@ Generates a NestJS controller class with REST endpoints:
 ```ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap/typeorm';
+import { createCrudService, createCrudController } from '@os.io/nest-kit/bootstrap';
 import { User } from './user.entity';
 
 const UserService = createCrudService(UserRepository);

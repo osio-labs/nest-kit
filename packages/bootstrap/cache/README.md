@@ -35,7 +35,7 @@ The bootstrapper accepts adapter classes so your app does not need to import `ke
 
 ```ts
 import { CacheModule } from '@nestjs/cache-manager';
-import { configCache } from '@os.io/nest-kit/bootstrap/cache';
+import { configCache } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [CacheModule.register(configCache())],
@@ -229,28 +229,23 @@ Adds `{ socket: { tls: true } }` to the adapter options.
 ## API
 
 ```ts
-configCache(options?: CacheConfigOptions): Record<string, unknown>
-configCacheAsync(configService: ConfigService, options?: CacheConfigOptions): Record<string, unknown>
+configCache(options?: CacheConfigOptions, configService?: ConfigService): Record<string, unknown>
 ```
 
-### `configCache(options?)`
+### `configCache(options?, configService?)`
 
-Build cache module options from environment variables (`process.env`).
+Build cache module options from environment variables or NestJS `ConfigService`.
 
 ```ts
+// Sync
 const cfg = configCache({ ttl: 120 });
 CacheModule.register(cfg);
-```
 
-### `configCacheAsync(configService, options?)`
-
-Build cache module options from NestJS `ConfigService`.
-
-```ts
+// Async with ConfigService
 CacheModule.registerAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: (cs) => configCacheAsync(cs, { keyv: Keyv, stores: [...] }),
+  useFactory: (cs) => configCache({ keyv: Keyv, stores: [...] }, cs),
 });
 ```
 

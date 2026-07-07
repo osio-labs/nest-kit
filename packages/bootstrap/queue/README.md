@@ -26,7 +26,7 @@ npm install @nestjs/bullmq bullmq
 
 ```ts
 import { BullModule } from '@nestjs/bullmq';
-import { configQueue } from '@os.io/nest-kit/bootstrap/queue';
+import { configQueue } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [BullModule.forRoot(configQueue())],
@@ -110,7 +110,7 @@ Register specific queues with optional per-queue overrides:
 
 ```ts
 import { Queue } from 'bullmq';
-import { configQueue } from '@os.io/nest-kit/bootstrap/queue';
+import { configQueue } from '@os.io/nest-kit/bootstrap';
 
 const cfg = configQueue({
   Queue,
@@ -152,8 +152,7 @@ export class QueueModule {}
 ## API
 
 ```ts
-configQueue(options?: QueueConfigOptions): Record<string, unknown>
-configQueueAsync(configService: ConfigService, options?: QueueConfigOptions): Record<string, unknown>
+configQueue(options?: QueueConfigOptions, configService?: ConfigService): Record<string, unknown>
 ```
 
 ### `QueueConfigOptions`

@@ -10,7 +10,7 @@ npm install @os.io/nest-kit
 
 ```ts
 // Import only what you need via sub-path exports
-import { setupSwagger } from '@os.io/nest-kit/bootstrap';
+import { configOpenApi } from '@os.io/nest-kit/bootstrap';
 import { RBACGuard } from '@os.io/nest-kit/auth';
 
 // Core utilities are available at the package root

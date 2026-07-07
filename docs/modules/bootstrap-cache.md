@@ -18,7 +18,7 @@ npm install @keyv/valkey            # Valkey
 
 ```ts
 import { CacheModule } from '@nestjs/cache-manager';
-import { configCache } from '@os.io/nest-kit/bootstrap/cache';
+import { configCache } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [CacheModule.register(configCache())],
@@ -39,15 +39,19 @@ const cfg = configCache();
 CacheModule.register(cfg);
 ```
 
-### `configCacheAsync(configService, options?)`
+### `configCache(options?, configService?)`
 
-Build cache module options from NestJS `ConfigService`.
+Build cache module options from environment variables or NestJS `ConfigService`.
 
 ```ts
+// Sync
+CacheModule.register(configCache({ keyv: Keyv, stores: [...] }));
+
+// Async with ConfigService
 CacheModule.registerAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: (cs) => configCacheAsync(cs, { keyv: Keyv, stores: [...] }),
+  useFactory: (cs) => configCache({ keyv: Keyv, stores: [...] }, cs),
 });
 ```
 

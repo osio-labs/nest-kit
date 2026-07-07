@@ -23,12 +23,12 @@ jest.mock('@nestjs/swagger', () => ({
   },
 }));
 
-import type { configSwagger as ConfigSwaggerFn } from './index';
+import type { configSwagger as ConfigSwaggerFn } from './config';
 
 let configSwagger: typeof ConfigSwaggerFn;
 
 beforeAll(() => {
-  const mod = jest.requireActual('./index') as unknown as {
+  const mod = jest.requireActual('./config') as unknown as {
     configSwagger: typeof ConfigSwaggerFn;
   };
   configSwagger = mod.configSwagger;
@@ -65,6 +65,21 @@ describe('configSwagger', () => {
     );
   });
 
+  it('should use defaults when empty options object', () => {
+    configSwagger(app, {});
+
+    expect(mockSetTitle).toHaveBeenCalledWith('NestJS API');
+    expect(mockSetDescription).toHaveBeenCalledWith('');
+    expect(mockSetVersion).toHaveBeenCalledWith('1.0');
+    expect(mockAddBearerAuth).toHaveBeenCalledTimes(1);
+    expect(mockSetup).toHaveBeenCalledWith(
+      'api/docs',
+      expect.anything(),
+      expect.anything(),
+      expect.objectContaining({ customfavIcon: 'https://scalar.com/favicon.svg' }),
+    );
+  });
+
   it('should use custom title, description, and version', () => {
     configSwagger(app, {
       title: 'My API',
@@ -93,37 +108,31 @@ describe('configSwagger', () => {
       swaggerDocumentOptions: { ignoreGlobalPrefix: true },
     });
 
-    expect(mockCreateDocument).toHaveBeenCalledWith(
-      app,
-      {},
-      {
-        ignoreGlobalPrefix: true,
-      },
-    );
+    expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, { ignoreGlobalPrefix: true });
+  });
+
+  it('should pass undefined swaggerDocumentOptions when not set', () => {
+    configSwagger(app, {});
+
+    expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, undefined);
   });
 
   it('should use custom favicon from swaggerCustomOptions', () => {
     configSwagger(app, {
-      swaggerCustomOptions: {
-        customfavIcon: 'https://example.com/favicon.ico',
-      },
+      swaggerCustomOptions: { customfavIcon: 'https://example.com/favicon.ico' },
     });
 
     expect(mockSetup).toHaveBeenCalledWith(
       expect.any(String),
       expect.anything(),
       expect.anything(),
-      expect.objectContaining({
-        customfavIcon: 'https://example.com/favicon.ico',
-      }),
+      expect.objectContaining({ customfavIcon: 'https://example.com/favicon.ico' }),
     );
   });
 
   it('should set persistAuthorization default and merge swaggerOptions', () => {
     configSwagger(app, {
-      swaggerCustomOptions: {
-        swaggerOptions: { docExpansion: 'none' },
-      },
+      swaggerCustomOptions: { swaggerOptions: { docExpansion: 'none' } },
     });
 
     expect(mockSetup).toHaveBeenCalledWith(
@@ -131,19 +140,14 @@ describe('configSwagger', () => {
       expect.anything(),
       expect.anything(),
       expect.objectContaining({
-        swaggerOptions: {
-          persistAuthorization: true,
-          docExpansion: 'none',
-        },
+        swaggerOptions: { persistAuthorization: true, docExpansion: 'none' },
       }),
     );
   });
 
   it('should allow overriding persistAuthorization', () => {
     configSwagger(app, {
-      swaggerCustomOptions: {
-        swaggerOptions: { persistAuthorization: false },
-      },
+      swaggerCustomOptions: { swaggerOptions: { persistAuthorization: false } },
     });
 
     expect(mockSetup).toHaveBeenCalledWith(
@@ -151,9 +155,7 @@ describe('configSwagger', () => {
       expect.anything(),
       expect.anything(),
       expect.objectContaining({
-        swaggerOptions: {
-          persistAuthorization: false,
-        },
+        swaggerOptions: { persistAuthorization: false },
       }),
     );
   });

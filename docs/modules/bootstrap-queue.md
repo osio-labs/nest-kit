@@ -14,7 +14,7 @@ npm install @nestjs/bullmq bullmq
 
 ```ts
 import { BullModule } from '@nestjs/bullmq';
-import { configQueue } from '@os.io/nest-kit/bootstrap/queue';
+import { configQueue } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [BullModule.forRoot(configQueue())],
@@ -100,7 +100,7 @@ When the `Queue` class is provided, `configQueue` builds `Queue` instances and r
 
 ```ts
 import { Queue, FlowProducer } from 'bullmq';
-import { configQueue } from '@os.io/nest-kit/bootstrap/queue';
+import { configQueue } from '@os.io/nest-kit/bootstrap';
 
 const cfg = configQueue({
   Queue,
@@ -127,14 +127,14 @@ export class QueueModule {}
 ```ts
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configQueueAsync } from '@os.io/nest-kit/bootstrap/queue';
+import { configQueue } from '@os.io/nest-kit/bootstrap';
 
 @Module({
   imports: [
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (cs) => configQueueAsync(cs),
+      useFactory: (cs) => configQueue(undefined, cs),
     }),
   ],
 })
@@ -152,15 +152,19 @@ const cfg = configQueue();
 BullModule.forRoot(cfg);
 ```
 
-### `configQueueAsync(configService, options?)`
+### `configQueue(options?, configService?)`
 
-Build BullMQ module options from NestJS `ConfigService`.
+Build BullMQ module options from environment variables or NestJS `ConfigService`.
 
 ```ts
+// Sync
+BullModule.forRoot(configQueue({ Queue }));
+
+// Async with ConfigService
 BullModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: (cs) => configQueueAsync(cs, { Queue }),
+  useFactory: (cs) => configQueue({ Queue }, cs),
 });
 ```
 
