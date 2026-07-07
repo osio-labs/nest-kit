@@ -16,6 +16,7 @@ import {
  * - `typeorm` — `@nestjs/typeorm`
  * - `cache`  — `@nestjs/cache-manager`
  * - `queue`  — `@nestjs/bullmq`
+ * - `sentry` — `@sentry/nestjs`
  *
  * @example
  * ```ts

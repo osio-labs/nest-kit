@@ -1,7 +1,6 @@
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
-
 export const BOOTSTRAP_PLUGINS = Symbol('BOOTSTRAP_PLUGINS');
 
 /* ------------------------------------------------------------------ */
@@ -125,6 +124,22 @@ export const queuePlugin = definePlugin({
   },
 });
 
+/** Sentry plugin — wraps `SentryModule.forRoot` / `forRootAsync`. */
+export const sentryPlugin = definePlugin({
+  name: 'sentry',
+  async load() {
+    try {
+      const mod = (await import('@sentry/nestjs/setup')) as Record<string, NestModule>;
+      return mod.SentryModule;
+    } catch {
+      throw new Error(
+        '[@os.io/nest-kit] @sentry/nestjs is required when using the sentry plugin. ' +
+          'Install: npm install @sentry/nestjs',
+      );
+    }
+  },
+});
+
 /* ------------------------------------------------------------------ */
 /*  Plugin resolution                                                  */
 /* ------------------------------------------------------------------ */
@@ -133,6 +148,7 @@ const _builtins = new Map<string, ReturnType<typeof definePlugin>>([
   ['typeorm', typeormPlugin],
   ['cache', cachePlugin],
   ['queue', queuePlugin],
+  ['sentry', sentryPlugin],
 ]);
 
 /**

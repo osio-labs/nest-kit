@@ -228,6 +228,7 @@
     "keyv": "^5.0.0",
     "otpauth": "^9.0.0",
     "pino": "^9.0.0",
+    "@sentry/nestjs": "^8.0.0 || ^9.0.0",
     "sharp": "^0.33.0",
     "stripe": "^17.0.0",
     "typeorm": "^1.0.0"
@@ -270,6 +271,9 @@
       "optional": true
     },
     "@nestjs/jwt": {
+      "optional": true
+    },
+    "@sentry/nestjs": {
       "optional": true
     },
     "bcrypt": {
@@ -345,6 +349,7 @@
     "@nestjs/testing": "^11.0.1",
     "@nestjs/typeorm": "^11.0.3",
     "@scalar/nestjs-api-reference": "^1.2.6",
+    "@sentry/nestjs": "^10.63.0",
     "@simplewebauthn/server": "^13.3.2",
     "@types/bcrypt": "^6.0.0",
     "@types/jest": "^30.0.0",
