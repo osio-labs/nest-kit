@@ -138,3 +138,62 @@ describe('configSentry with ConfigService', () => {
     expect(cfg.dsn).toBe('https://opt@o0.ingest.sentry.io/1');
   });
 });
+
+/* ---------- initSentry ---------- */
+
+describe('initSentry', () => {
+  const OLD_ENV = { ...process.env };
+
+  afterEach(() => {
+    jest.resetModules();
+    process.env = { ...OLD_ENV };
+  });
+
+  it('should call Sentry.init with config from env', async () => {
+    process.env.SENTRY_DSN = 'https://key@o0.ingest.sentry.io/0';
+
+    jest.doMock('@sentry/nestjs', () => ({
+      init: jest.fn(),
+    }));
+
+    const { initSentry } = await import('./instrument');
+    await initSentry();
+
+    const sentry = await import('@sentry/nestjs');
+    expect(sentry.init).toHaveBeenCalledWith(
+      expect.objectContaining({ dsn: 'https://key@o0.ingest.sentry.io/0' }),
+    );
+  });
+
+  it('should call Sentry.init with options override', async () => {
+    jest.doMock('@sentry/nestjs', () => ({
+      init: jest.fn(),
+    }));
+
+    const { initSentry } = await import('./instrument');
+    await initSentry({ environment: 'staging' });
+
+    const sentry = await import('@sentry/nestjs');
+    expect(sentry.init).toHaveBeenCalledWith(expect.objectContaining({ environment: 'staging' }));
+  });
+
+  it('should throw when @sentry/nestjs is not installed', async () => {
+    jest.doMock('@sentry/nestjs', () => {
+      throw new Error('MODULE_NOT_FOUND');
+    });
+
+    const { initSentry } = await import('./instrument');
+
+    await expect(initSentry()).rejects.toThrow('@sentry/nestjs is required');
+  });
+
+  it('should be re-exported from index', async () => {
+    jest.doMock('@sentry/nestjs', () => ({
+      init: jest.fn(),
+    }));
+
+    const mod = await import('./index');
+    expect(mod.initSentry).toBeDefined();
+    expect(typeof mod.initSentry).toBe('function');
+  });
+});

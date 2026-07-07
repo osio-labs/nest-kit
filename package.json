@@ -210,8 +210,8 @@
     "@google-cloud/storage": "^7.0.0",
     "@keyv/redis": "^5.0.0",
     "@keyv/valkey": "^4.0.0",
-    "@nestjs/cache-manager": "^2.0.0 || ^3.0.0",
     "@nestjs/bullmq": "^10.0.0 || ^11.0.0",
+    "@nestjs/cache-manager": "^2.0.0 || ^3.0.0",
     "@nestjs/common": ">=10.0.0 <12.0.0",
     "@nestjs/config": "^3.0.0 || ^4.0.0",
     "@nestjs/core": ">=10.0.0 <12.0.0",
@@ -219,6 +219,7 @@
     "@nestjs/swagger": ">=7.0.0 <12.0.0",
     "@nestjs/typeorm": ">=10.0.0 <12.0.0",
     "@scalar/nestjs-api-reference": "^1.2.6",
+    "@sentry/nestjs": "^8.0.0 || ^9.0.0",
     "@simplewebauthn/server": "^9.0.0 || ^10.0.0",
     "bcrypt": "^5.1.0",
     "bullmq": "^5.0.0",
@@ -226,9 +227,9 @@
     "cacheable": "^1.0.0",
     "exceljs": "^4.4.0",
     "keyv": "^5.0.0",
+    "nestjs-i18n": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "otpauth": "^9.0.0",
     "pino": "^9.0.0",
-    "@sentry/nestjs": "^8.0.0 || ^9.0.0",
     "sharp": "^0.33.0",
     "stripe": "^17.0.0",
     "typeorm": "^1.0.0"
@@ -265,6 +266,9 @@
       "optional": true
     },
     "cacheable": {
+      "optional": true
+    },
+    "nestjs-i18n": {
       "optional": true
     },
     "keyv": {
@@ -355,6 +359,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.20.0",
     "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
@@ -362,6 +368,7 @@
     "globals": "^16.0.0",
     "husky": "^9.1.0",
     "jest": "^30.0.0",
+    "nestjs-i18n": "^10.8.5",
     "otpauth": "^9.5.1",
     "otplib": "^13.4.1",
     "pino": "^9.0.0",

@@ -49,12 +49,14 @@
 
 All bootstrap features are available via `@os.io/nest-kit/bootstrap`:
 
-| Feature     | Description                                     |
-| ----------- | ----------------------------------------------- |
-| **OpenAPI** | Swagger / Scalar API doc (auto-detect)          |
-| **Cache**   | Cache module (Keyv, Redis, Valkey, multi-store) |
-| **TypeORM** | Connection setup, CRUD factories, UoW           |
-| **Queue**   | BullMQ queue bootstrapper with Redis/Valkey     |
+| Feature        | Description                                         |
+| -------------- | --------------------------------------------------- |
+| **OpenAPI**    | Swagger / Scalar API doc (auto-detect)              |
+| **Cache**      | Cache module (Keyv, Redis, Valkey, multi-store)     |
+| **TypeORM**    | Connection setup, CRUD factories, UoW               |
+| **Queue**      | BullMQ queue bootstrapper with Redis/Valkey         |
+| **Sentry**     | Error monitoring & tracing (`@sentry/nestjs`)       |
+| **Validation** | Global validation pipe (auto-detects `nestjs-i18n`) |
 
 **Infra sub-modules** (import via sub-path):
 
