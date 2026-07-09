@@ -66,38 +66,7 @@ await initSentry({
 });
 ```
 
-### Option B — BootstrapModule plugin
-
-```ts
-// app.module.ts
-import { Module } from '@nestjs/common';
-import { BootstrapModule } from '@os.io/nest-kit/bootstrap';
-
-@Module({
-  imports: [ConfigModule.forRoot(), await BootstrapModule.forRoot(['sentry'])],
-})
-export class AppModule {}
-```
-
-With custom config:
-
-```ts
-await BootstrapModule.forRoot([{ name: 'sentry', dsn: process.env.SENTRY_DSN }]);
-```
-
-Async via `ConfigService`:
-
-```ts
-await BootstrapModule.forRootAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  plugins: {
-    sentry: (cs) => configSentry(undefined, cs),
-  },
-});
-```
-
-### Option C — Manual module registration
+### Option B — Manual module registration
 
 ```ts
 import { SentryModule } from '@sentry/nestjs/setup';

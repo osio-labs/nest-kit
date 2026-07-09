@@ -225,7 +225,9 @@
     "bullmq": "^5.0.0",
     "cache-manager": "^6.0.0",
     "cacheable": "^1.0.0",
+    "compression": "^1.7.0",
     "exceljs": "^4.4.0",
+    "helmet": "^8.0.0",
     "keyv": "^5.0.0",
     "nestjs-i18n": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "otpauth": "^9.0.0",
@@ -268,34 +270,13 @@
     "cacheable": {
       "optional": true
     },
-    "nestjs-i18n": {
-      "optional": true
-    },
-    "keyv": {
-      "optional": true
-    },
-    "@nestjs/jwt": {
-      "optional": true
-    },
-    "@sentry/nestjs": {
-      "optional": true
-    },
-    "bcrypt": {
-      "optional": true
-    },
-    "otpauth": {
-      "optional": true
-    },
-    "pino": {
-      "optional": true
-    },
-    "@simplewebauthn/server": {
-      "optional": true
-    },
-    "typeorm": {
+    "compression": {
       "optional": true
     },
     "exceljs": {
+      "optional": true
+    },
+    "helmet": {
       "optional": true
     },
     "@aws-sdk/client-s3": {
@@ -356,16 +337,19 @@
     "@sentry/nestjs": "^10.63.0",
     "@simplewebauthn/server": "^13.3.2",
     "@types/bcrypt": "^6.0.0",
+    "@types/compression": "^1.8.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.20.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "compression": "^1.8.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
     "exceljs": "^4.4.0",
     "globals": "^16.0.0",
+    "helmet": "^8.2.0",
     "husky": "^9.1.0",
     "jest": "^30.0.0",
     "nestjs-i18n": "^10.8.5",

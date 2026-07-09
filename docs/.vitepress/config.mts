@@ -36,10 +36,24 @@ export default defineConfig({
         link: '/modules/bootstrap',
         collapsed: true,
         items: [
-          { text: 'OpenAPI', link: '/modules/bootstrap-openapi' },
-          { text: 'Cache', link: '/modules/bootstrap-cache' },
-          { text: 'TypeORM', link: '/modules/bootstrap-typeorm' },
-          { text: 'Queue', link: '/modules/bootstrap-queue' },
+          {
+            text: 'Module registration',
+            collapsed: true,
+            items: [
+              { text: 'TypeORM', link: '/modules/bootstrap-typeorm' },
+              { text: 'Cache', link: '/modules/bootstrap-cache' },
+              { text: 'Queue', link: '/modules/bootstrap-queue' },
+              { text: 'Sentry', link: '/modules/bootstrap-sentry' },
+            ],
+          },
+          {
+            text: 'App config',
+            collapsed: true,
+            items: [
+              { text: 'OpenAPI', link: '/modules/bootstrap-openapi' },
+              { text: 'Validation', link: '/modules/bootstrap-validation' },
+            ],
+          },
         ],
       },
       {

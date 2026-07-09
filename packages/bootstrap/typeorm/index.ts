@@ -8,6 +8,7 @@
  * - `config` — `configTypeOrm` for connection setup (env or ConfigService)
  * - `crud` — `createCrudService` / `createCrudController` for generic REST endpoints
  * - `uow` — `UnitOfWork`, `@Transactional()`, `@TransactionalController()`
+ * - `decorators` — `@HalfUnique()`, `@SoftDelete()`, `@Money()`, `@Slug()`, `@UniqueCode()`, `@SequenceId()`
  *
  * @module
  * @packageDocumentation
@@ -99,3 +100,27 @@ export const configTypeOrm = withConfig<TypeOrmConfigOptions, TypeOrmModuleOptio
 
 export * from './crud';
 export * from './uow';
+export * from './decorators';
+
+/** @internal */
+let _TypeOrmDataSourceModule: unknown;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  require('typeorm');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  require('@nestjs/typeorm');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  _TypeOrmDataSourceModule = (require('./data-source.module') as Record<string, unknown>)
+    .TypeOrmDataSourceModule;
+} catch {
+  /* typeorm or @nestjs/typeorm not installed — TypeOrmDataSourceModule will be undefined */
+}
+
+/**
+ * NestJS module that auto-registers the TypeORM `DataSource`
+ * for decorators that need database access inside lifecycle hooks.
+ *
+ * Only available when `typeorm` and `@nestjs/typeorm` are installed.
+ */
+export const TypeOrmDataSourceModule = _TypeOrmDataSourceModule as
+  (new (...args: unknown[]) => object) | undefined;

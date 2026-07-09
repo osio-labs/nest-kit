@@ -1,6 +1,6 @@
 # @os.io/nest-kit — TypeORM Bootstrapper
 
-Three toolkits for TypeORM: **config** (connection setup), **CRUD** (generic service/controller factory), and **UoW** (transactional Unit of Work with decorator support).
+Four toolkits for TypeORM: **config** (connection setup), **CRUD** (generic service/controller factory), **UoW** (transactional Unit of Work), and **Decorators** (smart entity/property decorators).
 
 ---
 
@@ -8,7 +8,8 @@ Three toolkits for TypeORM: **config** (connection setup), **CRUD** (generic ser
 typeorm/
 ├── config/           — configTypeOrm (env or ConfigService)
 ├── crud/             — createCrudService / createCrudController
-└── uow/              — UnitOfWork / @Transactional / @TransactionalController
+├── uow/              — UnitOfWork / @Transactional / @TransactionalController
+└── decorators/       — @HalfUnique, @SoftDelete, @Money, @Slug, @UniqueCode, @SequenceId
 ```
 
 - [config/](#config) — `configTypeOrm` (env or ConfigService)
@@ -16,6 +17,7 @@ typeorm/
 - [uow/](#unit-of-work)
   - [Unit of Work](#unit-of-work) — `UnitOfWork` / `createUnitOfWork` / `withUnitOfWork`
   - [Transactional Decorator](#transactional-decorator) — `@Transactional()` / `getCurrentUnitOfWork()`
+- [decorators/](decorators/README.md) — `@HalfUnique`, `@SoftDelete`, `@Money`, `@Slug`, `@UniqueCode`, `@SequenceId`
 
 ---
 
