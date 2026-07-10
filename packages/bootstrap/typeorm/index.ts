@@ -101,6 +101,7 @@ export const configTypeOrm = withConfig<TypeOrmConfigOptions, TypeOrmModuleOptio
 export * from './crud';
 export * from './uow';
 export * from './decorators';
+export * from './dto';
 
 /** @internal */
 let _TypeOrmDataSourceModule: unknown;
