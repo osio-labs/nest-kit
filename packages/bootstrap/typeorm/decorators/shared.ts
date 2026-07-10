@@ -72,6 +72,30 @@ export function applyValidators(
  *
  * @internal
  */
+/**
+ * Apply `@Transform()` from `class-transformer` if available.
+ *
+ * Transforms the property value during serialisation / deserialisation,
+ * useful for data cleaning like trim, lowercase, etc.
+ *
+ * @internal
+ */
+export function applyTransform(
+  target: object,
+  propertyKey: string | symbol,
+  transformFn: (params: { value: unknown }) => unknown,
+): void {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Transform } = require('class-transformer') as {
+      Transform: (fn: (params: { value: unknown }) => unknown) => PropertyDecorator;
+    };
+    Transform(transformFn)(target, propertyKey);
+  } catch {
+    /* class-transformer not installed */
+  }
+}
+
 export function applyType(
   target: object,
   propertyKey: string | symbol,
