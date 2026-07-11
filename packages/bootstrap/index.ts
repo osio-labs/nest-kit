@@ -16,6 +16,7 @@
  * | Export | Requires |
  * |---|---|
  * | `configTypeOrm`, CRUD, `UoW`, `@Transactional()`, `@HalfUnique()` | `typeorm`, `@nestjs/typeorm` |
+ * | `@ApiResponse()`, `@CrudApi()` | `@nestjs/swagger` |
  * | `configCache` | `@nestjs/cache-manager`, `cache-manager` |
  * | `configQueue` | `@nestjs/bullmq`, `bullmq` |
  * | `configSentry`, `initSentry` | `@sentry/nestjs` |
@@ -26,6 +27,7 @@
 
 /* Module registration — for app.module.ts */
 export * from './typeorm';
+export * from './swagger';
 export * from './cache';
 export * from './queue';
 export * from './sentry';
