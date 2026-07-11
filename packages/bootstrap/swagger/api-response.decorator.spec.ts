@@ -1,4 +1,4 @@
-import { Get, Post, Patch, Delete, RequestMethod } from '@nestjs/common';
+import { Get, Post, Patch, Delete } from '@nestjs/common';
 
 const mockGetSchemaPath = jest.fn().mockReturnValue('#/components/schemas/MockEntity');
 const mockApiExtraModels = jest.fn().mockReturnValue(jest.fn());
@@ -49,6 +49,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity)
         findOne() {}
       }
+      void TestController;
 
       expect(mockApiExtraModels).toHaveBeenCalledWith(MockEntity);
       expect(mockApiOkResponse).toHaveBeenCalledWith(
@@ -72,6 +73,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { mode: 'paged' })
         findAll() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -97,6 +99,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { mode: 'offset' })
         findOffset() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -122,6 +125,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { mode: 'cursor' })
         findCursor() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -146,6 +150,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { status: 201 })
         create() {}
       }
+      void TestController;
 
       expect(mockApiCreatedResponse).toHaveBeenCalledWith(expect.objectContaining({ status: 201 }));
     });
@@ -158,6 +163,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity)
         update() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(expect.objectContaining({ status: 200 }));
     });
@@ -170,6 +176,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { status: 204 })
         remove() {}
       }
+      void TestController;
 
       expect(mockApiNoContentResponse).toHaveBeenCalledWith(
         expect.objectContaining({ status: 204 }),
@@ -184,6 +191,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { errors: { notFound: 'User not found' } })
         findOne() {}
       }
+      void TestController;
 
       expect(mockApiNotFoundResponse).toHaveBeenCalledWith({
         description: 'User not found',
@@ -200,6 +208,7 @@ describe('ApiResponse', () => {
         })
         create() {}
       }
+      void TestController;
 
       expect(mockApiConflictResponse).toHaveBeenCalledTimes(2);
       expect(mockApiConflictResponse).toHaveBeenNthCalledWith(1, {
@@ -216,6 +225,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { errors: { badRequest: true } })
         create() {}
       }
+      void TestController;
 
       expect(mockApiBadRequestResponse).toHaveBeenCalledWith({
         description: 'Bad request',
@@ -234,6 +244,7 @@ describe('ApiResponse', () => {
         })
         update() {}
       }
+      void TestController;
 
       expect(mockApiNotFoundResponse).toHaveBeenCalledTimes(1);
       expect(mockApiConflictResponse).toHaveBeenCalledTimes(1);
@@ -248,6 +259,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { status: 202 })
         findAll() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(expect.objectContaining({ status: 202 }));
     });
@@ -260,6 +272,7 @@ describe('ApiResponse', () => {
         @ApiResponse(MockEntity, { description: 'User retrieved successfully' })
         findOne() {}
       }
+      void TestController;
 
       expect(mockApiOkResponse).toHaveBeenCalledWith(
         expect.objectContaining({ description: 'User retrieved successfully' }),
@@ -322,7 +335,7 @@ describe('CrudApi', () => {
       findOne() {}
 
       // Helper method — no HTTP decorator
-      private validateInput() {}
+      private _validateInput() {}
     }
 
     // eslint-disable-next-line no-new

@@ -1,4 +1,6 @@
 import type { Type } from '@nestjs/common';
+import type { SwaggerModule } from './swagger.helper';
+import { getSwagger } from './swagger.helper';
 
 // ── Internal types ────────────────────────────────────────────────
 
@@ -57,23 +59,6 @@ export interface CrudApiOptions {
   update?: CrudApiOperationConfig;
   delete?: CrudApiOperationConfig;
 }
-
-// ── Swagger module type (lazy-loaded) ─────────────────────────────
-
-type SwaggerModule = {
-  getSchemaPath: (model: Type<unknown>) => string;
-  ApiExtraModels: (...models: Type<unknown>[]) => MethodDecorator;
-  ApiOkResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiCreatedResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiNoContentResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiBadRequestResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiUnauthorizedResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiForbiddenResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiNotFoundResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiConflictResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiUnprocessableEntityResponse: (opts: Record<string, unknown>) => MethodDecorator;
-  ApiTooManyRequestsResponse: (opts: Record<string, unknown>) => MethodDecorator;
-};
 
 // ── Constants ─────────────────────────────────────────────────────
 
@@ -168,13 +153,8 @@ function applySwaggerDecorators(
   options: ApiResponseOptions<unknown>,
   httpMethod?: string,
 ): void {
-  let s: SwaggerModule;
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    s = require('@nestjs/swagger') as SwaggerModule;
-  } catch {
-    return;
-  }
+  const s = getSwagger();
+  if (!s) return;
 
   // ── Success response ──────────────────────────────────────────
   s.ApiExtraModels(options.type)(target, propertyKey, descriptor);
