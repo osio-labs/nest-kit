@@ -1,7 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
 import type { OpenApiOptions } from './options';
 
-export type { OpenApiOptions };
+export type { OpenApiOptions, SecurityMethod, SecuritySchemePreset } from './options';
 
 /**
  * Configure OpenAPI documentation with auto-detection of the UI renderer.

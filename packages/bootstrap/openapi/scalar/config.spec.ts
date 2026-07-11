@@ -4,6 +4,7 @@ const mockSetTitle = jest.fn().mockReturnThis();
 const mockSetDescription = jest.fn().mockReturnThis();
 const mockSetVersion = jest.fn().mockReturnThis();
 const mockAddBearerAuth = jest.fn().mockReturnThis();
+const mockAddSecurity = jest.fn().mockReturnThis();
 const mockBuild = jest.fn().mockReturnValue({});
 
 const mockCreateDocument = jest.fn().mockReturnValue({});
@@ -16,6 +17,7 @@ jest.mock('@nestjs/swagger', () => ({
     setDescription: mockSetDescription,
     setVersion: mockSetVersion,
     addBearerAuth: mockAddBearerAuth,
+    addSecurity: mockAddSecurity,
     build: mockBuild,
   })),
   SwaggerModule: {
@@ -129,5 +131,46 @@ describe('configScalarApiDoc', () => {
     });
 
     expect(() => configScalarApiDoc(app)).toThrow('boom');
+
+    mockApiReference.mockReset();
+    mockApiReference.mockReturnValue('middleware');
+  });
+
+  it('should call addBearerAuth by default when securityMethods not set', () => {
+    configScalarApiDoc(app);
+
+    expect(mockAddBearerAuth).toHaveBeenCalledTimes(1);
+    expect(mockAddSecurity).not.toHaveBeenCalled();
+  });
+
+  it('should call addSecurity with preset when securityMethods provided', () => {
+    configScalarApiDoc(app, {
+      securityMethods: [{ name: 'bearer', preset: 'bearer' }],
+    });
+
+    expect(mockAddBearerAuth).not.toHaveBeenCalled();
+    expect(mockAddSecurity).toHaveBeenCalledWith('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    });
+  });
+
+  it('should call addSecurity for each securityMethod', () => {
+    configScalarApiDoc(app, {
+      securityMethods: [
+        { name: 'bearer', preset: 'bearer' },
+        { name: 'api_key', preset: 'apikey' },
+      ],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledTimes(2);
+  });
+
+  it('should skip addBearerAuth when securityMethods is empty array', () => {
+    configScalarApiDoc(app, { securityMethods: [] });
+
+    expect(mockAddBearerAuth).not.toHaveBeenCalled();
+    expect(mockAddSecurity).not.toHaveBeenCalled();
   });
 });

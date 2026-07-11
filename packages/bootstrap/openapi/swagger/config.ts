@@ -1,6 +1,8 @@
 import type { INestApplication } from '@nestjs/common';
 import type { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
+import type { SecurityMethod } from '../options';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { applySecurityMethods } from '../security';
 
 const DEFAULT_FAVICON_URL = 'https://scalar.com/favicon.svg';
 
@@ -9,6 +11,7 @@ interface Options {
   description?: string;
   version?: string;
   path?: string;
+  securityMethods?: SecurityMethod[];
   swaggerCustomOptions?: SwaggerCustomOptions;
   swaggerDocumentOptions?: SwaggerDocumentOptions;
 }
@@ -25,8 +28,9 @@ export function configSwagger(app: INestApplication, options?: Options): void {
   const builder = new DocumentBuilder()
     .setTitle(options?.title ?? 'NestJS API')
     .setDescription(options?.description ?? '')
-    .setVersion(options?.version ?? '1.0')
-    .addBearerAuth();
+    .setVersion(options?.version ?? '1.0');
+
+  applySecurityMethods(builder, options?.securityMethods);
 
   const config = builder.build();
   const document = SwaggerModule.createDocument(app, config, options?.swaggerDocumentOptions);

@@ -75,9 +75,56 @@ Both renderers share the same document (built via `@nestjs/swagger`'s `DocumentB
 | `description`            | `string`                       | `''`           | API description                                  |
 | `version`                | `string`                       | `'1.0'`        | API version                                      |
 | `path`                   | `string`                       | `'api/docs'`   | Mount path for the API docs UI                   |
+| `securityMethods`        | `SecurityMethod[]`             | bearer only    | Security schemes registered on the OpenAPI doc   |
 | `swaggerCustomOptions`   | `SwaggerCustomOptions`         | —              | Custom Swagger UI options (favicon, etc)         |
 | `swaggerDocumentOptions` | `SwaggerDocumentOptions`       | —              | Options passed to `SwaggerModule#createDocument` |
 | `scalarOptions`          | `NestJSReferenceConfiguration` | —              | Options passed to Scalar `apiReference`          |
+
+### `securityMethods`
+
+Controls which security schemes are registered in the OpenAPI document.
+Defaults to bearer auth when omitted; pass an empty array to disable.
+
+Each entry maps to `DocumentBuilder.addSecurity(name, options)` with an optional
+`preset` that fills in sensible defaults.
+
+**Presets:**
+
+| Preset     | Default `SecuritySchemeObject`                            |
+| ---------- | --------------------------------------------------------- |
+| `'bearer'` | `{ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }` |
+| `'basic'`  | `{ type: 'http', scheme: 'basic' }`                       |
+| `'oauth2'` | `{ type: 'oauth2', flows: {} }`                           |
+| `'apikey'` | `{ type: 'apiKey', in: 'header' }`                        |
+| `'cookie'` | `{ type: 'apiKey', in: 'cookie' }`                        |
+
+**Examples:**
+
+```ts
+// Default — single bearer auth
+await configOpenApi(app);
+
+// Bearer + API key
+await configOpenApi(app, {
+  securityMethods: [
+    { name: 'bearer', preset: 'bearer' },
+    { name: 'X-API-KEY', preset: 'apikey' },
+  ],
+});
+
+// Preset with overridden fields
+await configOpenApi(app, {
+  securityMethods: [{ name: 'jwt', preset: 'bearer', options: { bearerFormat: 'Token' } }],
+});
+
+// Fully custom (no preset)
+await configOpenApi(app, {
+  securityMethods: [{ name: 'digest', options: { type: 'http', scheme: 'digest' } }],
+});
+
+// Disable all security schemes
+await configOpenApi(app, { securityMethods: [] });
+```
 
 ## API
 
