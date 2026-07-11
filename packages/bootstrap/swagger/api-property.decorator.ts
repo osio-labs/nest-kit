@@ -1,5 +1,5 @@
 import type { Type } from '@nestjs/common';
-import { getSwagger } from './swagger.helper';
+import { getSwagger } from './swagger.helper.js';
 
 // ── Example generators ─────────────────────────────────────────
 

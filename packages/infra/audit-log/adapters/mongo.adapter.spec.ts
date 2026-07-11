@@ -33,7 +33,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { MongoAdapter } from './mongo.adapter';
+import { MongoAdapter } from './mongo.adapter.js';
 
 const MockMongoClient = jest.requireMock('mongodb').MongoClient;
 const mockInsertOne = jest.requireMock('mongodb').MongoClient().db().collection().insertOne;

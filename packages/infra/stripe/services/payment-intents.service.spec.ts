@@ -1,5 +1,5 @@
-import { PaymentIntentsService } from './payment-intents.service';
-import type { PaymentStore, StripeModuleOptions } from '../stripe.types';
+import { PaymentIntentsService } from './payment-intents.service.js';
+import type { PaymentStore, StripeModuleOptions } from '../stripe.types.js';
 import type { Stripe } from 'stripe';
 
 const mockStripePI = {

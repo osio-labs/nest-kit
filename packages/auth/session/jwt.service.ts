@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
-import type { IAuthUser, ITokenPair } from '../interfaces';
-import type { SessionOptions } from '../auth.options';
-import { AUTH_MODULE_OPTIONS } from '../auth.constants';
+import type { IAuthUser, ITokenPair } from '../interfaces/index.js';
+import type { SessionOptions } from '../auth.options.js';
+import { AUTH_MODULE_OPTIONS } from '../auth.constants.js';
 
 /**
  * Low-level JWT service that signs and verifies tokens

@@ -1,7 +1,7 @@
 import { Module, Global, Injectable, type OnApplicationBootstrap } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { useDataSource } from './decorators/registry';
+import { useDataSource } from './decorators/registry.js';
 
 @Injectable()
 class DataSourceRegistrar implements OnApplicationBootstrap {

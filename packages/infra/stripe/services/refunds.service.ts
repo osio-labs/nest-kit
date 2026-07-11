@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Stripe } from 'stripe';
-import { STRIPE_CLIENT, PAYMENT_STORE } from '../stripe.constants';
-import type { CreateRefundOptions, PaymentStore } from '../stripe.types';
+import { STRIPE_CLIENT, PAYMENT_STORE } from '../stripe.constants.js';
+import type { CreateRefundOptions, PaymentStore } from '../stripe.types.js';
 
 /**
  * Service for Stripe Refunds operations.

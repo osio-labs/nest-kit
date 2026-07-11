@@ -1,2 +1,2 @@
-export { OAuthProviderRegistry } from './oauth-provider-registry';
-export { OAuthStrategy } from './oauth.strategy';
+export { OAuthProviderRegistry } from './oauth-provider-registry.js';
+export { OAuthStrategy } from './oauth.strategy.js';

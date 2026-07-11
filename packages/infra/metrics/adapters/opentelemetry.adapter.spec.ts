@@ -17,7 +17,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { OpenTelemetryAdapter } from './opentelemetry.adapter';
+import { OpenTelemetryAdapter } from './opentelemetry.adapter.js';
 
 describe('OpenTelemetryAdapter', () => {
   let adapter: OpenTelemetryAdapter;

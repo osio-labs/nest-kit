@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import type { WebhookHashAlgorithm, HmacResult } from './webhook.types';
+import type { WebhookHashAlgorithm, HmacResult } from './webhook.types.js';
 
 /**
  * Sign a payload using HMAC.

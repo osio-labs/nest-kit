@@ -57,17 +57,17 @@ export type {
   PaymentMethodResult,
   SubscriptionStatus,
   InvoiceResult,
-} from './stripe.types';
+} from './stripe.types.js';
 
 // ──────── Payment Store ────────
-export { PaymentStore } from './store/payment-store';
+export { PaymentStore } from './store/payment-store.js';
 
 // ──────── State Machine ────────
 export {
   VALID_TRANSITIONS,
   assertValidTransition,
   PAYMENT_INTENT_FINAL_STATUSES,
-} from './store/state-machine';
+} from './store/state-machine.js';
 
 // ──────── Constants ────────
 export {
@@ -78,23 +78,23 @@ export {
   IDEMPOTENCY_CACHE,
   DEFAULT_IDEMPOTENCY_TTL,
   DEFAULT_CURRENCY,
-} from './stripe.constants';
+} from './stripe.constants.js';
 
 // ──────── Sandbox ────────
-export { StripeSandboxClient, SANDBOX_TEST_CARDS } from './stripe-sandbox.client';
+export { StripeSandboxClient, SANDBOX_TEST_CARDS } from './stripe-sandbox.client.js';
 
 // ──────── Services ────────
-export { StripeService } from './stripe.service';
-export { PaymentIntentsService } from './services/payment-intents.service';
-export { RefundsService } from './services/refunds.service';
-export { PaymentMethodsService } from './services/payment-methods.service';
-export { CustomersService } from './services/customers.service';
-export { SubscriptionsService } from './services/subscriptions.service';
-export { CheckoutService } from './services/checkout.service';
-export { BillingPortalService } from './services/billing-portal.service';
-export { WebhooksService } from './services/webhooks.service';
-export { ProductsService } from './services/products.service';
+export { StripeService } from './stripe.service.js';
+export { PaymentIntentsService } from './services/payment-intents.service.js';
+export { RefundsService } from './services/refunds.service.js';
+export { PaymentMethodsService } from './services/payment-methods.service.js';
+export { CustomersService } from './services/customers.service.js';
+export { SubscriptionsService } from './services/subscriptions.service.js';
+export { CheckoutService } from './services/checkout.service.js';
+export { BillingPortalService } from './services/billing-portal.service.js';
+export { WebhooksService } from './services/webhooks.service.js';
+export { ProductsService } from './services/products.service.js';
 
 // ──────── NestJS Module & Controller ────────
-export { StripeModule } from './stripe.module';
-export { StripeController } from './stripe.controller';
+export { StripeModule } from './stripe.module.js';
+export { StripeController } from './stripe.controller.js';

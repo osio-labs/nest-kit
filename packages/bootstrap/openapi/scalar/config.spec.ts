@@ -29,7 +29,7 @@ jest.mock('@scalar/nestjs-api-reference', () => ({
   apiReference: mockApiReference,
 }));
 
-import type { configScalarApiDoc as ConfigScalarFn } from './config';
+import type { configScalarApiDoc as ConfigScalarFn } from './config.js';
 
 let configScalarApiDoc: typeof ConfigScalarFn;
 

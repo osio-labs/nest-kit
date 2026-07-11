@@ -1,4 +1,4 @@
-import type { ProviderResult } from './notification.types';
+import type { ProviderResult } from './notification.types.js';
 
 export const NOTIFICATION_MODULE_OPTIONS = 'NOTIFICATION_MODULE_OPTIONS';
 export const NOTIFICATION_QUEUE = 'NOTIFICATION_QUEUE';

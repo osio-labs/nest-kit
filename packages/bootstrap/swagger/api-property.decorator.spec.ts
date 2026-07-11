@@ -1,4 +1,4 @@
-import { resolveExample } from './api-property.decorator';
+import { resolveExample } from './api-property.decorator.js';
 
 const mockApiParam = jest.fn().mockReturnValue(jest.fn());
 const mockApiQuery = jest.fn().mockReturnValue(jest.fn());
@@ -12,7 +12,7 @@ jest.mock('@nestjs/swagger', () => ({
   ApiProperty: mockApiProperty,
 }));
 
-import { ApiParam, ApiQuery, ApiBody, ApiProperty } from './api-property.decorator';
+import { ApiParam, ApiQuery, ApiBody, ApiProperty } from './api-property.decorator.js';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -370,7 +370,7 @@ describe('when @nestjs/swagger is not installed', () => {
   });
 
   it('should not throw when ApiParam is used', async () => {
-    const { ApiParam: LocalApiParam } = await import('./api-property.decorator');
+    const { ApiParam: LocalApiParam } = await import('./api-property.decorator.js');
 
     expect(() => {
       class TestController {
@@ -386,7 +386,7 @@ describe('when @nestjs/swagger is not installed', () => {
   });
 
   it('should not throw when ApiProperty is used', async () => {
-    const { ApiProperty: LocalApiProperty } = await import('./api-property.decorator');
+    const { ApiProperty: LocalApiProperty } = await import('./api-property.decorator.js');
 
     expect(() => {
       class TestDto {

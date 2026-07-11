@@ -1,5 +1,5 @@
-import { SlidingCacheRateLimitAdapter } from './sliding-cache.adapter';
-import type { SlidingCacheRateLimitAdapterOptions } from './sliding-cache.adapter';
+import { SlidingCacheRateLimitAdapter } from './sliding-cache.adapter.js';
+import type { SlidingCacheRateLimitAdapterOptions } from './sliding-cache.adapter.js';
 
 describe('SlidingCacheRateLimitAdapter', () => {
   let adapter: SlidingCacheRateLimitAdapter;

@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RbacService } from './rbac.service';
-import { METADATA_ROLES } from '../../auth.constants';
+import { RbacService } from './rbac.service.js';
+import { METADATA_ROLES } from '../../auth.constants.js';
 
 /**
  * Guard that enforces Role-Based Access Control.
@@ -31,7 +31,7 @@ export class RbacGuard implements CanActivate {
 
     const request = context
       .switchToHttp()
-      .getRequest<{ user?: import('../../interfaces').IAuthUser }>();
+      .getRequest<{ user?: import('../../interfaces/index.js').IAuthUser }>();
     const user = request.user;
 
     if (!user) return false;

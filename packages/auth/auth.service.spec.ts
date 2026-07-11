@@ -1,14 +1,14 @@
-import { AuthService } from './auth.service';
+import { AuthService } from './auth.service.js';
 import {
   AuthMethod,
   type IAuthStrategy,
   type ICacheService,
   type IAuthResult,
   type ITokenPair,
-} from './interfaces';
-import { JwtService } from './session/jwt.service';
-import { TokenBlacklistService } from './session/token-blacklist.service';
-import { DeviceSessionService } from './session/device-session.service';
+} from './interfaces/index.js';
+import { JwtService } from './session/jwt.service.js';
+import { TokenBlacklistService } from './session/token-blacklist.service.js';
+import { DeviceSessionService } from './session/device-session.service.js';
 
 describe('AuthService', () => {
   let service: AuthService;

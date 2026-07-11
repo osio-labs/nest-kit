@@ -1,5 +1,5 @@
-import { createCrudService } from './service';
-import type { CrudService } from './service';
+import { createCrudService } from './service.js';
+import type { CrudService } from './service.js';
 import type { Repository } from 'typeorm';
 
 interface TestEntity {

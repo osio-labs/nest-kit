@@ -36,10 +36,15 @@ export {
   createBuilder,
   ExcelBuilder,
   ExcelWorkbook,
-} from './excel.export';
+} from './excel.export.js';
 
 // import
-export { importFromBuffer, importFromFile, importFromUrl, importFromStream } from './excel.import';
+export {
+  importFromBuffer,
+  importFromFile,
+  importFromUrl,
+  importFromStream,
+} from './excel.import.js';
 
 // types
 export type {
@@ -47,4 +52,4 @@ export type {
   ExcelImportOptions,
   FormatterFn,
   ExportResponse,
-} from './excel.types';
+} from './excel.types.js';

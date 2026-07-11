@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import type { Logger as PinoLoggerType } from 'pino';
 import { Observable, tap } from 'rxjs';
-import { PINO_LOGGER, LOGGER_MODULE_OPTIONS } from '../logger.constants';
-import type { LoggerModuleOptions, LoggerRequestLoggingConfig } from '../logger.types';
-import { getCorrelationId } from '../correlation-id';
+import { PINO_LOGGER, LOGGER_MODULE_OPTIONS } from '../logger.constants.js';
+import type { LoggerModuleOptions, LoggerRequestLoggingConfig } from '../logger.types.js';
+import { getCorrelationId } from '../correlation-id.js';
 
 /**
  * NestJS interceptor that logs HTTP request / response details.

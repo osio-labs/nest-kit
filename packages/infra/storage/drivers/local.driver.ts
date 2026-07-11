@@ -3,7 +3,7 @@ import { copyFile, mkdir, readFile, readdir, rename, unlink, writeFile } from 'n
 import { dirname, join, relative, resolve } from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import type { StorageDriver, StoragePutOptions } from '../storage.types';
+import type { StorageDriver, StoragePutOptions } from '../storage.types.js';
 
 /**
  * Create a local-filesystem storage driver.

@@ -1,5 +1,5 @@
-import { JwtService } from './jwt.service';
-import type { IAuthUser } from '../interfaces';
+import { JwtService } from './jwt.service.js';
+import type { IAuthUser } from '../interfaces/index.js';
 
 // Mock @nestjs/jwt
 jest.mock('@nestjs/jwt', () => {

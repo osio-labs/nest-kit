@@ -1,5 +1,5 @@
-import { DeviceSessionService } from './device-session.service';
-import type { ICacheService } from '../interfaces';
+import { DeviceSessionService } from './device-session.service.js';
+import type { ICacheService } from '../interfaces/index.js';
 
 describe('DeviceSessionService', () => {
   let service: DeviceSessionService;

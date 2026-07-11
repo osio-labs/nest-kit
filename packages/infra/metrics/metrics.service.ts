@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { METRICS_ADAPTER, METRICS_MODULE_OPTIONS } from './metrics.constants';
-import type { MetricsAdapter, MetricsModuleOptions } from './metrics.types';
+import { METRICS_ADAPTER, METRICS_MODULE_OPTIONS } from './metrics.constants.js';
+import type { MetricsAdapter, MetricsModuleOptions } from './metrics.types.js';
 
 /**
  * Service for recording application metrics.

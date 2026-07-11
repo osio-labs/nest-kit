@@ -1,5 +1,5 @@
-import { loadGCS } from '../utils/loaders';
-import type { StorageDriver, GCSDriverConfig } from '../storage.types';
+import { loadGCS } from '../utils/loaders.js';
+import type { StorageDriver, GCSDriverConfig } from '../storage.types.js';
 
 /**
  * Create a Google Cloud Storage driver.

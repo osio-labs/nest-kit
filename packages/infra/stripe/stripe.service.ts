@@ -1,16 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Stripe } from 'stripe';
-import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from './stripe.constants';
-import type { StripeModuleOptions, InvoiceResult } from './stripe.types';
-import { PaymentIntentsService } from './services/payment-intents.service';
-import { RefundsService } from './services/refunds.service';
-import { PaymentMethodsService } from './services/payment-methods.service';
-import { CustomersService } from './services/customers.service';
-import { SubscriptionsService } from './services/subscriptions.service';
-import { CheckoutService } from './services/checkout.service';
-import { BillingPortalService } from './services/billing-portal.service';
-import { WebhooksService } from './services/webhooks.service';
-import { ProductsService } from './services/products.service';
+import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from './stripe.constants.js';
+import type { StripeModuleOptions, InvoiceResult } from './stripe.types.js';
+import { PaymentIntentsService } from './services/payment-intents.service.js';
+import { RefundsService } from './services/refunds.service.js';
+import { PaymentMethodsService } from './services/payment-methods.service.js';
+import { CustomersService } from './services/customers.service.js';
+import { SubscriptionsService } from './services/subscriptions.service.js';
+import { CheckoutService } from './services/checkout.service.js';
+import { BillingPortalService } from './services/billing-portal.service.js';
+import { WebhooksService } from './services/webhooks.service.js';
+import { ProductsService } from './services/products.service.js';
 
 /**
  * Main facade service for Stripe payment processing.

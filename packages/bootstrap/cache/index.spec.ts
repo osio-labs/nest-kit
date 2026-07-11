@@ -1,5 +1,5 @@
 import type { ConfigService } from '@nestjs/config';
-import { configCache } from './index';
+import { configCache } from './index.js';
 
 /* ---------- configCache (sync, reads process.env) ---------- */
 

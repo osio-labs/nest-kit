@@ -21,7 +21,7 @@ describe('configOpenApi', () => {
         throw new Error('MODULE_NOT_FOUND');
       });
 
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
 
       await expect(configOpenApi(app)).rejects.toThrow('@nestjs/swagger is required');
     });
@@ -37,7 +37,7 @@ describe('configOpenApi', () => {
     });
 
     it('should call configScalarApiDoc', async () => {
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
 
       await configOpenApi(app);
 
@@ -46,7 +46,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass options to configScalarApiDoc', async () => {
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
       const options = { title: 'Test', path: 'docs' };
 
       await configOpenApi(app, options);
@@ -55,7 +55,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass undefined when no options given', async () => {
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
 
       await configOpenApi(app);
 
@@ -75,7 +75,7 @@ describe('configOpenApi', () => {
     });
 
     it('should fallback to configSwagger', async () => {
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
 
       await configOpenApi(app);
 
@@ -84,7 +84,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass options to configSwagger', async () => {
-      const { configOpenApi } = await import('./index');
+      const { configOpenApi } = await import('./index.js');
       const options = { title: 'Test', path: 'docs' };
 
       await configOpenApi(app, options);

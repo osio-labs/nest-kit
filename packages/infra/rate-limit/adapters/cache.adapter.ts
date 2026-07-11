@@ -1,4 +1,4 @@
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 export interface CacheRateLimitAdapterOptions {
   get: (key: string) => Promise<{ count: number; resetTime: number } | undefined>;

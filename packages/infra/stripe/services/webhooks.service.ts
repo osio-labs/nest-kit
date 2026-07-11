@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Stripe } from 'stripe';
-import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from '../stripe.constants';
-import type { StripeModuleOptions, StripeEventPayload } from '../stripe.types';
+import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from '../stripe.constants.js';
+import type { StripeModuleOptions, StripeEventPayload } from '../stripe.types.js';
 
 /**
  * Service for Stripe Webhooks.

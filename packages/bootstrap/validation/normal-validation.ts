@@ -9,8 +9,8 @@
 
 import type { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
-import type { ValidationConfigOptions } from './types';
-import { buildPipeOptions } from './types';
+import type { ValidationConfigOptions } from './types.js';
+import { buildPipeOptions } from './types.js';
 
 /**
  * Configure the standard NestJS `ValidationPipe` as a global pipe.

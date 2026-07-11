@@ -2,8 +2,8 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { PassThrough } from 'node:stream';
-import { exportToBuffer } from './excel.export';
-import { importFromBuffer, importFromFile, importFromStream } from './excel.import';
+import { exportToBuffer } from './excel.export.js';
+import { importFromBuffer, importFromFile, importFromStream } from './excel.import.js';
 
 describe('excel.import', () => {
   const sampleData = [

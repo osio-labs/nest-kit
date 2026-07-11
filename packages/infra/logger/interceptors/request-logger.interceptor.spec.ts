@@ -1,7 +1,7 @@
 import { Subject, of } from 'rxjs';
-import { RequestLoggerInterceptor } from './request-logger.interceptor';
-import { LOGGER_MODULE_OPTIONS, PINO_LOGGER } from '../logger.constants';
-import type { LoggerModuleOptions } from '../logger.types';
+import { RequestLoggerInterceptor } from './request-logger.interceptor.js';
+import { LOGGER_MODULE_OPTIONS, PINO_LOGGER } from '../logger.constants.js';
+import type { LoggerModuleOptions } from '../logger.types.js';
 
 function createMockContext(opts?: {
   method?: string;

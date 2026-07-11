@@ -1,5 +1,5 @@
 import { CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
-import { applySwaggerProperty } from './shared';
+import { applySwaggerProperty } from './shared.js';
 
 /**
  * Options for the {@link CreatedAt}, {@link UpdatedAt}, and {@link DeletedAt} decorators.

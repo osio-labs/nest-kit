@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { ICacheService } from '../interfaces';
+import type { ICacheService } from '../interfaces/index.js';
 import {
   CACHE_SERVICE,
   TOKEN_BLACKLIST_PREFIX,
   REFRESH_TOKEN_FAMILY_PREFIX,
-} from '../auth.constants';
+} from '../auth.constants.js';
 
 /**
  * Redis-backed token blacklist that enables immediate token revocation.

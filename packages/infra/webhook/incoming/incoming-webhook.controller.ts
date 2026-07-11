@@ -1,7 +1,7 @@
 import { Controller, Post, Req, Headers, Logger, Inject, Optional, HttpCode } from '@nestjs/common';
-import type { IncomingWebhookAdapter, IncomingWebhookHandler } from '../webhook.types';
-import { INCOMING_WEBHOOK_ADAPTERS, INCOMING_WEBHOOK_HANDLERS } from '../webhook.constants';
-import { IncomingWebhookService } from './incoming-webhook.service';
+import type { IncomingWebhookAdapter, IncomingWebhookHandler } from '../webhook.types.js';
+import { INCOMING_WEBHOOK_ADAPTERS, INCOMING_WEBHOOK_HANDLERS } from '../webhook.constants.js';
+import { IncomingWebhookService } from './incoming-webhook.service.js';
 
 /**
  * Auto-registered controller that receives incoming webhooks

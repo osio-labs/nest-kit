@@ -1,5 +1,5 @@
 import type { ConfigService } from '@nestjs/config';
-import { configSentry } from './index';
+import { configSentry } from './index.js';
 
 /* ---------- configSentry (sync, reads process.env) ---------- */
 
@@ -156,7 +156,7 @@ describe('initSentry', () => {
       init: jest.fn(),
     }));
 
-    const { initSentry } = await import('./instrument');
+    const { initSentry } = await import('./instrument.js');
     await initSentry();
 
     const sentry = await import('@sentry/nestjs');
@@ -170,7 +170,7 @@ describe('initSentry', () => {
       init: jest.fn(),
     }));
 
-    const { initSentry } = await import('./instrument');
+    const { initSentry } = await import('./instrument.js');
     await initSentry({ environment: 'staging' });
 
     const sentry = await import('@sentry/nestjs');
@@ -182,7 +182,7 @@ describe('initSentry', () => {
       throw new Error('MODULE_NOT_FOUND');
     });
 
-    const { initSentry } = await import('./instrument');
+    const { initSentry } = await import('./instrument.js');
 
     await expect(initSentry()).rejects.toThrow('@sentry/nestjs is required');
   });
@@ -192,7 +192,7 @@ describe('initSentry', () => {
       init: jest.fn(),
     }));
 
-    const mod = await import('./index');
+    const mod = await import('./index.js');
     expect(mod.initSentry).toBeDefined();
     expect(typeof mod.initSentry).toBe('function');
   });

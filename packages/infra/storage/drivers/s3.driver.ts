@@ -1,5 +1,5 @@
-import { loadS3Client, loadS3Presigner } from '../utils/loaders';
-import type { StorageDriver, S3DriverConfig } from '../storage.types';
+import { loadS3Client, loadS3Presigner } from '../utils/loaders.js';
+import type { StorageDriver, S3DriverConfig } from '../storage.types.js';
 
 /**
  * Create an S3 / S3-compatible storage driver.

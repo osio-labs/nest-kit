@@ -1,6 +1,6 @@
 import type { DocumentBuilder } from '@nestjs/swagger';
 
-import { applySecurityMethods } from './security';
+import { applySecurityMethods } from './security.js';
 
 describe('applySecurityMethods', () => {
   let builder: jest.Mocked<DocumentBuilder>;

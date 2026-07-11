@@ -1,6 +1,6 @@
-export { createCrudService } from './service';
-export { createCrudController } from './controller';
-export { CrudController } from './crud-controller.decorator';
-export { CrudService } from './crud-service.decorator';
-export type { CrudControllerOptions } from './crud-controller.decorator';
-export type { CrudServiceDecoratorOptions } from './crud-service.decorator';
+export { createCrudService } from './service.js';
+export { createCrudController } from './controller.js';
+export { CrudController } from './crud-controller.decorator.js';
+export { CrudService } from './crud-service.decorator.js';
+export type { CrudControllerOptions } from './crud-controller.decorator.js';
+export type { CrudServiceDecoratorOptions } from './crud-service.decorator.js';

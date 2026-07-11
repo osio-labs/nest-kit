@@ -1,5 +1,5 @@
-export { GitHubWebhookAdapter } from './github.adapter';
-export { GitLabWebhookAdapter } from './gitlab.adapter';
-export { StripeWebhookAdapter } from './stripe.adapter';
-export { SentryWebhookAdapter } from './sentry.adapter';
-export { SlackWebhookAdapter } from './slack.adapter';
+export { GitHubWebhookAdapter } from './github.adapter.js';
+export { GitLabWebhookAdapter } from './gitlab.adapter.js';
+export { StripeWebhookAdapter } from './stripe.adapter.js';
+export { SentryWebhookAdapter } from './sentry.adapter.js';
+export { SlackWebhookAdapter } from './slack.adapter.js';

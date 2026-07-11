@@ -3,10 +3,10 @@ import type {
   IncomingWebhookAdapter,
   IncomingWebhookEvent,
   IncomingWebhookModuleOptions,
-} from '../webhook.types';
-import { INCOMING_WEBHOOK_OPTIONS } from '../webhook.constants';
-import { verifySignature, parseSignatureHeader } from '../webhook.utils';
-import { WebhookEventBus } from '../event-bus';
+} from '../webhook.types.js';
+import { INCOMING_WEBHOOK_OPTIONS } from '../webhook.constants.js';
+import { verifySignature, parseSignatureHeader } from '../webhook.utils.js';
+import { WebhookEventBus } from '../event-bus.js';
 
 /**
  * Service for processing incoming webhooks.

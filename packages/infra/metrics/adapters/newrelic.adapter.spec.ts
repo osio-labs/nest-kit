@@ -14,7 +14,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { NewRelicAdapter } from './newrelic.adapter';
+import { NewRelicAdapter } from './newrelic.adapter.js';
 
 describe('NewRelicAdapter', () => {
   let adapter: NewRelicAdapter;

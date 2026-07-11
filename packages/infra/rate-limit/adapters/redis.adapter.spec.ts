@@ -1,4 +1,4 @@
-import { RedisRateLimitAdapter } from './redis.adapter';
+import { RedisRateLimitAdapter } from './redis.adapter.js';
 
 describe('RedisRateLimitAdapter', () => {
   let adapter: RedisRateLimitAdapter;

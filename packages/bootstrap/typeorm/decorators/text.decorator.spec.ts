@@ -34,7 +34,7 @@ jest.mock('class-transformer', () => {
 });
 
 import { Transform } from 'class-transformer';
-import { Text } from './text.decorator';
+import { Text } from './text.decorator.js';
 
 const MockedColumn = Column as unknown as jest.Mock;
 const MockedTransform = Transform as unknown as jest.Mock;

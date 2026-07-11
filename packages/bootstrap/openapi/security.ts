@@ -1,5 +1,5 @@
 import type { DocumentBuilder } from '@nestjs/swagger';
-import type { SecurityMethod } from './options';
+import type { SecurityMethod } from './options.js';
 
 const PRESET_DEFAULTS: Record<string, Record<string, unknown>> = {
   bearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },

@@ -1,2 +1,2 @@
-export { MemoryNotificationStore } from './memory.store';
-export { TypeOrmNotificationStore } from './typeorm.store';
+export { MemoryNotificationStore } from './memory.store.js';
+export { TypeOrmNotificationStore } from './typeorm.store.js';

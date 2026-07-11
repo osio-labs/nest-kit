@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggerModule } from './logger.module';
-import { PinoLoggerService } from './logger.service';
-import { LOGGER_MODULE_OPTIONS, PINO_LOGGER } from './logger.constants';
-import type { LoggerModuleOptions, LoggerModuleAsyncOptions } from './logger.types';
+import { LoggerModule } from './logger.module.js';
+import { PinoLoggerService } from './logger.service.js';
+import { LOGGER_MODULE_OPTIONS, PINO_LOGGER } from './logger.constants.js';
+import type { LoggerModuleOptions, LoggerModuleAsyncOptions } from './logger.types.js';
 
 // Mock pino — use jest.mock so the lazy import inside the module picks it up
 jest.mock('./logger.utils', () => ({

@@ -1,6 +1,6 @@
-import type { RateLimitAdapter, RateLimitModuleOptions } from './rate-limit.types';
-import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants';
-import { RateLimitService } from './rate-limit.service';
+import type { RateLimitAdapter, RateLimitModuleOptions } from './rate-limit.types.js';
+import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants.js';
+import { RateLimitService } from './rate-limit.service.js';
 
 describe('RateLimitService', () => {
   let service: RateLimitService;

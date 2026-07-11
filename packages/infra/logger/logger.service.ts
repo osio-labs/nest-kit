@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { LoggerService } from '@nestjs/common';
 import type { Logger as PinoLoggerType } from 'pino';
-import { PINO_LOGGER } from './logger.constants';
-import { getCorrelationId } from './correlation-id';
+import { PINO_LOGGER } from './logger.constants.js';
+import { getCorrelationId } from './correlation-id.js';
 
 /**
  * NestJS `LoggerService` implementation backed by Pino.

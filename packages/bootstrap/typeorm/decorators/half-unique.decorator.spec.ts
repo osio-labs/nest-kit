@@ -14,7 +14,7 @@ jest.mock('typeorm', () => {
   };
 });
 
-import { HalfUnique } from './half-unique.decorator';
+import { HalfUnique } from './half-unique.decorator.js';
 
 const MockedIndex = Index as jest.MockedFunction<typeof Index>;
 

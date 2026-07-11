@@ -1,6 +1,6 @@
-import { OtpStrategy } from './otp.strategy';
-import type { ICacheService, IUserService, IAuthUser, ITokenPair } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
+import { OtpStrategy } from './otp.strategy.js';
+import type { ICacheService, IUserService, IAuthUser, ITokenPair } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
 
 describe('OtpStrategy', () => {
   let strategy: OtpStrategy;

@@ -1,6 +1,6 @@
-import { TotpStrategy } from './totp.strategy';
-import type { IUserService, IAuthUser, ITokenPair } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
+import { TotpStrategy } from './totp.strategy.js';
+import type { IUserService, IAuthUser, ITokenPair } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
 
 describe('TotpStrategy', () => {
   let strategy: TotpStrategy;

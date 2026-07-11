@@ -1,5 +1,5 @@
-import { TokenBlacklistService } from './token-blacklist.service';
-import type { ICacheService } from '../interfaces';
+import { TokenBlacklistService } from './token-blacklist.service.js';
+import type { ICacheService } from '../interfaces/index.js';
 
 describe('TokenBlacklistService', () => {
   let service: TokenBlacklistService;

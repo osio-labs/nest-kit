@@ -1,4 +1,4 @@
-import type { PaymentIntentStatus } from '../stripe.types';
+import type { PaymentIntentStatus } from '../stripe.types.js';
 
 /**
  * Legal payment-intent status transitions.

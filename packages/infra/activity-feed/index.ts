@@ -35,8 +35,8 @@
  */
 
 // ──────── Entities ────────
-export { ActivityFeedEntity } from './activity-feed.entity';
-export { ActivityFeedFollowEntity } from './activity-feed-follow.entity';
+export { ActivityFeedEntity } from './activity-feed.entity.js';
+export { ActivityFeedFollowEntity } from './activity-feed-follow.entity.js';
 
 // ──────── Types ────────
 export type {
@@ -46,16 +46,16 @@ export type {
   ActivityFeedStore,
   ActivityFeedModuleOptions,
   ActivityFeedModuleAsyncOptions,
-} from './activity-feed.types';
+} from './activity-feed.types.js';
 
 // ──────── Constants ────────
-export { ACTIVITY_FEED_MODULE_OPTIONS, ACTIVITY_FEED_STORE } from './activity-feed.constants';
+export { ACTIVITY_FEED_MODULE_OPTIONS, ACTIVITY_FEED_STORE } from './activity-feed.constants.js';
 
 // ──────── Service ────────
-export { ActivityFeedService } from './activity-feed.service';
+export { ActivityFeedService } from './activity-feed.service.js';
 
 // ──────── NestJS Module ────────
-export { ActivityFeedModule } from './activity-feed.module';
+export { ActivityFeedModule } from './activity-feed.module.js';
 
 // ──────── Built-in Adapters ────────
-export * from './adapters';
+export * from './adapters/index.js';

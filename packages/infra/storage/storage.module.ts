@@ -1,7 +1,7 @@
 import { type DynamicModule, type Provider, Module } from '@nestjs/common';
-import { STORAGE_MODULE_OPTIONS } from './storage.constants';
-import { StorageManager } from './manager/manager';
-import type { StorageModuleOptions, StorageModuleAsyncOptions } from './storage.types';
+import { STORAGE_MODULE_OPTIONS } from './storage.constants.js';
+import { StorageManager } from './manager/manager.js';
+import type { StorageModuleOptions, StorageModuleAsyncOptions } from './storage.types.js';
 
 /**
  * NestJS `DynamicModule` for file storage.

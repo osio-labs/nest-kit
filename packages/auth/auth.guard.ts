@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AuthService } from './auth.service';
-import { METADATA_PUBLIC } from './auth.constants';
+import { AuthService } from './auth.service.js';
+import { METADATA_PUBLIC } from './auth.constants.js';
 
 /**
  * Global authentication guard.
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     if (isPublic) return true;
 
     const request = context.switchToHttp().getRequest<{
-      user?: import('./interfaces').IAuthUser;
+      user?: import('./interfaces/index.js').IAuthUser;
       accessToken?: string;
       headers: Record<string, string>;
       cookies?: Record<string, string>;

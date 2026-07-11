@@ -1,7 +1,7 @@
 import { PassThrough } from 'node:stream';
 import type { Row, Cell, Column, Style, Workbook } from 'exceljs';
-import { loadExcel } from './excel.utils';
-import type { ExcelExportOptions, ExportResponse } from './excel.types';
+import { loadExcel } from './excel.utils.js';
+import type { ExcelExportOptions, ExportResponse } from './excel.types.js';
 
 // ──────── Internal types ────────
 

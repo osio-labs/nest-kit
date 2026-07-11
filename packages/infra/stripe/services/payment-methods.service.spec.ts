@@ -1,5 +1,5 @@
-import { STRIPE_CLIENT } from '../stripe.constants';
-import { PaymentMethodsService } from './payment-methods.service';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import { PaymentMethodsService } from './payment-methods.service.js';
 import type { Stripe } from 'stripe';
 
 const mockStripePM = {

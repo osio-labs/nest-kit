@@ -1,4 +1,4 @@
-import type { StorageDriver } from '../storage.types';
+import type { StorageDriver } from '../storage.types.js';
 
 /**
  * Factory signature for creating a storage driver.
@@ -19,7 +19,7 @@ const registry = new Map<string, DriverFactory>();
  * import { registerDriver } from '@os.io/nest-kit/infra/storage';
  *
  * registerDriver('gcs', async (config) => {
- *   const { createGcsDriver } = await import('./gcs.driver');
+ *   const { createGcsDriver } = await import('./gcs.driver.js');
  *   return createGcsDriver(config);
  * });
  * ```
@@ -55,7 +55,7 @@ export function hasDriver(type: string): boolean {
 
 // ──────── Register built-in drivers ────────
 
-import { createLocalDriver } from './local.driver';
+import { createLocalDriver } from './local.driver.js';
 
 registerDriver('local', (config) =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -64,12 +64,12 @@ registerDriver('local', (config) =>
 
 registerDriver('s3', async (config) => {
   // Lazy import – S3 packages are optional peer deps
-  const { createS3Driver } = await import('./s3.driver');
+  const { createS3Driver } = await import('./s3.driver.js');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return createS3Driver(config);
 });
 
-import { createMemoryDriver } from './memory.driver';
+import { createMemoryDriver } from './memory.driver.js';
 
 registerDriver('memory', (config) =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -78,7 +78,7 @@ registerDriver('memory', (config) =>
 
 registerDriver('gcs', async (config) => {
   // Lazy import – GCS package is an optional peer dep
-  const { createGcsDriver } = await import('./gcs.driver');
+  const { createGcsDriver } = await import('./gcs.driver.js');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return createGcsDriver(config);
 });

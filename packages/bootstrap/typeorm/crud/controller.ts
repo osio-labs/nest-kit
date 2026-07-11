@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body } from '@nestjs/common';
-import type { CrudService } from './service';
+import type { CrudService } from './service.js';
 
 /**
  * Creates a NestJS controller class with standard CRUD endpoints.

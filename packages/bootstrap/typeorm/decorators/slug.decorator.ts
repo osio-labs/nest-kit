@@ -1,5 +1,5 @@
 import { Column, Index, BeforeInsert, BeforeUpdate } from 'typeorm';
-import { applySwaggerProperty, applyValidators, applyType } from './shared';
+import { applySwaggerProperty, applyValidators, applyType } from './shared.js';
 
 /**
  * Options for the {@link Slug} decorator.

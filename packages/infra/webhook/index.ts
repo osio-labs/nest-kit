@@ -18,22 +18,22 @@
  * @packageDocumentation
  */
 
-export { WebhookModule } from './webhook.module';
-export { WebhookEventBus } from './event-bus';
-export { WebhookCircuitBreaker } from './circuit-breaker';
-export { OutgoingWebhookService } from './outgoing/outgoing-webhook.service';
-export { OutgoingWebhookProcessor } from './outgoing/queue/outgoing-webhook.processor';
-export { IncomingWebhookController } from './incoming/incoming-webhook.controller';
-export { IncomingWebhookService } from './incoming/incoming-webhook.service';
+export { WebhookModule } from './webhook.module.js';
+export { WebhookEventBus } from './event-bus.js';
+export { WebhookCircuitBreaker } from './circuit-breaker.js';
+export { OutgoingWebhookService } from './outgoing/outgoing-webhook.service.js';
+export { OutgoingWebhookProcessor } from './outgoing/queue/outgoing-webhook.processor.js';
+export { IncomingWebhookController } from './incoming/incoming-webhook.controller.js';
+export { IncomingWebhookService } from './incoming/incoming-webhook.service.js';
 export {
   signPayload,
   verifySignature,
   buildSignatureHeader,
   parseSignatureHeader,
-} from './webhook.utils';
-export { WebhookMemoryStore } from './stores/memory.store';
-export { WebhookTypeormStore } from './stores/typeorm.store';
-export { WebhookDeliveryEntity } from './stores/typeorm.entity';
+} from './webhook.utils.js';
+export { WebhookMemoryStore } from './stores/memory.store.js';
+export { WebhookTypeormStore } from './stores/typeorm.store.js';
+export { WebhookDeliveryEntity } from './stores/typeorm.entity.js';
 
 export {
   WEBHOOK_MODULE_OPTIONS,
@@ -44,7 +44,7 @@ export {
   WEBHOOK_DELIVERY_STORE,
   INCOMING_WEBHOOK_ADAPTERS,
   INCOMING_WEBHOOK_HANDLERS,
-} from './webhook.constants';
+} from './webhook.constants.js';
 
 export type {
   WebhookHashAlgorithm,
@@ -64,6 +64,6 @@ export type {
   WebhookModuleAsyncOptions,
   WebhookEvent,
   WebhookEventListener,
-} from './webhook.types';
+} from './webhook.types.js';
 
-export * from './incoming/adapters';
+export * from './incoming/adapters/index.js';

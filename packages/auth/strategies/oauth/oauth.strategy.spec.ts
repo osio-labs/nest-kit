@@ -1,7 +1,7 @@
-import { OAuthStrategy } from './oauth.strategy';
-import { OAuthProviderRegistry } from './oauth-provider-registry';
-import type { IUserService, IAuthUser, ITokenPair } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
+import { OAuthStrategy } from './oauth.strategy.js';
+import { OAuthProviderRegistry } from './oauth-provider-registry.js';
+import type { IUserService, IAuthUser, ITokenPair } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
 
 describe('OAuthStrategy', () => {
   let strategy: OAuthStrategy;

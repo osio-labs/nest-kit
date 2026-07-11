@@ -1,23 +1,23 @@
 import { Test } from '@nestjs/testing';
-import { StripeController } from './stripe.controller';
-import { StripeService } from './stripe.service';
+import { StripeController } from './stripe.controller.js';
+import { StripeService } from './stripe.service.js';
 import {
   STRIPE_CLIENT,
   STRIPE_WEBHOOK_HANDLERS,
   STRIPE_MODULE_OPTIONS,
   PAYMENT_STORE,
-} from './stripe.constants';
-import { PaymentIntentsService } from './services/payment-intents.service';
-import { RefundsService } from './services/refunds.service';
-import { PaymentMethodsService } from './services/payment-methods.service';
-import { CustomersService } from './services/customers.service';
-import { SubscriptionsService } from './services/subscriptions.service';
-import { CheckoutService } from './services/checkout.service';
-import { BillingPortalService } from './services/billing-portal.service';
-import { WebhooksService } from './services/webhooks.service';
-import { ProductsService } from './services/products.service';
+} from './stripe.constants.js';
+import { PaymentIntentsService } from './services/payment-intents.service.js';
+import { RefundsService } from './services/refunds.service.js';
+import { PaymentMethodsService } from './services/payment-methods.service.js';
+import { CustomersService } from './services/customers.service.js';
+import { SubscriptionsService } from './services/subscriptions.service.js';
+import { CheckoutService } from './services/checkout.service.js';
+import { BillingPortalService } from './services/billing-portal.service.js';
+import { WebhooksService } from './services/webhooks.service.js';
+import { ProductsService } from './services/products.service.js';
 import type { Stripe } from 'stripe';
-import type { StripeModuleOptions } from './stripe.types';
+import type { StripeModuleOptions } from './stripe.types.js';
 
 const mockPaymentIntentsService = {
   create: jest.fn(),

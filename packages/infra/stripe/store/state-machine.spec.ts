@@ -2,7 +2,7 @@ import {
   VALID_TRANSITIONS,
   assertValidTransition,
   PAYMENT_INTENT_FINAL_STATUSES,
-} from './state-machine';
+} from './state-machine.js';
 
 describe('VALID_TRANSITIONS', () => {
   it('should define transitions for requires_payment_method', () => {

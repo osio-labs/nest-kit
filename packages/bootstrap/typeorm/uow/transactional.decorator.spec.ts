@@ -3,8 +3,8 @@ import {
   Transactional,
   TransactionalController,
   getCurrentUnitOfWork,
-} from './transactional.decorator';
-import { UnitOfWork } from './unit-of-work';
+} from './transactional.decorator.js';
+import { UnitOfWork } from './unit-of-work.js';
 
 describe('@Transactional()', () => {
   let connectMock: jest.Mock;

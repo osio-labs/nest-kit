@@ -1,4 +1,4 @@
-import { FirebasePushProvider } from './push-firebase.provider';
+import { FirebasePushProvider } from './push-firebase.provider.js';
 
 const mockSendEachForMulticast = jest.fn();
 const mockMessaging = jest.fn(() => ({ sendEachForMulticast: mockSendEachForMulticast }));

@@ -5,7 +5,7 @@ import type {
   ActivityFeedStore,
   FeedFilters,
   PaginatedFeed,
-} from '../activity-feed.types';
+} from '../activity-feed.types.js';
 
 /**
  * In-memory activity feed store.

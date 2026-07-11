@@ -1,5 +1,5 @@
-import { loadSharp } from '../utils/loaders';
-import type { ImageOptions } from '../storage.types';
+import { loadSharp } from '../utils/loaders.js';
+import type { ImageOptions } from '../storage.types.js';
 
 /**
  * Process / transform an image buffer using `sharp`.

@@ -1,4 +1,4 @@
-import { TeamsProvider } from './messenger-teams.provider';
+import { TeamsProvider } from './messenger-teams.provider.js';
 
 describe('TeamsProvider', () => {
   let provider: TeamsProvider;

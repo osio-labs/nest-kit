@@ -1,4 +1,4 @@
-import type { MetricsAdapter } from '../metrics.types';
+import type { MetricsAdapter } from '../metrics.types.js';
 
 export interface ConsoleAdapterOptions {
   logger?: (message: string) => void;

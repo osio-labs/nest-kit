@@ -1,4 +1,4 @@
-import { ConsoleAdapter } from './console.adapter';
+import { ConsoleAdapter } from './console.adapter.js';
 
 describe('ConsoleAdapter', () => {
   let adapter: ConsoleAdapter;

@@ -12,9 +12,9 @@ import {
   Inject,
   Optional,
 } from '@nestjs/common';
-import { StripeService } from './stripe.service';
-import { STRIPE_WEBHOOK_HANDLERS } from './stripe.constants';
-import type { StripeWebhookHandler } from './stripe.types';
+import { StripeService } from './stripe.service.js';
+import { STRIPE_WEBHOOK_HANDLERS } from './stripe.constants.js';
+import type { StripeWebhookHandler } from './stripe.types.js';
 
 /**
  * REST controller exposing all Stripe operations as HTTP endpoints.

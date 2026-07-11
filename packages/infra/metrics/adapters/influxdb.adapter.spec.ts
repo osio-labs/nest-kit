@@ -20,7 +20,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { InfluxDbAdapter } from './influxdb.adapter';
+import { InfluxDbAdapter } from './influxdb.adapter.js';
 
 describe('InfluxDbAdapter', () => {
   let adapter: InfluxDbAdapter;

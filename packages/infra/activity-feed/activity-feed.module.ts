@@ -1,10 +1,10 @@
 import { type DynamicModule, type Provider, Module, Global } from '@nestjs/common';
-import { ACTIVITY_FEED_MODULE_OPTIONS, ACTIVITY_FEED_STORE } from './activity-feed.constants';
-import { ActivityFeedService } from './activity-feed.service';
+import { ACTIVITY_FEED_MODULE_OPTIONS, ACTIVITY_FEED_STORE } from './activity-feed.constants.js';
+import { ActivityFeedService } from './activity-feed.service.js';
 import type {
   ActivityFeedModuleOptions,
   ActivityFeedModuleAsyncOptions,
-} from './activity-feed.types';
+} from './activity-feed.types.js';
 
 /**
  * NestJS `DynamicModule` for activity feeds.

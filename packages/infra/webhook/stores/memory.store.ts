@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { WebhookDeliveryRecord, WebhookDeliveryStore } from '../webhook.types';
+import type { WebhookDeliveryRecord, WebhookDeliveryStore } from '../webhook.types.js';
 
 /**
  * In-memory implementation of WebhookDeliveryStore.

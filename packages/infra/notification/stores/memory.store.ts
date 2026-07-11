@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import type { NotificationRecord, NotificationStore, ChannelType } from '../notification.types';
+import type { NotificationRecord, NotificationStore, ChannelType } from '../notification.types.js';
 
 /**
  * In-memory notification store.

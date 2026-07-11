@@ -1,5 +1,5 @@
-import { STRIPE_CLIENT } from '../stripe.constants';
-import { BillingPortalService } from './billing-portal.service';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import { BillingPortalService } from './billing-portal.service.js';
 import type { Stripe } from 'stripe';
 
 const mockSessions = {

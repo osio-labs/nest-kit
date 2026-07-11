@@ -1,6 +1,6 @@
-import { STRIPE_CLIENT, PAYMENT_STORE } from '../stripe.constants';
-import { RefundsService } from './refunds.service';
-import type { PaymentStore } from '../stripe.types';
+import { STRIPE_CLIENT, PAYMENT_STORE } from '../stripe.constants.js';
+import { RefundsService } from './refunds.service.js';
+import type { PaymentStore } from '../stripe.types.js';
 import type { Stripe } from 'stripe';
 
 const mockStripeRefunds = {

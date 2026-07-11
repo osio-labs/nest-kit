@@ -1,6 +1,6 @@
-import { MagicLinkStrategy } from './magic-link.strategy';
-import type { ICacheService, IUserService, IAuthUser, ITokenPair } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
+import { MagicLinkStrategy } from './magic-link.strategy.js';
+import type { ICacheService, IUserService, IAuthUser, ITokenPair } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
 
 describe('MagicLinkStrategy', () => {
   let strategy: MagicLinkStrategy;

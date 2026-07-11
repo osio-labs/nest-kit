@@ -1,5 +1,5 @@
-import type { TeamsSendInput, ProviderResult } from '../notification.types';
-import type { NotificationProvider } from '../notification.constants';
+import type { TeamsSendInput, ProviderResult } from '../notification.types.js';
+import type { NotificationProvider } from '../notification.constants.js';
 
 /**
  * Microsoft Teams notification provider.

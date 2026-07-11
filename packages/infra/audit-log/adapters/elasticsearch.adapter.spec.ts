@@ -17,7 +17,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { ElasticsearchAdapter } from './elasticsearch.adapter';
+import { ElasticsearchAdapter } from './elasticsearch.adapter.js';
 
 const MockClient = jest.requireMock('@elastic/elasticsearch').Client;
 

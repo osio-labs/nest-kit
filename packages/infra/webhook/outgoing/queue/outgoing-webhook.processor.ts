@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OutgoingWebhookService } from '../outgoing-webhook.service';
+import { OutgoingWebhookService } from '../outgoing-webhook.service.js';
 
 /**
  * Processor for outgoing webhook delivery via BullMQ.

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument */
 
-import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types';
+import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types.js';
 
 /**
  * Configuration for the AWS CloudTrail audit-log adapter.

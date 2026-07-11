@@ -1,4 +1,4 @@
-import { OAuthProviderRegistry } from './oauth-provider-registry';
+import { OAuthProviderRegistry } from './oauth-provider-registry.js';
 
 describe('OAuthProviderRegistry', () => {
   let registry: OAuthProviderRegistry;

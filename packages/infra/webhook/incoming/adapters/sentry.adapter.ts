@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types';
-import { verifySignature } from '../../webhook.utils';
+import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types.js';
+import { verifySignature } from '../../webhook.utils.js';
 
 /**
  * Sentry webhook adapter.

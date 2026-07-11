@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import type { WebhookEvent, WebhookEventListener } from './webhook.types';
+import type { WebhookEvent, WebhookEventListener } from './webhook.types.js';
 
 /**
  * In-memory event bus for decoupled webhook emission.

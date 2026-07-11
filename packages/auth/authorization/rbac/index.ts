@@ -1,3 +1,3 @@
-export { RbacService } from './rbac.service';
-export { RbacGuard } from './rbac.guard';
-export { Roles } from './rbac.decorator';
+export { RbacService } from './rbac.service.js';
+export { RbacGuard } from './rbac.guard.js';
+export { Roles } from './rbac.decorator.js';

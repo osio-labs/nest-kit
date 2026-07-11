@@ -10,8 +10,8 @@ jest.mock(
   { virtual: true },
 );
 
-import { SendGridEmailProvider } from './email-sendgrid.provider';
-import type { EmailSendInput, ProviderResult } from '../notification.types';
+import { SendGridEmailProvider } from './email-sendgrid.provider.js';
+import type { EmailSendInput, ProviderResult } from '../notification.types.js';
 
 describe('SendGridEmailProvider', () => {
   let provider: SendGridEmailProvider;

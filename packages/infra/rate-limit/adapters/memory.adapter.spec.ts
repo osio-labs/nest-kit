@@ -1,4 +1,4 @@
-import { MemoryRateLimitAdapter } from './memory.adapter';
+import { MemoryRateLimitAdapter } from './memory.adapter.js';
 
 describe('MemoryRateLimitAdapter', () => {
   let adapter: MemoryRateLimitAdapter;

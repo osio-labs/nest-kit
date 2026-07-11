@@ -1,5 +1,5 @@
 import type { ExecutionContext } from '@nestjs/common';
-import type { IAuthResult } from './auth-result.interface';
+import type { IAuthResult } from './auth-result.interface.js';
 
 /**
  * Authentication method enum — each value maps to a strategy.

@@ -23,7 +23,7 @@ jest.mock('@nestjs/swagger', () => ({
   ApiProperty: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { CreatedAt, UpdatedAt, DeletedAt } from './timestamp.decorator';
+import { CreatedAt, UpdatedAt, DeletedAt } from './timestamp.decorator.js';
 
 const MockedCreateDateColumn = CreateDateColumn as unknown as jest.Mock;
 const MockedUpdateDateColumn = UpdateDateColumn as unknown as jest.Mock;

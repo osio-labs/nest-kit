@@ -1,10 +1,10 @@
 import type { INestApplication } from '@nestjs/common';
 import type { SwaggerDocumentOptions } from '@nestjs/swagger';
 import type { NestJSReferenceConfiguration } from '@scalar/nestjs-api-reference';
-import type { SecurityMethod } from '../options';
+import type { SecurityMethod } from '../options.js';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
-import { applySecurityMethods } from '../security';
+import { applySecurityMethods } from '../security.js';
 
 interface Options {
   title?: string;

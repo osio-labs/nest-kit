@@ -1,4 +1,4 @@
-import { applyValidators, applyType, applySwaggerProperty } from '../decorators/shared';
+import { applyValidators, applyType, applySwaggerProperty } from '../decorators/shared.js';
 
 type Constructor<T> = new (...args: unknown[]) => T;
 

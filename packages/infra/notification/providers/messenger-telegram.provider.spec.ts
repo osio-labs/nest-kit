@@ -1,4 +1,4 @@
-import { TelegramProvider } from './messenger-telegram.provider';
+import { TelegramProvider } from './messenger-telegram.provider.js';
 
 const mockSendMessage = jest.fn();
 jest.mock('node-telegram-bot-api', () => jest.fn(() => ({ sendMessage: mockSendMessage })), {

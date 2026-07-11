@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { createCrudController } from './controller';
-import type { CrudService } from './service';
+import { createCrudController } from './controller.js';
+import type { CrudService } from './service.js';
 
 interface TestEntity {
   id: number;

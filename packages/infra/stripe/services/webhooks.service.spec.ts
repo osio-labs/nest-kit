@@ -1,6 +1,6 @@
-import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from '../stripe.constants';
-import { WebhooksService } from './webhooks.service';
-import type { StripeModuleOptions } from '../stripe.types';
+import { STRIPE_CLIENT, STRIPE_MODULE_OPTIONS } from '../stripe.constants.js';
+import { WebhooksService } from './webhooks.service.js';
+import type { StripeModuleOptions } from '../stripe.types.js';
 import type { Stripe } from 'stripe';
 
 const mockConstructEvent = jest.fn();

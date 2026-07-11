@@ -1,10 +1,10 @@
 import { type DynamicModule, type Provider, Module, Global } from '@nestjs/common';
 import type { Repository } from 'typeorm';
-import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants';
-import { AuditLogService } from './audit-log.service';
-import type { AuditLogModuleOptions, AuditLogModuleAsyncOptions } from './audit-log.types';
-import { AuditLogEntity } from './audit-log.entity';
-import { createTypeOrmAuditLogRepository } from './adapters/typeorm.adapter';
+import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants.js';
+import { AuditLogService } from './audit-log.service.js';
+import type { AuditLogModuleOptions, AuditLogModuleAsyncOptions } from './audit-log.types.js';
+import { AuditLogEntity } from './audit-log.entity.js';
+import { createTypeOrmAuditLogRepository } from './adapters/typeorm.adapter.js';
 
 /**
  * NestJS `DynamicModule` for audit-log tracking.

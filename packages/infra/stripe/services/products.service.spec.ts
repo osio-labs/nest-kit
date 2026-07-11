@@ -1,5 +1,5 @@
-import { STRIPE_CLIENT } from '../stripe.constants';
-import { ProductsService } from './products.service';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import { ProductsService } from './products.service.js';
 import type { Stripe } from 'stripe';
 
 const mockProductsList = jest.fn();

@@ -1,5 +1,5 @@
-import { createTypeOrmAuditLogRepository } from './typeorm.adapter';
-import type { AuditLogQuery } from '../audit-log.types';
+import { createTypeOrmAuditLogRepository } from './typeorm.adapter.js';
+import type { AuditLogQuery } from '../audit-log.types.js';
 
 function createMockQueryBuilder() {
   const qb = {

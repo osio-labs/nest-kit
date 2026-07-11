@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 export class SlidingMemoryRateLimitAdapter implements RateLimitAdapter {
   private store = new Map<string, number[]>();

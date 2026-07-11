@@ -1,4 +1,4 @@
-import type { IAuthUser } from './auth-user.interface';
+import type { IAuthUser } from './auth-user.interface.js';
 
 /**
  * Extended Express/NestJS request with authenticated user info.

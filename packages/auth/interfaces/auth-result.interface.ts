@@ -1,4 +1,4 @@
-import type { IAuthUser } from './auth-user.interface';
+import type { IAuthUser } from './auth-user.interface.js';
 
 /**
  * Pair of access and refresh tokens returned from successful authentication.

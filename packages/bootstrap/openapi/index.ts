@@ -1,7 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
-import type { OpenApiOptions } from './options';
+import type { OpenApiOptions } from './options.js';
 
-export type { OpenApiOptions, SecurityMethod, SecuritySchemePreset } from './options';
+export type { OpenApiOptions, SecurityMethod, SecuritySchemePreset } from './options.js';
 
 /**
  * Configure OpenAPI documentation with auto-detection of the UI renderer.
@@ -18,10 +18,10 @@ export async function configOpenApi(app: INestApplication, config?: OpenApiOptio
 
   try {
     await import('@scalar/nestjs-api-reference');
-    const { configScalarApiDoc } = await import('./scalar/config');
+    const { configScalarApiDoc } = await import('./scalar/config.js');
     configScalarApiDoc(app, config);
   } catch {
-    const { configSwagger } = await import('./swagger/config');
+    const { configSwagger } = await import('./swagger/config.js');
     configSwagger(app, config);
   }
 }

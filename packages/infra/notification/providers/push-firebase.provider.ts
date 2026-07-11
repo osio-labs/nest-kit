@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
 
-import type { PushSendInput, ProviderResult } from '../notification.types';
-import type { NotificationProvider } from '../notification.constants';
+import type { PushSendInput, ProviderResult } from '../notification.types.js';
+import type { NotificationProvider } from '../notification.constants.js';
 
 /**
  * Firebase Cloud Messaging push notification provider.

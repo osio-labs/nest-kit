@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
-import { StorageModule } from './storage.module';
-import { StorageManager } from './manager/manager';
-import { STORAGE_MODULE_OPTIONS, STORAGE_MANAGER } from './storage.constants';
-import type { StorageModuleOptions, StorageModuleAsyncOptions } from './storage.types';
+import { StorageModule } from './storage.module.js';
+import { StorageManager } from './manager/manager.js';
+import { STORAGE_MODULE_OPTIONS, STORAGE_MANAGER } from './storage.constants.js';
+import type { StorageModuleOptions, StorageModuleAsyncOptions } from './storage.types.js';
 
 // ──────── Helpers ────────
 

@@ -14,7 +14,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { StatsdAdapter } from './statsd.adapter';
+import { StatsdAdapter } from './statsd.adapter.js';
 
 describe('StatsdAdapter', () => {
   let adapter: StatsdAdapter;

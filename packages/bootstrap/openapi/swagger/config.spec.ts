@@ -25,7 +25,7 @@ jest.mock('@nestjs/swagger', () => ({
   },
 }));
 
-import type { configSwagger as ConfigSwaggerFn } from './config';
+import type { configSwagger as ConfigSwaggerFn } from './config.js';
 
 let configSwagger: typeof ConfigSwaggerFn;
 

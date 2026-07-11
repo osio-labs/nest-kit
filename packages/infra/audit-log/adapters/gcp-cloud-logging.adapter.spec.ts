@@ -1,4 +1,4 @@
-import { GcpCloudLoggingAdapter } from './gcp-cloud-logging.adapter';
+import { GcpCloudLoggingAdapter } from './gcp-cloud-logging.adapter.js';
 
 describe('GcpCloudLoggingAdapter', () => {
   let logEntryMock: { metadata: { insertId: string }; data: Record<string, unknown> };

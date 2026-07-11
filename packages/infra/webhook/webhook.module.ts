@@ -8,19 +8,19 @@ import {
   WEBHOOK_DELIVERY_STORE,
   INCOMING_WEBHOOK_ADAPTERS,
   INCOMING_WEBHOOK_HANDLERS,
-} from './webhook.constants';
+} from './webhook.constants.js';
 import type {
   WebhookModuleOptions,
   WebhookModuleAsyncOptions,
   OutgoingWebhookOptions,
   IncomingWebhookModuleOptions,
   WebhookDeliveryStore,
-} from './webhook.types';
-import { WebhookEventBus } from './event-bus';
-import { WebhookCircuitBreaker } from './circuit-breaker';
-import { OutgoingWebhookService } from './outgoing/outgoing-webhook.service';
-import { IncomingWebhookController } from './incoming/incoming-webhook.controller';
-import { IncomingWebhookService } from './incoming/incoming-webhook.service';
+} from './webhook.types.js';
+import { WebhookEventBus } from './event-bus.js';
+import { WebhookCircuitBreaker } from './circuit-breaker.js';
+import { OutgoingWebhookService } from './outgoing/outgoing-webhook.service.js';
+import { IncomingWebhookController } from './incoming/incoming-webhook.controller.js';
+import { IncomingWebhookService } from './incoming/incoming-webhook.service.js';
 
 /**
  * NestJS DynamicModule for webhook handling — both incoming and outgoing.

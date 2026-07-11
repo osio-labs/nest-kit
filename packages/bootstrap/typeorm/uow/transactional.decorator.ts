@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from 'async_hooks';
 import type { DataSource } from 'typeorm';
-import { UnitOfWork } from './unit-of-work';
+import { UnitOfWork } from './unit-of-work.js';
 
 const uowStorage = new AsyncLocalStorage<UnitOfWork>();
 

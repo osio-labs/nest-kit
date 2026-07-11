@@ -3,10 +3,10 @@ import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { Readable } from 'node:stream';
-import { createLocalDriver } from './drivers/local.driver';
-import { createMemoryDriver } from './drivers/memory.driver';
-import { StorageManager } from './manager/manager';
-import { registerDriver, getDriverFactory, hasDriver } from './drivers/registry';
+import { createLocalDriver } from './drivers/local.driver.js';
+import { createMemoryDriver } from './drivers/memory.driver.js';
+import { StorageManager } from './manager/manager.js';
+import { registerDriver, getDriverFactory, hasDriver } from './drivers/registry.js';
 
 // ──────── Helpers ────────
 
@@ -247,7 +247,7 @@ jest.mock('./utils/loaders', () => {
   };
 });
 
-import { createGcsDriver } from './drivers/gcs.driver';
+import { createGcsDriver } from './drivers/gcs.driver.js';
 
 describe('createGcsDriver', () => {
   beforeEach(() => {

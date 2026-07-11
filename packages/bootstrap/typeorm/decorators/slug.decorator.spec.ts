@@ -32,7 +32,7 @@ jest.mock('class-transformer', () => ({
   Type: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { Slug } from './slug.decorator';
+import { Slug } from './slug.decorator.js';
 
 const MockedColumn = Column as unknown as jest.Mock;
 const MockedIndex = Index as unknown as jest.Mock;

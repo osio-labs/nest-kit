@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
-import type { TelegramSendInput, ProviderResult } from '../notification.types';
-import type { NotificationProvider } from '../notification.constants';
+import type { TelegramSendInput, ProviderResult } from '../notification.types.js';
+import type { NotificationProvider } from '../notification.constants.js';
 
 /**
  * Telegram bot notification provider.

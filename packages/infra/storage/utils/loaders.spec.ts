@@ -1,4 +1,4 @@
-import { loadSharp, loadS3Client, loadS3Presigner, loadGCS } from './loaders';
+import { loadSharp, loadS3Client, loadS3Presigner, loadGCS } from './loaders.js';
 
 describe('loadSharp', () => {
   it('should throw friendly error when sharp is not installed', async () => {

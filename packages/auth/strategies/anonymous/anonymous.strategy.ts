@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import type { ExecutionContext } from '@nestjs/common';
-import { AuthMethod, type IAuthResult } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
-import { BaseStrategy } from '../base/base.strategy';
+import { AuthMethod, type IAuthResult } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
+import { BaseStrategy } from '../base/base.strategy.js';
 
 /**
  * Anonymous session strategy.

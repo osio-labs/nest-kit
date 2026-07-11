@@ -1,5 +1,5 @@
 import { Column, type ColumnOptions } from 'typeorm';
-import { applySwaggerProperty, applyValidators, applyType, applyTransform } from './shared';
+import { applySwaggerProperty, applyValidators, applyType, applyTransform } from './shared.js';
 
 /**
  * Options for the {@link Url} decorator.

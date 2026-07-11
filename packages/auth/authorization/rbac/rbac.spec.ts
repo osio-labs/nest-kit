@@ -1,5 +1,5 @@
-import { RbacService } from './rbac.service';
-import type { ICacheService, IAuthUser } from '../../interfaces';
+import { RbacService } from './rbac.service.js';
+import type { ICacheService, IAuthUser } from '../../interfaces/index.js';
 
 describe('RbacService', () => {
   let service: RbacService;

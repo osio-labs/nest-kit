@@ -3,12 +3,12 @@ import {
   NOTIFICATION_MODULE_OPTIONS,
   NOTIFICATION_QUEUE,
   NOTIFICATION_STORE,
-} from './notification.constants';
-import { NotificationService } from './notification.service';
+} from './notification.constants.js';
+import { NotificationService } from './notification.service.js';
 import type {
   NotificationModuleOptions,
   NotificationModuleAsyncOptions,
-} from './notification.types';
+} from './notification.types.js';
 
 /**
  * NestJS `DynamicModule` for multi-channel notifications.

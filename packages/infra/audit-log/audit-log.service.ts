@@ -1,13 +1,13 @@
 import { Inject, Injectable, Optional, Scope } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants';
+import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants.js';
 import type {
   AuditLogModuleOptions,
   AuditLogRepository,
   AuditLogEntry,
   AuditLogQuery,
   AuditAction,
-} from './audit-log.types';
+} from './audit-log.types.js';
 
 /**
  * Service for recording and querying audit-log entries.

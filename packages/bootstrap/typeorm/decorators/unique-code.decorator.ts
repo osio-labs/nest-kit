@@ -1,5 +1,5 @@
 import { Column, BeforeInsert } from 'typeorm';
-import { applySwaggerProperty, applyValidators, applyType } from './shared';
+import { applySwaggerProperty, applyValidators, applyType } from './shared.js';
 
 /**
  * Options for the {@link UniqueCode} decorator.

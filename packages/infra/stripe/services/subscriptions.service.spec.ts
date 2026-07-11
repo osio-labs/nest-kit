@@ -1,5 +1,5 @@
-import { STRIPE_CLIENT } from '../stripe.constants';
-import { SubscriptionsService } from './subscriptions.service';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import { SubscriptionsService } from './subscriptions.service.js';
 import type { Stripe } from 'stripe';
 
 const mockStripeSubs = {

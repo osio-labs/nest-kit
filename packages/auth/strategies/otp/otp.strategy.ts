@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ExecutionContext } from '@nestjs/common';
-import { AuthMethod, type IAuthResult, type ICacheService } from '../../interfaces';
-import type { IUserService } from '../../interfaces';
-import { CACHE_SERVICE, OTP_PREFIX, USER_SERVICE } from '../../auth.constants';
-import { JwtService } from '../../session/jwt.service';
-import { BaseStrategy } from '../base/base.strategy';
+import { AuthMethod, type IAuthResult, type ICacheService } from '../../interfaces/index.js';
+import type { IUserService } from '../../interfaces/index.js';
+import { CACHE_SERVICE, OTP_PREFIX, USER_SERVICE } from '../../auth.constants.js';
+import { JwtService } from '../../session/jwt.service.js';
+import { BaseStrategy } from '../base/base.strategy.js';
 import { randomInt } from 'node:crypto';
 
 /**

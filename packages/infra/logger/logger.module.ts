@@ -1,11 +1,11 @@
 import { type DynamicModule, type Provider, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LOGGER_MODULE_OPTIONS, PINO_LOGGER, DEFAULT_LOG_LEVEL } from './logger.constants';
-import { loadPino } from './logger.utils';
-import type { LoggerModuleOptions, LoggerModuleAsyncOptions } from './logger.types';
-import { PinoLoggerService } from './logger.service';
-import { CorrelationIdInterceptor } from './interceptors/correlation-id.interceptor';
-import { RequestLoggerInterceptor } from './interceptors/request-logger.interceptor';
+import { LOGGER_MODULE_OPTIONS, PINO_LOGGER, DEFAULT_LOG_LEVEL } from './logger.constants.js';
+import { loadPino } from './logger.utils.js';
+import type { LoggerModuleOptions, LoggerModuleAsyncOptions } from './logger.types.js';
+import { PinoLoggerService } from './logger.service.js';
+import { CorrelationIdInterceptor } from './interceptors/correlation-id.interceptor.js';
+import { RequestLoggerInterceptor } from './interceptors/request-logger.interceptor.js';
 
 const DEFAULT_PRETTY_PRINT_OPTIONS: Record<string, unknown> = {
   colorize: true,

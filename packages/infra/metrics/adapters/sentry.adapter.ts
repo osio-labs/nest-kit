@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
 
-import type { MetricsAdapter } from '../metrics.types';
+import type { MetricsAdapter } from '../metrics.types.js';
 
 export interface SentryMetricsAdapterOptions {
   client?: any;

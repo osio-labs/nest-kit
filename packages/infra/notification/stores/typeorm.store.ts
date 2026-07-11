@@ -1,12 +1,12 @@
 import type { Repository } from 'typeorm';
-import { NotificationLogEntity } from '../notification.entity';
+import { NotificationLogEntity } from '../notification.entity.js';
 import type {
   ChannelType,
   ChannelResult,
   NotificationRecord,
   NotificationStore,
   SendInput,
-} from '../notification.types';
+} from '../notification.types.js';
 
 /**
  * TypeORM-backed notification store.

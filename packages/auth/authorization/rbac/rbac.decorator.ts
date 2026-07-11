@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { METADATA_ROLES } from '../../auth.constants';
+import { METADATA_ROLES } from '../../auth.constants.js';
 
 /**
  * Require specific roles to access a route.

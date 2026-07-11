@@ -5,4 +5,4 @@
  * without deep import chains. The actual definition lives in `stripe.types.ts`
  * alongside the related record types.
  */
-export { PaymentStore } from '../stripe.types';
+export { PaymentStore } from '../stripe.types.js';

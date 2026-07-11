@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Stripe } from 'stripe';
-import { STRIPE_CLIENT, PAYMENT_STORE, STRIPE_MODULE_OPTIONS } from '../stripe.constants';
+import { STRIPE_CLIENT, PAYMENT_STORE, STRIPE_MODULE_OPTIONS } from '../stripe.constants.js';
 import type {
   CreatePaymentIntentOptions,
   ConfirmPaymentIntentOptions,
@@ -9,8 +9,8 @@ import type {
   PaymentStore,
   PaymentIntentStatus,
   StripeModuleOptions,
-} from '../stripe.types';
-import { assertValidTransition } from '../store/state-machine';
+} from '../stripe.types.js';
+import { assertValidTransition } from '../store/state-machine.js';
 
 /**
  * Service for Stripe Payment Intents operations.

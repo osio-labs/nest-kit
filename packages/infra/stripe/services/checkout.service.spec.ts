@@ -1,5 +1,5 @@
-import { STRIPE_CLIENT } from '../stripe.constants';
-import { CheckoutService } from './checkout.service';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import { CheckoutService } from './checkout.service.js';
 import type { Stripe } from 'stripe';
 
 const mockSessions = {

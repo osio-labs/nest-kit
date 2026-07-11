@@ -1,8 +1,8 @@
 import type { INestApplication } from '@nestjs/common';
 import type { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
-import type { SecurityMethod } from '../options';
+import type { SecurityMethod } from '../options.js';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { applySecurityMethods } from '../security';
+import { applySecurityMethods } from '../security.js';
 
 const DEFAULT_FAVICON_URL = 'https://scalar.com/favicon.svg';
 

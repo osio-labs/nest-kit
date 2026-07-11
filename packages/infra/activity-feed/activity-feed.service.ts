@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ACTIVITY_FEED_STORE } from './activity-feed.constants';
+import { ACTIVITY_FEED_STORE } from './activity-feed.constants.js';
 import type {
   Activity,
   ActivityFeedStore,
   FeedFilters,
   PaginatedFeed,
-} from './activity-feed.types';
+} from './activity-feed.types.js';
 
 /**
  * Service for recording and querying activity feeds.

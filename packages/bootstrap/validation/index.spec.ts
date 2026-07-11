@@ -15,7 +15,7 @@ describe('configNormalValidation', () => {
   it('should register ValidationPipe with default options', async () => {
     const app = mockApp();
 
-    const { configNormalValidation } = await import('./normal-validation');
+    const { configNormalValidation } = await import('./normal-validation.js');
     configNormalValidation(app, {
       transform: true,
       enableImplicitConversion: true,
@@ -32,7 +32,7 @@ describe('configNormalValidation', () => {
   it('should not throw when called', async () => {
     const app = mockApp();
 
-    const { configNormalValidation } = await import('./normal-validation');
+    const { configNormalValidation } = await import('./normal-validation.js');
 
     expect(() => configNormalValidation(app, { detailedErrors: false })).not.toThrow();
   });
@@ -62,7 +62,7 @@ describe('configI18nValidation', () => {
   it('should register I18nValidationPipe', async () => {
     const app = mockApp();
 
-    const { configI18nValidation } = await import('./i18n-validation');
+    const { configI18nValidation } = await import('./i18n-validation.js');
     configI18nValidation(app, {
       transform: true,
       enableImplicitConversion: true,
@@ -76,7 +76,7 @@ describe('configI18nValidation', () => {
   it('should register I18nValidationExceptionFilter', async () => {
     const app = mockApp();
 
-    const { configI18nValidation } = await import('./i18n-validation');
+    const { configI18nValidation } = await import('./i18n-validation.js');
     configI18nValidation(app, {});
 
     expect(app.useGlobalFilters).toHaveBeenCalledTimes(1);
@@ -112,7 +112,7 @@ describe('configValidation', () => {
     });
 
     it('should use I18nValidationPipe and filter', async () => {
-      const { configValidation } = await import('./index');
+      const { configValidation } = await import('./index.js');
       await configValidation(app);
 
       expect(app.useGlobalPipes).toHaveBeenCalledTimes(1);
@@ -129,7 +129,7 @@ describe('configValidation', () => {
     });
 
     it('should fall back to ValidationPipe', async () => {
-      const { configValidation } = await import('./index');
+      const { configValidation } = await import('./index.js');
       await configValidation(app);
 
       expect(app.useGlobalPipes).toHaveBeenCalledTimes(1);

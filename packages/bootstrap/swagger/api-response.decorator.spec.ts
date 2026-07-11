@@ -28,7 +28,7 @@ jest.mock('@nestjs/swagger', () => ({
   ApiTooManyRequestsResponse: mockApiTooManyRequestsResponse,
 }));
 
-import { ApiResponse, CrudApi } from './api-response.decorator';
+import { ApiResponse, CrudApi } from './api-response.decorator.js';
 
 class MockEntity {
   id!: string;
@@ -399,7 +399,7 @@ describe('when @nestjs/swagger is not installed', () => {
   });
 
   it('should not throw when ApiResponse is used', async () => {
-    const { ApiResponse: LocalApiResponse } = await import('./api-response.decorator');
+    const { ApiResponse: LocalApiResponse } = await import('./api-response.decorator.js');
 
     expect(() => {
       class TestController {

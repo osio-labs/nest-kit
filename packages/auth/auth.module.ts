@@ -1,31 +1,31 @@
 import { type DynamicModule, type Provider, Module, Logger } from '@nestjs/common';
-import type { AuthModuleOptions, AuthModuleAsyncOptions } from './auth.options';
+import type { AuthModuleOptions, AuthModuleAsyncOptions } from './auth.options.js';
 import {
   AUTH_MODULE_OPTIONS,
   AUTH_STRATEGIES,
   CACHE_SERVICE,
   USER_SERVICE,
-} from './auth.constants';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
-import { PasswordService } from './password/password.service';
-import { JwtService } from './session/jwt.service';
-import { TokenBlacklistService } from './session/token-blacklist.service';
-import { DeviceSessionService } from './session/device-session.service';
-import { ThrottleService } from './throttling/throttle.service';
-import { CredentialsStrategy } from './strategies/credentials/credentials.strategy';
-import { OAuthStrategy, OAuthProviderRegistry } from './strategies/oauth/index';
-import { TotpStrategy } from './strategies/totp/totp.strategy';
-import { AnonymousStrategy } from './strategies/anonymous/anonymous.strategy';
-import { MagicLinkStrategy } from './strategies/magic-link/magic-link.strategy';
-import { OtpStrategy } from './strategies/otp/otp.strategy';
-import { PasskeyStrategy } from './strategies/passkey/passkey.strategy';
-import { OneTapStrategy } from './strategies/onetap/onetap.strategy';
-import { SsoStrategy } from './strategies/sso/sso.strategy';
-import { RbacService, RbacGuard } from './authorization/rbac';
-import { PbacService, PbacGuard } from './authorization/pbac';
-import { ApiKeyGuard } from './api-key.guard';
-import type { IAuthStrategy, ICacheService, IUserService } from './interfaces';
+} from './auth.constants.js';
+import { AuthService } from './auth.service.js';
+import { AuthGuard } from './auth.guard.js';
+import { PasswordService } from './password/password.service.js';
+import { JwtService } from './session/jwt.service.js';
+import { TokenBlacklistService } from './session/token-blacklist.service.js';
+import { DeviceSessionService } from './session/device-session.service.js';
+import { ThrottleService } from './throttling/throttle.service.js';
+import { CredentialsStrategy } from './strategies/credentials/credentials.strategy.js';
+import { OAuthStrategy, OAuthProviderRegistry } from './strategies/oauth/index.js';
+import { TotpStrategy } from './strategies/totp/totp.strategy.js';
+import { AnonymousStrategy } from './strategies/anonymous/anonymous.strategy.js';
+import { MagicLinkStrategy } from './strategies/magic-link/magic-link.strategy.js';
+import { OtpStrategy } from './strategies/otp/otp.strategy.js';
+import { PasskeyStrategy } from './strategies/passkey/passkey.strategy.js';
+import { OneTapStrategy } from './strategies/onetap/onetap.strategy.js';
+import { SsoStrategy } from './strategies/sso/sso.strategy.js';
+import { RbacService, RbacGuard } from './authorization/rbac/index.js';
+import { PbacService, PbacGuard } from './authorization/pbac/index.js';
+import { ApiKeyGuard } from './api-key.guard.js';
+import type { IAuthStrategy, ICacheService, IUserService } from './interfaces/index.js';
 
 const logger = new Logger('AuthModule');
 

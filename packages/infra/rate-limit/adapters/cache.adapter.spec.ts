@@ -1,5 +1,5 @@
-import { CacheRateLimitAdapter } from './cache.adapter';
-import type { CacheRateLimitAdapterOptions } from './cache.adapter';
+import { CacheRateLimitAdapter } from './cache.adapter.js';
+import type { CacheRateLimitAdapterOptions } from './cache.adapter.js';
 
 describe('CacheRateLimitAdapter', () => {
   let adapter: CacheRateLimitAdapter;

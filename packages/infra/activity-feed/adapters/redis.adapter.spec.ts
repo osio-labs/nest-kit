@@ -24,7 +24,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { RedisFeedStore } from './redis.adapter';
+import { RedisFeedStore } from './redis.adapter.js';
 
 describe('RedisFeedStore', () => {
   let store: RedisFeedStore;

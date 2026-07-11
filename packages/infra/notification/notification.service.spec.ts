@@ -1,11 +1,11 @@
-import { NotificationService } from './notification.service';
+import { NotificationService } from './notification.service.js';
 import type {
   NotificationModuleOptions,
   NotificationRecord,
   NotificationStore,
   ProviderResult,
-} from './notification.types';
-import type { NotificationProvider } from './notification.constants';
+} from './notification.types.js';
+import type { NotificationProvider } from './notification.constants.js';
 
 function createMockProvider(name: string, channel: string, result?: Partial<ProviderResult>) {
   return {

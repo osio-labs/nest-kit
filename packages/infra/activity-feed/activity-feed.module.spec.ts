@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
-import { ACTIVITY_FEED_STORE, ACTIVITY_FEED_MODULE_OPTIONS } from './activity-feed.constants';
-import { ActivityFeedModule } from './activity-feed.module';
-import { ActivityFeedService } from './activity-feed.service';
-import { MemoryFeedStore } from './adapters/memory.adapter';
+import { ACTIVITY_FEED_STORE, ACTIVITY_FEED_MODULE_OPTIONS } from './activity-feed.constants.js';
+import { ActivityFeedModule } from './activity-feed.module.js';
+import { ActivityFeedService } from './activity-feed.service.js';
+import { MemoryFeedStore } from './adapters/memory.adapter.js';
 
 describe('ActivityFeedModule', () => {
   describe('forRoot', () => {

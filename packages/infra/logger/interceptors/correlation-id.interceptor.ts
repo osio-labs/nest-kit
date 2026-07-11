@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { Observable } from 'rxjs';
-import { LOGGER_MODULE_OPTIONS, DEFAULT_CORRELATION_ID_HEADER } from '../logger.constants';
-import type { LoggerModuleOptions } from '../logger.types';
-import { correlationIdStorage } from '../correlation-id';
+import { LOGGER_MODULE_OPTIONS, DEFAULT_CORRELATION_ID_HEADER } from '../logger.constants.js';
+import type { LoggerModuleOptions } from '../logger.types.js';
+import { correlationIdStorage } from '../correlation-id.js';
 
 /**
  * NestJS interceptor that extracts or generates a correlation ID for every

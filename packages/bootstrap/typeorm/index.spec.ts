@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { configTypeOrm } from './index';
+import { configTypeOrm } from './index.js';
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const OLD_ENV: Record<string, string | undefined> = { ...process.env };

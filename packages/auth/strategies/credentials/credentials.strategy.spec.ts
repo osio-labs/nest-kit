@@ -1,8 +1,8 @@
-import { CredentialsStrategy } from './credentials.strategy';
-import type { IUserService, IAuthUser } from '../../interfaces';
-import { JwtService } from '../../session/jwt.service';
-import { PasswordService } from '../../password/password.service';
-import type { ITokenPair } from '../../interfaces';
+import { CredentialsStrategy } from './credentials.strategy.js';
+import type { IUserService, IAuthUser } from '../../interfaces/index.js';
+import { JwtService } from '../../session/jwt.service.js';
+import { PasswordService } from '../../password/password.service.js';
+import type { ITokenPair } from '../../interfaces/index.js';
 
 describe('CredentialsStrategy', () => {
   let strategy: CredentialsStrategy;

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { CurrentUser } from './current-user.decorator';
-import { Public } from './public.decorator';
-import { METADATA_PUBLIC } from '../auth.constants';
+import { CurrentUser } from './current-user.decorator.js';
+import { Public } from './public.decorator.js';
+import { METADATA_PUBLIC } from '../auth.constants.js';
 
 describe('CurrentUser', () => {
   it('should be defined as a decorator factory', () => {

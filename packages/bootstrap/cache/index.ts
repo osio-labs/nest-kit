@@ -8,8 +8,8 @@
  * @packageDocumentation
  */
 
-import type { Getter } from '../with-config';
-import { withConfig } from '../with-config';
+import type { Getter } from '../with-config.js';
+import { withConfig } from '../with-config.js';
 
 /** Per-store configuration. */
 export interface CacheStoreConfig {

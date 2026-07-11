@@ -8,7 +8,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { GcpMonitoringAdapter } from './gcp-monitoring.adapter';
+import { GcpMonitoringAdapter } from './gcp-monitoring.adapter.js';
 
 describe('GcpMonitoringAdapter', () => {
   let adapter: GcpMonitoringAdapter;

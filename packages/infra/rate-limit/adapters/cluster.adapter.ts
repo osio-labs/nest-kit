@@ -1,5 +1,5 @@
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
-import { MemoryRateLimitAdapter } from './memory.adapter';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
+import { MemoryRateLimitAdapter } from './memory.adapter.js';
 
 export class ClusterRateLimitAdapter implements RateLimitAdapter {
   private leader: MemoryRateLimitAdapter;

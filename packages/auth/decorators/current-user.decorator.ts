@@ -1,5 +1,5 @@
 import { createParamDecorator, type ExecutionContext } from '@nestjs/common';
-import type { IAuthUser } from '../interfaces';
+import type { IAuthUser } from '../interfaces/index.js';
 
 /**
  * Parameter decorator that extracts the authenticated user from the request.

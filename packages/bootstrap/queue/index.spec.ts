@@ -1,5 +1,5 @@
 import type { ConfigService } from '@nestjs/config';
-import { configQueue } from './index';
+import { configQueue } from './index.js';
 
 describe('configQueue', () => {
   const OLD_ENV = { ...process.env };

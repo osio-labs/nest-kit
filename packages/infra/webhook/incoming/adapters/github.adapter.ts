@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types';
-import { verifySignature, parseSignatureHeader } from '../../webhook.utils';
+import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types.js';
+import { verifySignature, parseSignatureHeader } from '../../webhook.utils.js';
 
 /**
  * GitHub webhook adapter.

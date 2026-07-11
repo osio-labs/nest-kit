@@ -50,8 +50,8 @@ const mockDataSource = {
   getMetadata: jest.fn().mockReturnValue({ tableName: 'test_entity' }),
 };
 
-import { getDataSource } from './registry';
-import { SequenceId } from './sequence-id.decorator';
+import { getDataSource } from './registry.js';
+import { SequenceId } from './sequence-id.decorator.js';
 
 const MockedPrimaryColumn = PrimaryColumn as unknown as jest.Mock;
 const MockedColumn = Column as unknown as jest.Mock;

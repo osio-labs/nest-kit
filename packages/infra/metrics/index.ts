@@ -40,16 +40,16 @@ export type {
   MetricsAdapter,
   MetricsModuleOptions,
   MetricsModuleAsyncOptions,
-} from './metrics.types';
+} from './metrics.types.js';
 
 // ──────── Constants ────────
-export { METRICS_MODULE_OPTIONS, METRICS_ADAPTER } from './metrics.constants';
+export { METRICS_MODULE_OPTIONS, METRICS_ADAPTER } from './metrics.constants.js';
 
 // ──────── Service ────────
-export { MetricsService } from './metrics.service';
+export { MetricsService } from './metrics.service.js';
 
 // ──────── NestJS Module ────────
-export { MetricsModule } from './metrics.module';
+export { MetricsModule } from './metrics.module.js';
 
 // ──────── Built-in Adapters ────────
-export * from './adapters';
+export * from './adapters/index.js';

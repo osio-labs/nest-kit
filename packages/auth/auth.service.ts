@@ -1,11 +1,11 @@
 import { Inject, Injectable, type ExecutionContext } from '@nestjs/common';
-import type { IAuthResult, IAuthStrategy, ICacheService, ITokenPair } from './interfaces';
-import { AuthMethod } from './interfaces';
-import { AUTH_MODULE_OPTIONS, AUTH_STRATEGIES, CACHE_SERVICE } from './auth.constants';
-import type { AuthModuleOptions } from './auth.options';
-import { JwtService } from './session/jwt.service';
-import { TokenBlacklistService } from './session/token-blacklist.service';
-import { DeviceSessionService } from './session/device-session.service';
+import type { IAuthResult, IAuthStrategy, ICacheService, ITokenPair } from './interfaces/index.js';
+import { AuthMethod } from './interfaces/index.js';
+import { AUTH_MODULE_OPTIONS, AUTH_STRATEGIES, CACHE_SERVICE } from './auth.constants.js';
+import type { AuthModuleOptions } from './auth.options.js';
+import { JwtService } from './session/jwt.service.js';
+import { TokenBlacklistService } from './session/token-blacklist.service.js';
+import { DeviceSessionService } from './session/device-session.service.js';
 
 /**
  * Central authentication orchestrator.

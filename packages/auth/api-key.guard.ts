@@ -7,8 +7,8 @@ import {
   Inject,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import type { IApiKeyStore, ApiKeyOptions } from './api-key.types';
-import { API_KEY_STORE, METADATA_API_KEY_PROTECTED } from './api-key.constants';
+import type { IApiKeyStore, ApiKeyOptions } from './api-key.types.js';
+import { API_KEY_STORE, METADATA_API_KEY_PROTECTED } from './api-key.constants.js';
 
 /**
  * Guard that authenticates requests using an API key.

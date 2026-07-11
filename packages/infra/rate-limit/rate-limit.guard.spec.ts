@@ -1,7 +1,7 @@
-import type { RateLimitAdapter } from './rate-limit.types';
-import { RateLimitService } from './rate-limit.service';
-import { RateLimitGuard } from './rate-limit.guard';
-import { METADATA_RATE_LIMIT } from './rate-limit.constants';
+import type { RateLimitAdapter } from './rate-limit.types.js';
+import { RateLimitService } from './rate-limit.service.js';
+import { RateLimitGuard } from './rate-limit.guard.js';
+import { METADATA_RATE_LIMIT } from './rate-limit.constants.js';
 
 describe('RateLimitGuard', () => {
   let guard: RateLimitGuard;

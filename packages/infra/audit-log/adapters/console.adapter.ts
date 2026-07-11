@@ -1,4 +1,4 @@
-import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types';
+import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types.js';
 
 /**
  * Configuration for the Console audit-log adapter.

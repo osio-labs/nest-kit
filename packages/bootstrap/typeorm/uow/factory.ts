@@ -1,5 +1,5 @@
 import type { DataSource } from 'typeorm';
-import { UnitOfWork } from './unit-of-work';
+import { UnitOfWork } from './unit-of-work.js';
 
 export async function createUnitOfWork(dataSource: DataSource): Promise<UnitOfWork> {
   const uow = new UnitOfWork(dataSource);

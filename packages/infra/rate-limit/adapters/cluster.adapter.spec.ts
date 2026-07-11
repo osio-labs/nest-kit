@@ -1,4 +1,4 @@
-import { ClusterRateLimitAdapter } from './cluster.adapter';
+import { ClusterRateLimitAdapter } from './cluster.adapter.js';
 
 describe('ClusterRateLimitAdapter', () => {
   let adapter: ClusterRateLimitAdapter;

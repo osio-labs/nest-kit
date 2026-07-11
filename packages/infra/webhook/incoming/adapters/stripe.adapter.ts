@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types';
+import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types.js';
 
 /**
  * Stripe webhook adapter.

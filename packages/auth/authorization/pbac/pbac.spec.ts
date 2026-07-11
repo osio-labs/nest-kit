@@ -1,6 +1,6 @@
-import { PbacService } from './pbac.service';
-import type { ICacheService } from '../../interfaces';
-import type { PolicyDocument, PolicyContext } from './pbac.types';
+import { PbacService } from './pbac.service.js';
+import type { ICacheService } from '../../interfaces/index.js';
+import type { PolicyDocument, PolicyContext } from './pbac.types.js';
 
 describe('PbacService', () => {
   let service: PbacService;

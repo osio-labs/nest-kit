@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { NotificationModule } from './notification.module';
+import { NotificationModule } from './notification.module.js';
 import {
   NOTIFICATION_MODULE_OPTIONS,
   NOTIFICATION_QUEUE,
   NOTIFICATION_STORE,
-} from './notification.constants';
-import { NotificationService } from './notification.service';
-import type { NotificationModuleOptions } from './notification.types';
+} from './notification.constants.js';
+import { NotificationService } from './notification.service.js';
+import type { NotificationModuleOptions } from './notification.types.js';
 
 describe('NotificationModule', () => {
   describe('forRoot()', () => {

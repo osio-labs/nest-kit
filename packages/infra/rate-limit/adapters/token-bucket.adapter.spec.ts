@@ -1,4 +1,4 @@
-import { TokenBucketRateLimitAdapter } from './token-bucket.adapter';
+import { TokenBucketRateLimitAdapter } from './token-bucket.adapter.js';
 
 describe('TokenBucketRateLimitAdapter', () => {
   let adapter: TokenBucketRateLimitAdapter;

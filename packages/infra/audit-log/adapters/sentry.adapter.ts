@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
 
-import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types';
+import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types.js';
 
 /**
  * Configuration for the Sentry audit-log adapter.

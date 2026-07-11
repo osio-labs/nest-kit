@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { AuditLogEntity } from '../audit-log.entity';
-import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types';
+import { AuditLogEntity } from '../audit-log.entity.js';
+import type { AuditLogEntry, AuditLogQuery, AuditLogRepository } from '../audit-log.types.js';
 
 function buildQuery(
   qb: Repository<AuditLogEntity>,

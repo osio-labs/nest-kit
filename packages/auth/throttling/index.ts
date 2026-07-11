@@ -1,1 +1,1 @@
-export { ThrottleService } from './throttle.service';
+export { ThrottleService } from './throttle.service.js';

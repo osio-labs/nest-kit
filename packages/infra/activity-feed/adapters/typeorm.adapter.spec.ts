@@ -40,7 +40,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { TypeOrmFeedStore } from './typeorm.adapter';
+import { TypeOrmFeedStore } from './typeorm.adapter.js';
 
 describe('TypeOrmFeedStore', () => {
   let store: TypeOrmFeedStore;

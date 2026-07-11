@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
-import { METADATA_API_KEY_PROTECTED } from './api-key.constants';
-import type { ApiKeyOptions } from './api-key.types';
+import { METADATA_API_KEY_PROTECTED } from './api-key.constants.js';
+import type { ApiKeyOptions } from './api-key.types.js';
 
 /**
  * Mark a route or controller as API-key-protected.

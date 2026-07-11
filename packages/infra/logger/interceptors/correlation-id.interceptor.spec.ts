@@ -1,8 +1,8 @@
 import { of } from 'rxjs';
-import { CorrelationIdInterceptor } from './correlation-id.interceptor';
-import { LOGGER_MODULE_OPTIONS, DEFAULT_CORRELATION_ID_HEADER } from '../logger.constants';
-import type { LoggerModuleOptions } from '../logger.types';
-import { getCorrelationId, correlationIdStorage } from '../correlation-id';
+import { CorrelationIdInterceptor } from './correlation-id.interceptor.js';
+import { LOGGER_MODULE_OPTIONS, DEFAULT_CORRELATION_ID_HEADER } from '../logger.constants.js';
+import type { LoggerModuleOptions } from '../logger.types.js';
+import { getCorrelationId, correlationIdStorage } from '../correlation-id.js';
 
 function createMockContext(reqHeaders: Record<string, string> = {}): any {
   const headers: Record<string, string> = { ...reqHeaders };

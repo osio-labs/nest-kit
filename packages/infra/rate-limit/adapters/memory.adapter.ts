@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 interface WindowState {
   count: number;

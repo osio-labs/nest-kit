@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream';
-import type { StorageDriver, StoragePutOptions } from '../storage.types';
+import type { StorageDriver, StoragePutOptions } from '../storage.types.js';
 
 /**
  * Create an in-memory storage driver.

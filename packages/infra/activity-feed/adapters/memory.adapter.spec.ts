@@ -1,4 +1,4 @@
-import { MemoryFeedStore } from './memory.adapter';
+import { MemoryFeedStore } from './memory.adapter.js';
 
 describe('MemoryFeedStore', () => {
   let store: MemoryFeedStore;

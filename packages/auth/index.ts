@@ -44,9 +44,9 @@
  * @packageDocumentation
  */
 
-export { AuthModule } from './auth.module';
-export { AuthService } from './auth.service';
-export { AuthGuard } from './auth.guard';
+export { AuthModule } from './auth.module.js';
+export { AuthService } from './auth.service.js';
+export { AuthGuard } from './auth.guard.js';
 
 // ── Constants ──
 export {
@@ -58,7 +58,7 @@ export {
   METADATA_ROLES,
   METADATA_PERMISSIONS,
   METADATA_POLICY,
-} from './auth.constants';
+} from './auth.constants.js';
 
 // ── Options ──
 export type {
@@ -80,7 +80,7 @@ export type {
   PBACOptions,
   SessionOptions,
   ThrottleOptions,
-} from './auth.options';
+} from './auth.options.js';
 
 // ── Interfaces ──
 export type {
@@ -91,27 +91,27 @@ export type {
   IAuthStrategy,
   ICacheService,
   IUserService,
-} from './interfaces';
-export { AuthMethod } from './interfaces';
+} from './interfaces/index.js';
+export { AuthMethod } from './interfaces/index.js';
 
 // ── Decorators ──
-export { CurrentUser, Public } from './decorators';
-export { ApiKeyProtected } from './api-key.decorator';
+export { CurrentUser, Public } from './decorators/index.js';
+export { ApiKeyProtected } from './api-key.decorator.js';
 
 // ── Session ──
-export { JwtService, TokenBlacklistService, DeviceSessionService } from './session';
-export type { IDeviceInfo } from './session';
+export { JwtService, TokenBlacklistService, DeviceSessionService } from './session/index.js';
+export type { IDeviceInfo } from './session/index.js';
 
 // ── Password ──
-export { PasswordService } from './password/password.service';
+export { PasswordService } from './password/password.service.js';
 
 // ── Throttling ──
-export { ThrottleService } from './throttling/throttle.service';
+export { ThrottleService } from './throttling/throttle.service.js';
 
 // ── API Keys ──
-export { ApiKeyGuard } from './api-key.guard';
-export { API_KEY_STORE } from './api-key.constants';
-export type { IApiKey, IApiKeyStore, ApiKeyOptions } from './api-key.types';
+export { ApiKeyGuard } from './api-key.guard.js';
+export { API_KEY_STORE } from './api-key.constants.js';
+export type { IApiKey, IApiKeyStore, ApiKeyOptions } from './api-key.types.js';
 
 // ── Strategies ──
 export {
@@ -126,15 +126,15 @@ export {
   PasskeyStrategy,
   OneTapStrategy,
   SsoStrategy,
-} from './strategies';
+} from './strategies/index.js';
 
 // ── Authorization ──
-export { RbacService, RbacGuard, Roles } from './authorization/rbac';
-export { PbacService, PbacGuard, RequirePolicy } from './authorization/pbac';
-export type { PolicyDecoratorOptions } from './authorization/pbac';
+export { RbacService, RbacGuard, Roles } from './authorization/rbac/index.js';
+export { PbacService, PbacGuard, RequirePolicy } from './authorization/pbac/index.js';
+export type { PolicyDecoratorOptions } from './authorization/pbac/index.js';
 export type {
   PolicyStatement,
   PolicyDocument,
   PolicyContext,
   PolicyEffect,
-} from './authorization/pbac';
+} from './authorization/pbac/index.js';

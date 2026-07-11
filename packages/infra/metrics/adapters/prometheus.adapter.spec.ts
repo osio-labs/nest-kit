@@ -15,7 +15,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { PrometheusAdapter } from './prometheus.adapter';
+import { PrometheusAdapter } from './prometheus.adapter.js';
 
 describe('PrometheusAdapter', () => {
   let adapter: PrometheusAdapter;

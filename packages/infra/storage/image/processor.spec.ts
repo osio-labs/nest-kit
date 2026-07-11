@@ -1,4 +1,4 @@
-import type { ImageOptions } from '../storage.types';
+import type { ImageOptions } from '../storage.types.js';
 
 // ──────── Mock sharp ────────
 
@@ -25,7 +25,7 @@ jest.mock('../utils/loaders', () => ({
   loadSharp: jest.fn().mockResolvedValue(mockSharp),
 }));
 
-import { processImage } from './processor';
+import { processImage } from './processor.js';
 
 beforeEach(() => {
   jest.clearAllMocks();

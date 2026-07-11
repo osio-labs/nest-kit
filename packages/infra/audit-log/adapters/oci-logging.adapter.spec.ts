@@ -1,4 +1,4 @@
-import { OciLoggingAdapter } from './oci-logging.adapter';
+import { OciLoggingAdapter } from './oci-logging.adapter.js';
 
 describe('OciLoggingAdapter', () => {
   let clients: {

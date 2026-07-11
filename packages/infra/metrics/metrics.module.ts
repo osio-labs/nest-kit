@@ -1,7 +1,7 @@
 import { type DynamicModule, type Provider, Module, Global } from '@nestjs/common';
-import { METRICS_ADAPTER, METRICS_MODULE_OPTIONS } from './metrics.constants';
-import { MetricsService } from './metrics.service';
-import type { MetricsModuleOptions, MetricsModuleAsyncOptions } from './metrics.types';
+import { METRICS_ADAPTER, METRICS_MODULE_OPTIONS } from './metrics.constants.js';
+import { MetricsService } from './metrics.service.js';
+import type { MetricsModuleOptions, MetricsModuleAsyncOptions } from './metrics.types.js';
 
 /**
  * NestJS `DynamicModule` for application metrics.

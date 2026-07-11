@@ -15,8 +15,8 @@
  */
 
 import { type TypeOrmModuleOptions } from '@nestjs/typeorm';
-import type { Getter } from '../with-config';
-import { withConfig } from '../with-config';
+import type { Getter } from '../with-config.js';
+import { withConfig } from '../with-config.js';
 
 export interface TypeOrmConfigOptions {
   schema?: string;
@@ -98,10 +98,10 @@ function buildConfig(get: Getter, options?: TypeOrmConfigOptions): TypeOrmModule
  */
 export const configTypeOrm = withConfig<TypeOrmConfigOptions, TypeOrmModuleOptions>(buildConfig);
 
-export * from './crud';
-export * from './uow';
-export * from './decorators';
-export * from './dto';
+export * from './crud/index.js';
+export * from './uow/index.js';
+export * from './decorators/index.js';
+export * from './dto/index.js';
 
 /** @internal */
 let _TypeOrmDataSourceModule: unknown;
@@ -111,7 +111,7 @@ try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   require('@nestjs/typeorm');
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  _TypeOrmDataSourceModule = (require('./data-source.module') as Record<string, unknown>)
+  _TypeOrmDataSourceModule = (require('./data-source.module.js') as Record<string, unknown>)
     .TypeOrmDataSourceModule;
 } catch {
   /* typeorm or @nestjs/typeorm not installed — TypeOrmDataSourceModule will be undefined */

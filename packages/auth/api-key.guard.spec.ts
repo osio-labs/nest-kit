@@ -1,7 +1,7 @@
-import type { IApiKeyStore, IApiKey } from './api-key.types';
-import { API_KEY_STORE } from './api-key.constants';
-import { ApiKeyGuard } from './api-key.guard';
-import { METADATA_API_KEY_PROTECTED } from './api-key.constants';
+import type { IApiKeyStore, IApiKey } from './api-key.types.js';
+import { API_KEY_STORE } from './api-key.constants.js';
+import { ApiKeyGuard } from './api-key.guard.js';
+import { METADATA_API_KEY_PROTECTED } from './api-key.constants.js';
 
 const mockStore: jest.Mocked<IApiKeyStore> = {
   validate: jest.fn(),

@@ -1,4 +1,4 @@
-import { CloudTrailAdapter } from './cloudtrail.adapter';
+import { CloudTrailAdapter } from './cloudtrail.adapter.js';
 
 jest.mock(
   '@aws-sdk/client-cloudtrail',

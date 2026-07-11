@@ -1,4 +1,4 @@
-import { TwilioSmsProvider } from './sms-twilio.provider';
+import { TwilioSmsProvider } from './sms-twilio.provider.js';
 
 const mockCreate = jest.fn();
 jest.mock('twilio', () => jest.fn(() => ({ messages: { create: mockCreate } })), { virtual: true });

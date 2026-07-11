@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { METADATA_POLICY } from '../../auth.constants';
+import { METADATA_POLICY } from '../../auth.constants.js';
 
 export interface PolicyDecoratorOptions {
   /** Action being performed (e.g. 'document:read') */

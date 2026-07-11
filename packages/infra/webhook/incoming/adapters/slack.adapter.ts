@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types';
+import type { IncomingWebhookAdapter, IncomingWebhookEvent } from '../../webhook.types.js';
 
 /**
  * Slack webhook adapter.

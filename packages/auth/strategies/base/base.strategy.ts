@@ -1,5 +1,5 @@
 import type { ExecutionContext } from '@nestjs/common';
-import type { IAuthStrategy, IAuthResult, AuthMethod } from '../../interfaces';
+import type { IAuthStrategy, IAuthResult, AuthMethod } from '../../interfaces/index.js';
 
 /**
  * Abstract base strategy providing a common type and name for all strategies.

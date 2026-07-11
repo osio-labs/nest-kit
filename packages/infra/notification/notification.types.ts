@@ -1,4 +1,4 @@
-import type { NotificationProvider } from './notification.constants';
+import type { NotificationProvider } from './notification.constants.js';
 
 export type ChannelType = 'email' | 'sms' | 'push' | 'telegram' | 'slack' | 'teams' | 'googlechat';
 

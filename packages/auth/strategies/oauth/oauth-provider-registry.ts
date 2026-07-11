@@ -1,4 +1,4 @@
-import type { OAuthProviderConfig } from '../../auth.options';
+import type { OAuthProviderConfig } from '../../auth.options.js';
 
 /**
  * Registry of OAuth provider configurations.

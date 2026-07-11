@@ -37,7 +37,7 @@
  */
 
 // ──────── Entity ────────
-export { AuditLogEntity } from './audit-log.entity';
+export { AuditLogEntity } from './audit-log.entity.js';
 
 // ──────── Types ────────
 export type {
@@ -47,20 +47,20 @@ export type {
   AuditLogRepository,
   AuditLogModuleOptions,
   AuditLogModuleAsyncOptions,
-} from './audit-log.types';
+} from './audit-log.types.js';
 
 // ──────── Constants ────────
 export {
   AUDIT_LOG_MODULE_OPTIONS,
   AUDIT_LOG_REPOSITORY,
   DEFAULT_AUDIT_LOG_TABLE,
-} from './audit-log.constants';
+} from './audit-log.constants.js';
 
 // ──────── Service ────────
-export { AuditLogService } from './audit-log.service';
+export { AuditLogService } from './audit-log.service.js';
 
 // ──────── NestJS Module ────────
-export { AuditLogModule } from './audit-log.module';
+export { AuditLogModule } from './audit-log.module.js';
 
 // ──────── Built-in Adapters ────────
-export * from './adapters';
+export * from './adapters/index.js';

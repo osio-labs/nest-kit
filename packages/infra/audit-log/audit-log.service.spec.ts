@@ -1,5 +1,5 @@
-import { AuditLogService } from './audit-log.service';
-import type { AuditLogRepository, AuditLogModuleOptions } from './audit-log.types';
+import { AuditLogService } from './audit-log.service.js';
+import type { AuditLogRepository, AuditLogModuleOptions } from './audit-log.types.js';
 
 function createMockRepo(): jest.Mocked<AuditLogRepository> {
   return {

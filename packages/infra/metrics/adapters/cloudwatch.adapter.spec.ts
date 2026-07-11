@@ -9,7 +9,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { CloudWatchAdapter } from './cloudwatch.adapter';
+import { CloudWatchAdapter } from './cloudwatch.adapter.js';
 
 describe('CloudWatchAdapter', () => {
   let adapter: CloudWatchAdapter;

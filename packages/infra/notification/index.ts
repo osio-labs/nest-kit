@@ -9,8 +9,8 @@
  * @packageDocumentation
  */
 
-export { NotificationModule } from './notification.module';
-export { NotificationService } from './notification.service';
+export { NotificationModule } from './notification.module.js';
+export { NotificationService } from './notification.service.js';
 export type {
   ChannelType,
   ProviderResult,
@@ -28,12 +28,12 @@ export type {
   NotificationStore,
   NotificationModuleOptions,
   NotificationModuleAsyncOptions,
-} from './notification.types';
+} from './notification.types.js';
 export {
   NOTIFICATION_MODULE_OPTIONS,
   NOTIFICATION_QUEUE,
   NOTIFICATION_STORE,
-} from './notification.constants';
-export { NotificationLogEntity } from './notification.entity';
-export * from './providers';
-export * from './stores';
+} from './notification.constants.js';
+export { NotificationLogEntity } from './notification.entity.js';
+export * from './providers/index.js';
+export * from './stores/index.js';

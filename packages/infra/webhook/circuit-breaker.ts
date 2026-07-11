@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import type { CircuitBreakerState, CircuitBreakerOptions } from './webhook.types';
+import type { CircuitBreakerState, CircuitBreakerOptions } from './webhook.types.js';
 
 interface EndpointState {
   state: CircuitBreakerState;

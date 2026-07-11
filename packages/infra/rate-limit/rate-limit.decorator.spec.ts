@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { METADATA_RATE_LIMIT } from './rate-limit.constants';
-import { RateLimit } from './rate-limit.decorator';
+import { METADATA_RATE_LIMIT } from './rate-limit.constants.js';
+import { RateLimit } from './rate-limit.decorator.js';
 
 describe('@RateLimit decorator', () => {
   it('should set metadata with options', () => {

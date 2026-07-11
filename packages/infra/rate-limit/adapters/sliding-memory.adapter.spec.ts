@@ -1,4 +1,4 @@
-import { SlidingMemoryRateLimitAdapter } from './sliding-memory.adapter';
+import { SlidingMemoryRateLimitAdapter } from './sliding-memory.adapter.js';
 
 describe('SlidingMemoryRateLimitAdapter', () => {
   let adapter: SlidingMemoryRateLimitAdapter;

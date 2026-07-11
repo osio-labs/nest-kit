@@ -7,7 +7,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { PangeaAdapter } from './pangea.adapter';
+import { PangeaAdapter } from './pangea.adapter.js';
 
 const MockAuditService = jest.requireMock('pangea-node-sdk').AuditService;
 

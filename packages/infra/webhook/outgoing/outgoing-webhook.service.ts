@@ -1,21 +1,21 @@
 import { Injectable, Logger, Inject, Optional } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
-import { signPayload } from '../webhook.utils';
+import { signPayload } from '../webhook.utils.js';
 import type {
   OutgoingWebhookPayload,
   OutgoingWebhookOptions,
   WebhookDeliveryStore,
   WebhookDeliveryRecord,
-} from '../webhook.types';
-import { WebhookEventBus } from '../event-bus';
-import { WebhookCircuitBreaker } from '../circuit-breaker';
+} from '../webhook.types.js';
+import { WebhookEventBus } from '../event-bus.js';
+import { WebhookCircuitBreaker } from '../circuit-breaker.js';
 import {
   OUTGOING_WEBHOOK_OPTIONS,
   WEBHOOK_DELIVERY_STORE,
   DEFAULT_MAX_RETRIES,
   DEFAULT_BASE_DELAY_MS,
   DEFAULT_TIMEOUT_MS,
-} from '../webhook.constants';
+} from '../webhook.constants.js';
 
 /**
  * Service for delivering outgoing webhooks with exponential backoff retry.

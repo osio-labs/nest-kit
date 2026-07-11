@@ -1,7 +1,7 @@
-import { AuditLogModule } from './audit-log.module';
-import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants';
-import { AuditLogService } from './audit-log.service';
-import type { AuditLogRepository } from './audit-log.types';
+import { AuditLogModule } from './audit-log.module.js';
+import { AUDIT_LOG_MODULE_OPTIONS, AUDIT_LOG_REPOSITORY } from './audit-log.constants.js';
+import { AuditLogService } from './audit-log.service.js';
+import type { AuditLogRepository } from './audit-log.types.js';
 
 describe('AuditLogModule', () => {
   describe('forRoot()', () => {

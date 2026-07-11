@@ -3,8 +3,8 @@ import {
   NOTIFICATION_MODULE_OPTIONS,
   NOTIFICATION_QUEUE,
   NOTIFICATION_STORE,
-} from './notification.constants';
-import type { NotificationProvider } from './notification.constants';
+} from './notification.constants.js';
+import type { NotificationProvider } from './notification.constants.js';
 import type {
   ChannelType,
   ChannelResult,
@@ -14,7 +14,7 @@ import type {
   NotificationStore,
   ProviderResult,
   SendInput,
-} from './notification.types';
+} from './notification.types.js';
 
 /**
  * Core notification service.

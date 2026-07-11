@@ -5,8 +5,8 @@ import type {
   WebhookDeliveryRecord,
   WebhookDeliveryStore,
   WebhookDeliveryStatus,
-} from '../webhook.types';
-import { WebhookDeliveryEntity } from './typeorm.entity';
+} from '../webhook.types.js';
+import { WebhookDeliveryEntity } from './typeorm.entity.js';
 
 /**
  * TypeORM-backed implementation of WebhookDeliveryStore.

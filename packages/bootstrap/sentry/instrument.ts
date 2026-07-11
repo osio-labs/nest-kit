@@ -26,7 +26,7 @@
  * @packageDocumentation
  */
 
-import { configSentry, type SentryConfigOptions } from './index';
+import { configSentry, type SentryConfigOptions } from './index.js';
 
 /**
  * Initialize Sentry SDK with configuration from environment variables.

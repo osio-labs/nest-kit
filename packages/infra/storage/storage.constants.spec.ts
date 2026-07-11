@@ -1,4 +1,4 @@
-import { STORAGE_MODULE_OPTIONS, STORAGE_MANAGER } from './storage.constants';
+import { STORAGE_MODULE_OPTIONS, STORAGE_MANAGER } from './storage.constants.js';
 
 describe('storage constants', () => {
   it('should export STORAGE_MODULE_OPTIONS as a non-empty string', () => {

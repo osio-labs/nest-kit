@@ -1,7 +1,7 @@
 import { Readable } from 'node:stream';
 import type { Cell, Workbook } from 'exceljs';
-import { loadExcel } from './excel.utils';
-import type { ExcelImportOptions } from './excel.types';
+import { loadExcel } from './excel.utils.js';
+import type { ExcelImportOptions } from './excel.types.js';
 
 /**
  * Parse an .xlsx Buffer into an array of objects.

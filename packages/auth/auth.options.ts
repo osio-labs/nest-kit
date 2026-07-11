@@ -1,5 +1,5 @@
 import type { Provider, DynamicModule, Type } from '@nestjs/common';
-import type { AuthMethod } from './interfaces';
+import type { AuthMethod } from './interfaces/index.js';
 
 // ──────── Method-specific options ────────
 

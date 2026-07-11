@@ -1,10 +1,10 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { PbacService } from './pbac.service';
-import { METADATA_POLICY } from '../../auth.constants';
-import type { PolicyDecoratorOptions } from './pbac.decorator';
-import type { PolicyContext } from './pbac.types';
-import type { IAuthUser } from '../../interfaces';
+import { PbacService } from './pbac.service.js';
+import { METADATA_POLICY } from '../../auth.constants.js';
+import type { PolicyDecoratorOptions } from './pbac.decorator.js';
+import type { PolicyContext } from './pbac.types.js';
+import type { IAuthUser } from '../../interfaces/index.js';
 
 /**
  * Guard that enforces Policy-Based Access Control.

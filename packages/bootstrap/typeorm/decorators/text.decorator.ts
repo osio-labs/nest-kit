@@ -1,5 +1,5 @@
 import { Column, type ColumnOptions, type ColumnType } from 'typeorm';
-import { applySwaggerProperty, applyValidators, applyType, applyTransform } from './shared';
+import { applySwaggerProperty, applyValidators, applyType, applyTransform } from './shared.js';
 
 /**
  * Available text column length variants.

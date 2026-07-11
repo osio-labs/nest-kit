@@ -1,6 +1,6 @@
 import type { DataSource, QueryRunner } from 'typeorm';
-import { UnitOfWork } from './unit-of-work';
-import { createUnitOfWork, withUnitOfWork } from './factory';
+import { UnitOfWork } from './unit-of-work.js';
+import { createUnitOfWork, withUnitOfWork } from './factory.js';
 
 describe('UnitOfWork', () => {
   let connectMock: jest.Mock;

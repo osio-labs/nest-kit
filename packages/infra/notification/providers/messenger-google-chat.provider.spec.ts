@@ -1,4 +1,4 @@
-import { GoogleChatProvider } from './messenger-google-chat.provider';
+import { GoogleChatProvider } from './messenger-google-chat.provider.js';
 
 describe('GoogleChatProvider', () => {
   let provider: GoogleChatProvider;

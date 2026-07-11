@@ -8,7 +8,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { SentryMetricsAdapter } from './sentry.adapter';
+import { SentryMetricsAdapter } from './sentry.adapter.js';
 
 describe('SentryMetricsAdapter', () => {
   let adapter: SentryMetricsAdapter;

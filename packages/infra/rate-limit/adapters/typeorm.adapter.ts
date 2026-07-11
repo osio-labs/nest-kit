@@ -1,6 +1,6 @@
 import type { Repository } from 'typeorm';
-import { RateLimitEntity } from '../rate-limit.entity';
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import { RateLimitEntity } from '../rate-limit.entity.js';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 export class TypeOrmRateLimitAdapter implements RateLimitAdapter {
   constructor(private readonly repo: Repository<RateLimitEntity>) {}

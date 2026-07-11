@@ -1,4 +1,4 @@
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 export interface RedisRateLimitClient {
   incr(key: string): Promise<number>;

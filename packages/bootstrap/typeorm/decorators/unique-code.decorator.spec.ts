@@ -27,7 +27,7 @@ jest.mock('class-transformer', () => ({
   Type: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { UniqueCode } from './unique-code.decorator';
+import { UniqueCode } from './unique-code.decorator.js';
 
 const MockedColumn = Column as unknown as jest.Mock;
 

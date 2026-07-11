@@ -1,4 +1,4 @@
-import { PasswordService } from './password.service';
+import { PasswordService } from './password.service.js';
 
 jest.mock('bcrypt', () => ({
   hash: jest.fn().mockResolvedValue('$2b$12$hashedpassword'),

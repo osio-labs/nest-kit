@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
-import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants';
-import { RateLimitModule } from './rate-limit.module';
-import { RateLimitService } from './rate-limit.service';
-import { RateLimitGuard } from './rate-limit.guard';
-import type { RateLimitAdapter } from './rate-limit.types';
+import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants.js';
+import { RateLimitModule } from './rate-limit.module.js';
+import { RateLimitService } from './rate-limit.service.js';
+import { RateLimitGuard } from './rate-limit.guard.js';
+import type { RateLimitAdapter } from './rate-limit.types.js';
 
 describe('RateLimitModule', () => {
   const mockAdapter: RateLimitAdapter = {

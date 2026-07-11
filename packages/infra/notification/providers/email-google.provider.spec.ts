@@ -9,8 +9,8 @@ jest.mock(
   { virtual: true },
 );
 
-import { GoogleEmailProvider } from './email-google.provider';
-import type { EmailSendInput, ProviderResult } from '../notification.types';
+import { GoogleEmailProvider } from './email-google.provider.js';
+import type { EmailSendInput, ProviderResult } from '../notification.types.js';
 
 describe('GoogleEmailProvider', () => {
   let provider: GoogleEmailProvider;

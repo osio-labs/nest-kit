@@ -1,6 +1,6 @@
 import type { Type } from '@nestjs/common';
-import type { SwaggerModule } from './swagger.helper';
-import { getSwagger } from './swagger.helper';
+import type { SwaggerModule } from './swagger.helper.js';
+import { getSwagger } from './swagger.helper.js';
 
 // ── Internal types ────────────────────────────────────────────────
 

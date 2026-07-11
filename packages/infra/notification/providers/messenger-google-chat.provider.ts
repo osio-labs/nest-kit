@@ -1,5 +1,5 @@
-import type { GoogleChatSendInput, ProviderResult } from '../notification.types';
-import type { NotificationProvider } from '../notification.constants';
+import type { GoogleChatSendInput, ProviderResult } from '../notification.types.js';
+import type { NotificationProvider } from '../notification.constants.js';
 
 /**
  * Google Chat notification provider.

@@ -1,7 +1,7 @@
 import type { Repository } from 'typeorm';
-import { NotificationLogEntity } from '../notification.entity';
-import { TypeOrmNotificationStore } from './typeorm.store';
-import type { ChannelType, NotificationRecord } from '../notification.types';
+import { NotificationLogEntity } from '../notification.entity.js';
+import { TypeOrmNotificationStore } from './typeorm.store.js';
+import type { ChannelType, NotificationRecord } from '../notification.types.js';
 
 function createMockRepo(): jest.Mocked<Partial<Repository<NotificationLogEntity>>> {
   const mock = {

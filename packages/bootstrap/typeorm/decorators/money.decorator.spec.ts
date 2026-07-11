@@ -28,7 +28,7 @@ jest.mock('class-transformer', () => ({
   Type: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { Money } from './money.decorator';
+import { Money } from './money.decorator.js';
 
 const MockedColumn = Column as jest.MockedFunction<typeof Column>;
 

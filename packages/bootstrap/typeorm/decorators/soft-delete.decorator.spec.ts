@@ -15,7 +15,7 @@ jest.mock('typeorm', () => {
   };
 });
 
-import { SoftDelete } from './soft-delete.decorator';
+import { SoftDelete } from './soft-delete.decorator.js';
 
 const MockedDeleteDateColumn = DeleteDateColumn as jest.MockedFunction<typeof DeleteDateColumn>;
 

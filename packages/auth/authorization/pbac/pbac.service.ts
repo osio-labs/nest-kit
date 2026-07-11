@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { ICacheService } from '../../interfaces';
-import { CACHE_SERVICE } from '../../auth.constants';
-import type { PolicyStatement, PolicyContext, PolicyEffect, PolicyDocument } from './pbac.types';
+import type { ICacheService } from '../../interfaces/index.js';
+import { CACHE_SERVICE } from '../../auth.constants.js';
+import type { PolicyStatement, PolicyContext, PolicyEffect, PolicyDocument } from './pbac.types.js';
 
 /**
  * Policy-Based Access Control service.

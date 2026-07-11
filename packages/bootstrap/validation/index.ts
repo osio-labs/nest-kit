@@ -10,9 +10,9 @@
  */
 
 import type { INestApplication } from '@nestjs/common';
-import type { ValidationConfigOptions } from './types';
-import { defaultOptions } from './types';
-import { configNormalValidation } from './normal-validation';
+import type { ValidationConfigOptions } from './types.js';
+import { defaultOptions } from './types.js';
+import { configNormalValidation } from './normal-validation.js';
 
 export type { ValidationConfigOptions };
 
@@ -52,7 +52,7 @@ export async function configValidation(
 
   try {
     await import('nestjs-i18n');
-    const { configI18nValidation } = await import('./i18n-validation');
+    const { configI18nValidation } = await import('./i18n-validation.js');
     configI18nValidation(app, opts);
   } catch {
     configNormalValidation(app, opts);

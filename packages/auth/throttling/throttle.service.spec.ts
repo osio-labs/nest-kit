@@ -1,5 +1,5 @@
-import { ThrottleService } from './throttle.service';
-import type { ICacheService } from '../interfaces';
+import { ThrottleService } from './throttle.service.js';
+import type { ICacheService } from '../interfaces/index.js';
 
 describe('ThrottleService', () => {
   let service: ThrottleService;

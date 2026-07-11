@@ -1,5 +1,5 @@
-import { PinoLoggerService } from './logger.service';
-import { getCorrelationId, correlationIdStorage } from './correlation-id';
+import { PinoLoggerService } from './logger.service.js';
+import { getCorrelationId, correlationIdStorage } from './correlation-id.js';
 
 // ──────── Mock Pino logger ────────
 

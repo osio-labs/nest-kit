@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants';
-import type { RateLimitAdapter, RateLimitModuleOptions, RateLimitResult } from './rate-limit.types';
+import { RATE_LIMIT_ADAPTER, RATE_LIMIT_MODULE_OPTIONS } from './rate-limit.constants.js';
+import type {
+  RateLimitAdapter,
+  RateLimitModuleOptions,
+  RateLimitResult,
+} from './rate-limit.types.js';
 
 @Injectable()
 export class RateLimitService {

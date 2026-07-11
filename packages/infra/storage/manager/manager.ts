@@ -1,5 +1,5 @@
-import type { StorageDriver, StorageModuleOptions } from '../storage.types';
-import { getDriverFactory } from '../drivers/registry';
+import type { StorageDriver, StorageModuleOptions } from '../storage.types.js';
+import { getDriverFactory } from '../drivers/registry.js';
 
 /**
  * Multi-disk storage manager.

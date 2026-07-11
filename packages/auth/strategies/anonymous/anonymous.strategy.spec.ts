@@ -1,6 +1,6 @@
-import { AnonymousStrategy } from './anonymous.strategy';
-import { JwtService } from '../../session/jwt.service';
-import type { ITokenPair } from '../../interfaces';
+import { AnonymousStrategy } from './anonymous.strategy.js';
+import { JwtService } from '../../session/jwt.service.js';
+import type { ITokenPair } from '../../interfaces/index.js';
 
 describe('AnonymousStrategy', () => {
   let strategy: AnonymousStrategy;

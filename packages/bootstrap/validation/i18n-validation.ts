@@ -9,8 +9,8 @@
 
 import type { INestApplication, ValidationPipeOptions } from '@nestjs/common';
 import { I18nValidationPipe, I18nValidationExceptionFilter } from 'nestjs-i18n';
-import type { ValidationConfigOptions } from './types';
-import { defaultOptions } from './types';
+import type { ValidationConfigOptions } from './types.js';
+import { defaultOptions } from './types.js';
 
 /**
  * Configure `I18nValidationPipe` and `I18nValidationExceptionFilter`

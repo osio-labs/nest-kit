@@ -20,7 +20,7 @@ jest.mock('class-validator', () => ({
   IsOptional: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { Boolean } from './boolean.decorator';
+import { Boolean } from './boolean.decorator.js';
 
 const MockedColumn = Column as unknown as jest.Mock;
 

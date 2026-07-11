@@ -13,7 +13,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { DatadogAdapter } from './datadog.adapter';
+import { DatadogAdapter } from './datadog.adapter.js';
 
 describe('DatadogAdapter', () => {
   let adapter: DatadogAdapter;

@@ -1,4 +1,4 @@
-import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types';
+import type { RateLimitAdapter, RateLimitResult } from '../rate-limit.types.js';
 
 export interface SlidingCacheRateLimitAdapterOptions {
   /** Add a timestamp to a sorted set, return current count */

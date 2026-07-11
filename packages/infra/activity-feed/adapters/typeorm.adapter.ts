@@ -5,7 +5,7 @@ import type {
   Activity,
   FeedFilters,
   PaginatedFeed,
-} from '../activity-feed.types';
+} from '../activity-feed.types.js';
 
 export interface TypeOrmFeedStoreOptions {
   /** TypeORM repository for activities. */

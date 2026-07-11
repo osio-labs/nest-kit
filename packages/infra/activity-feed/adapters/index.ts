@@ -8,9 +8,9 @@
  * @packageDocumentation
  */
 
-export { MemoryFeedStore } from './memory.adapter';
+export { MemoryFeedStore } from './memory.adapter.js';
 
-export { TypeOrmFeedStore } from './typeorm.adapter';
+export { TypeOrmFeedStore } from './typeorm.adapter.js';
 
-export { RedisFeedStore } from './redis.adapter';
-export type { RedisFeedStoreOptions } from './redis.adapter';
+export { RedisFeedStore } from './redis.adapter.js';
+export type { RedisFeedStoreOptions } from './redis.adapter.js';

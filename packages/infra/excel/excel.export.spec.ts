@@ -10,7 +10,7 @@ import {
   exportToResponse,
   buildWorkbook,
   createBuilder,
-} from './excel.export';
+} from './excel.export.js';
 import type { Column } from 'exceljs';
 
 describe('excel.export', () => {
@@ -263,7 +263,7 @@ describe('excel.export', () => {
       });
 
       // Round-trip to verify excluded columns are actually missing
-      const { importFromBuffer } = await import('./excel.import');
+      const { importFromBuffer } = await import('./excel.import.js');
       const rows = await importFromBuffer(buffer);
 
       expect(rows).toHaveLength(3);

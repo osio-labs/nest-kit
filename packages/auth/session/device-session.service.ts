@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { ICacheService } from '../interfaces';
-import { CACHE_SERVICE, DEVICE_SESSION_PREFIX } from '../auth.constants';
+import type { ICacheService } from '../interfaces/index.js';
+import { CACHE_SERVICE, DEVICE_SESSION_PREFIX } from '../auth.constants.js';
 
 export interface IDeviceInfo {
   deviceId: string;

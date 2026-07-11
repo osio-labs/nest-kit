@@ -1,6 +1,6 @@
 import { BeforeInsert, PrimaryColumn, Column } from 'typeorm';
-import { applySwaggerProperty, applyValidators, applyType } from './shared';
-import { getDataSource } from './registry';
+import { applySwaggerProperty, applyValidators, applyType } from './shared.js';
+import { getDataSource } from './registry.js';
 
 /**
  * Options for the {@link SequenceId} decorator.

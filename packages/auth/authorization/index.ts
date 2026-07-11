@@ -1,2 +1,2 @@
-export * from './rbac';
-export * from './pbac';
+export * from './rbac/index.js';
+export * from './pbac/index.js';

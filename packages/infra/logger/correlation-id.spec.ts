@@ -1,4 +1,4 @@
-import { getCorrelationId, runWithCorrelationId, correlationIdStorage } from './correlation-id';
+import { getCorrelationId, runWithCorrelationId, correlationIdStorage } from './correlation-id.js';
 
 describe('correlation-id', () => {
   beforeEach(() => {

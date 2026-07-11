@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Stripe } from 'stripe';
-import { STRIPE_CLIENT } from '../stripe.constants';
-import type { CreateCheckoutSessionOptions } from '../stripe.types';
+import { STRIPE_CLIENT } from '../stripe.constants.js';
+import type { CreateCheckoutSessionOptions } from '../stripe.types.js';
 
 /**
  * Service for Stripe Checkout Sessions.

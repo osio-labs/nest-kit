@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import type { Getter } from '../with-config';
-import { withConfig } from '../with-config';
+import type { Getter } from '../with-config.js';
+import { withConfig } from '../with-config.js';
 
 /** Environment variable keys used by the Sentry bootstrapper. */
 export interface SentryConfigOptions {
@@ -98,4 +98,4 @@ export const configSentry = withConfig<SentryConfigOptions, Record<string, unkno
   buildSentryConfig,
 );
 
-export { initSentry } from './instrument';
+export { initSentry } from './instrument.js';

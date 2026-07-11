@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
-import { ACTIVITY_FEED_STORE } from './activity-feed.constants';
-import { ActivityFeedService } from './activity-feed.service';
-import type { ActivityFeedStore } from './activity-feed.types';
+import { ACTIVITY_FEED_STORE } from './activity-feed.constants.js';
+import { ActivityFeedService } from './activity-feed.service.js';
+import type { ActivityFeedStore } from './activity-feed.types.js';
 
 describe('ActivityFeedService', () => {
   let service: ActivityFeedService;

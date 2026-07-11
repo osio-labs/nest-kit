@@ -1,4 +1,4 @@
-import { TypeOrmRateLimitAdapter } from './typeorm.adapter';
+import { TypeOrmRateLimitAdapter } from './typeorm.adapter.js';
 
 describe('TypeOrmRateLimitAdapter', () => {
   let adapter: TypeOrmRateLimitAdapter;

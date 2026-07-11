@@ -4,21 +4,21 @@ import {
   STRIPE_CLIENT,
   PAYMENT_STORE,
   STRIPE_WEBHOOK_HANDLERS,
-} from './stripe.constants';
-import { loadStripe } from './stripe.utils';
-import type { StripeModuleOptions, StripeModuleAsyncOptions } from './stripe.types';
-import { StripeService } from './stripe.service';
-import { StripeController } from './stripe.controller';
-import { StripeSandboxClient } from './stripe-sandbox.client';
-import { PaymentIntentsService } from './services/payment-intents.service';
-import { RefundsService } from './services/refunds.service';
-import { PaymentMethodsService } from './services/payment-methods.service';
-import { CustomersService } from './services/customers.service';
-import { SubscriptionsService } from './services/subscriptions.service';
-import { CheckoutService } from './services/checkout.service';
-import { BillingPortalService } from './services/billing-portal.service';
-import { WebhooksService } from './services/webhooks.service';
-import { ProductsService } from './services/products.service';
+} from './stripe.constants.js';
+import { loadStripe } from './stripe.utils.js';
+import type { StripeModuleOptions, StripeModuleAsyncOptions } from './stripe.types.js';
+import { StripeService } from './stripe.service.js';
+import { StripeController } from './stripe.controller.js';
+import { StripeSandboxClient } from './stripe-sandbox.client.js';
+import { PaymentIntentsService } from './services/payment-intents.service.js';
+import { RefundsService } from './services/refunds.service.js';
+import { PaymentMethodsService } from './services/payment-methods.service.js';
+import { CustomersService } from './services/customers.service.js';
+import { SubscriptionsService } from './services/subscriptions.service.js';
+import { CheckoutService } from './services/checkout.service.js';
+import { BillingPortalService } from './services/billing-portal.service.js';
+import { WebhooksService } from './services/webhooks.service.js';
+import { ProductsService } from './services/products.service.js';
 
 /**
  * NestJS `DynamicModule` for Stripe payment processing.

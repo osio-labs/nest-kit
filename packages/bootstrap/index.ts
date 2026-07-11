@@ -26,12 +26,12 @@
  */
 
 /* Module registration — for app.module.ts */
-export * from './typeorm';
-export * from './swagger';
-export * from './cache';
-export * from './queue';
-export * from './sentry';
+export * from './typeorm/index.js';
+export * from './swagger/index.js';
+export * from './cache/index.js';
+export * from './queue/index.js';
+export * from './sentry/index.js';
 
 /* App config — for main.ts */
-export * from './openapi';
-export * from './validation';
+export * from './openapi/index.js';
+export * from './validation/index.js';

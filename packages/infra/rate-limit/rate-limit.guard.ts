@@ -7,9 +7,13 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RateLimitService } from './rate-limit.service';
-import { METADATA_RATE_LIMIT, DEFAULT_LIMIT, DEFAULT_WINDOW_SECONDS } from './rate-limit.constants';
-import type { RateLimitGuardOptions } from './rate-limit.types';
+import { RateLimitService } from './rate-limit.service.js';
+import {
+  METADATA_RATE_LIMIT,
+  DEFAULT_LIMIT,
+  DEFAULT_WINDOW_SECONDS,
+} from './rate-limit.constants.js';
+import type { RateLimitGuardOptions } from './rate-limit.types.js';
 
 @Injectable()
 export class RateLimitGuard implements CanActivate {

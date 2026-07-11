@@ -43,7 +43,7 @@ export type {
   LoggerRequestLoggingConfig,
   LoggerModuleOptions,
   LoggerModuleAsyncOptions,
-} from './logger.types';
+} from './logger.types.js';
 
 // ──────── Constants ────────
 export {
@@ -51,17 +51,17 @@ export {
   PINO_LOGGER,
   DEFAULT_LOG_LEVEL,
   DEFAULT_CORRELATION_ID_HEADER,
-} from './logger.constants';
+} from './logger.constants.js';
 
 // ──────── Service ────────
-export { PinoLoggerService } from './logger.service';
+export { PinoLoggerService } from './logger.service.js';
 
 // ──────── Correlation ID ────────
-export { getCorrelationId, runWithCorrelationId } from './correlation-id';
+export { getCorrelationId, runWithCorrelationId } from './correlation-id.js';
 
 // ──────── Interceptors ────────
-export { CorrelationIdInterceptor } from './interceptors/correlation-id.interceptor';
-export { RequestLoggerInterceptor } from './interceptors/request-logger.interceptor';
+export { CorrelationIdInterceptor } from './interceptors/correlation-id.interceptor.js';
+export { RequestLoggerInterceptor } from './interceptors/request-logger.interceptor.js';
 
 // ──────── NestJS Module ────────
-export { LoggerModule } from './logger.module';
+export { LoggerModule } from './logger.module.js';

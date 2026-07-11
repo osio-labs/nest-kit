@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { METADATA_PUBLIC } from '../auth.constants';
+import { METADATA_PUBLIC } from '../auth.constants.js';
 
 /**
  * Mark a route handler or controller as publicly accessible
