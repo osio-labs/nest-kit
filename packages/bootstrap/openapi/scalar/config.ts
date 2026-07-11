@@ -37,7 +37,7 @@ export function configScalarApiDoc(app: INestApplication, options?: Options): vo
   const document = SwaggerModule.createDocument(app, config, options?.swaggerDocumentOptions);
 
   app.use(
-    options?.path ?? 'api/docs',
+    `/${options?.path ?? '/api/docs'}`,
     apiReference({
       spec: { content: document },
       ...options?.scalarOptions,

@@ -64,6 +64,7 @@
   "bugs": {
     "url": "https://github.com/osio-labs/nest-kit/issues"
   },
+  "type": "module",
   "license": "MIT",
   "author": "Wind Blade <vn.chemgio@yahoo.com> (https://github.com/osio-labs)",
   "repository": {

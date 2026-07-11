@@ -57,7 +57,7 @@ describe('configScalarApiDoc', () => {
     configScalarApiDoc(app);
 
     expect(appUse).toHaveBeenCalledTimes(1);
-    expect(appUse).toHaveBeenCalledWith('api/docs', 'middleware');
+    expect(appUse).toHaveBeenCalledWith('//api/docs', 'middleware');
   });
 
   it('should use defaults when empty options object', () => {
@@ -68,14 +68,14 @@ describe('configScalarApiDoc', () => {
     expect(mockSetVersion).toHaveBeenCalledWith('1.0');
     expect(mockAddBearerAuth).toHaveBeenCalledTimes(1);
     expect(mockCreateDocument).toHaveBeenCalledWith(app, {}, undefined);
-    expect(appUse).toHaveBeenCalledWith('api/docs', expect.anything());
+    expect(appUse).toHaveBeenCalledWith('//api/docs', expect.anything());
   });
 
   it('should register scalar middleware with custom path', () => {
     configScalarApiDoc(app, { path: 'custom/scalar' });
 
     expect(appUse).toHaveBeenCalledTimes(1);
-    expect(appUse).toHaveBeenCalledWith('custom/scalar', 'middleware');
+    expect(appUse).toHaveBeenCalledWith('/custom/scalar', 'middleware');
   });
 
   it('should use custom title, description, version when provided', () => {

@@ -44,6 +44,13 @@ export interface OpenApiOptions {
   title?: string;
   description?: string;
   version?: string;
+  /**
+   * Route path for the API documentation UI.
+   *
+   * **Must NOT** start with a leading `/` — the library prepends it automatically.
+   *
+   * @example 'api/docs'
+   */
   path?: string;
   /**
    * Security methods to register on the OpenAPI document.
