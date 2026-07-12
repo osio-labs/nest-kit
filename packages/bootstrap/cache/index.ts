@@ -4,70 +4,21 @@
  * Cache module configuration bootstrapper for NestJS applications.
  * Supports memory, Redis, Valkey, and multi-tier caching.
  *
+ * Store types and adapters are auto-detected from environment variables.
+ * No need to pass stores or adapters programmatically.
+ *
  * @module
  * @packageDocumentation
  */
 
+import type { ConfigService } from '@nestjs/config';
 import type { Getter } from '../with-config.js';
 import { withConfig } from '../with-config.js';
+import { createRequire } from 'node:module';
 
-/** Per-store configuration. */
-export interface CacheStoreConfig {
-  /** Store type */
-  type: 'memory' | 'redis' | 'valkey';
-
-  /**
-   * Optional name to distinguish this store.
-   *
-   * When set, the bootstrapper also reads `CACHE_{NAME}_URL`,
-   * `CACHE_{NAME}_KEY_PREFIX`, `CACHE_{NAME}_TTL`, and
-   * `CACHE_{NAME}_MAX` environment variables (with `NAME`
-   * uppercased). Named env vars take priority over the
-   * generic `REDIS_*` / `VALKEY_*` / `CACHE_*` variables.
-   *
-   * @example
-   * ```ts
-   * stores: [
-   *   { type: 'redis', name: 'sessions' },
-   *   { type: 'redis', name: 'data' },
-   * ]
-   * // Also reads: CACHE_SESSIONS_URL, CACHE_DATA_URL
-   * ```
-   */
-  name?: string;
-
-  /**
-   * Keyv adapter constructor.
-   *
-   * @example
-   * ```ts
-   * import { KeyvCacheableMemory } from 'cacheable';
-   * import KeyvRedis from '@keyv/redis';
-   * import KeyvValkey from '@keyv/valkey';
-   *
-   * const cfg = configCache({
-   *   keyv: Keyv,
-   *   stores: [
-   *     { type: 'memory', adapter: KeyvCacheableMemory },
-   *     { type: 'redis',  adapter: KeyvRedis },
-   *     { type: 'valkey', adapter: KeyvValkey },
-   *   ],
-   * });
-   * ```
-   */
-  adapter?: new (...args: unknown[]) => unknown;
-
-  /** Connection URL (redis / valkey), e.g. `redis://localhost:6379`. */
-  url?: string;
-  /** Max items (memory store). */
-  max?: number;
-  /** Key prefix for namespacing. */
-  keyPrefix?: string;
-  /** Enable RDS (ElastiCache) TLS mode. */
-  rdsEnabled?: boolean;
-  /** TTL override for this store (seconds). */
-  ttl?: number;
-}
+/* ------------------------------------------------------------------ */
+/*  Public types                                                       */
+/* ------------------------------------------------------------------ */
 
 /** Top-level cache configuration. */
 export interface CacheConfigOptions {
@@ -81,16 +32,10 @@ export interface CacheConfigOptions {
   isGlobal?: boolean;
 
   /**
-   * One or more cache stores. Pass multiple to enable multi-tier caching.
-   * Each store creates a separate `Keyv` instance.
-   */
-  stores?: CacheStoreConfig[];
-
-  /**
    * The `Keyv` class from the `keyv` package.
    *
-   * Required when any store provides an `adapter` — the config builds Keyv
-   * instances so the output is ready for `CacheModule.register()`.
+   * When provided, the config builds Keyv instances so the output
+   * is ready for `CacheModule.register()`.
    *
    * @example
    * ```ts
@@ -101,14 +46,15 @@ export interface CacheConfigOptions {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Types                                                              */
+/*  Internal types                                                     */
 /* ------------------------------------------------------------------ */
+
+type StoreType = 'memory' | 'redis' | 'valkey';
 
 type StoreRecord = Record<string, unknown>;
 
 interface KeyvStoreData {
-  type: CacheStoreConfig['type'];
-  name?: string;
+  type: StoreType;
   adapter?: new (...args: unknown[]) => unknown;
   url?: string;
   keyPrefix?: string;
@@ -121,105 +67,107 @@ interface KeyvStoreData {
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
-import { createRequire } from 'node:module';
+type AdapterCtor = new (...args: unknown[]) => unknown;
 
-const REQUIRED_PACKAGES: Record<string, string[]> = {
-  redis: ['cacheable', '@keyv/redis'],
-  valkey: ['cacheable', '@keyv/valkey'],
-  memory: ['cacheable'],
-};
+function loadAdapter(type: StoreType): AdapterCtor {
+  const req = createRequire(import.meta.url);
 
-function checkDependencies(stores: CacheStoreConfig[]): void {
-  const missing = new Set<string>();
+  // Only check peer deps — direct deps (cacheable) are always bundled.
+  const peerDeps: Partial<Record<StoreType, string>> = {
+    redis: '@keyv/redis',
+    valkey: '@keyv/valkey',
+  };
 
-  for (const store of stores) {
-    const pkgs = REQUIRED_PACKAGES[store.type];
-    if (!pkgs) continue;
-
-    for (const pkg of pkgs) {
-      try {
-        createRequire(process.cwd()).resolve(pkg);
-      } catch {
-        missing.add(pkg);
-      }
+  const peerPkg = peerDeps[type];
+  if (peerPkg) {
+    try {
+      req.resolve(peerPkg);
+    } catch {
+      throw new Error(
+        `[@os.io/nest-kit] Missing cache dependency: "${peerPkg}". Install it: npm install ${peerPkg}`,
+      );
     }
   }
 
-  if (missing.size > 0) {
-    const packages = [...missing].join(', ');
-    throw new Error(
-      `[@os.io/nest-kit] Missing cache dependencies: ${packages}. ` +
-        `Install them: npm install ${packages}`,
-    );
+  const mod = req(type === 'memory' ? 'cacheable' : peerPkg!) as Record<string, unknown>;
+
+  if (type === 'memory') {
+    const fallback = (mod.default as Record<string, unknown>)?.KeyvCacheableMemory;
+    return (mod.KeyvCacheableMemory ?? fallback) as AdapterCtor;
   }
+
+  return (mod.default ?? mod) as AdapterCtor;
 }
 
-function readStr(get: Getter, name: string | undefined, ...suffixes: string[]): string | undefined {
-  for (const suffix of suffixes) {
-    if (name) {
-      const v = get.str(`CACHE_${name.toUpperCase()}_${suffix}`);
-      if (v !== undefined) return v;
-    }
-    const v = get.str(suffix);
-    if (v !== undefined) return v;
+function resolveKeyvClass(): new (options?: Record<string, unknown>) => Record<string, unknown> {
+  const req = createRequire(import.meta.url);
+
+  try {
+    req.resolve('keyv');
+  } catch {
+    throw new Error('[@os.io/nest-kit] Missing "keyv" dependency. Install it: npm install keyv');
   }
-  return undefined;
+
+  const mod = req('keyv') as Record<string, unknown>;
+  return (mod.default ?? mod) as new (options?: Record<string, unknown>) => Record<string, unknown>;
 }
 
-function readNum(get: Getter, name: string | undefined, ...suffixes: string[]): number | undefined {
-  for (const suffix of suffixes) {
-    if (name) {
-      const v = get.num(`CACHE_${name.toUpperCase()}_${suffix}`);
-      if (v !== undefined) return v;
-    }
-    const v = get.num(suffix);
-    if (v !== undefined) return v;
-  }
-  return undefined;
+function splitPipe(value: string): string[] {
+  return value.split('|').map((s) => s.trim());
 }
 
-function buildAdapterOptions(
-  name: string | undefined,
-  opt: KeyvStoreData | undefined,
-  get: Getter,
-  prefix: string,
-): Record<string, unknown> {
-  const rds = opt?.rdsEnabled ?? get.bool('RDS_CACHE_ENABLED', false);
-  const keyPrefix = opt?.keyPrefix ?? readStr(get, name, 'KEY_PREFIX', `${prefix}_KEY_PREFIX`);
-  const url = opt?.url ?? readStr(get, name, 'URL', `${prefix}_URL`) ?? 'redis://localhost:6379/0';
-
-  return { url, keyPrefix, ...(rds ? { socket: { tls: true } } : {}) };
+function detectRds(url: string): boolean {
+  return url.startsWith('rediss://');
 }
 
 function parseStores(get: Getter, options?: CacheConfigOptions): KeyvStoreData[] {
-  const userStores = options?.stores;
-  const raw = userStores?.map((s) => s.type).join(',') ?? get.str('CACHE_STORE') ?? 'memory';
+  const maxVal = get.num('CACHE_MAX') ?? 100;
+  const ttlVal = options?.ttl ?? get.num('CACHE_TTL') ?? 60;
 
-  const types = raw.split(',').map((s) => s.trim() as CacheStoreConfig['type']);
+  const urlParts = splitPipe(get.str('CACHE_URL') ?? '');
+  const typeParts = splitPipe(get.str('CACHE_TYPE') ?? '');
+  const prefixParts = splitPipe(get.str('CACHE_PREFIX') ?? '');
 
-  return types.map((type) => {
-    const opt = userStores?.find((s) => s.type === type);
-    const storeName = opt?.name;
+  if (typeParts.length > urlParts.length) {
+    throw new Error(
+      `[@os.io/nest-kit] CACHE_TYPE has ${typeParts.length} entries but CACHE_URL only has ${urlParts.length}. ` +
+        `CACHE_TYPE cannot have more entries than CACHE_URL.`,
+    );
+  }
+  if (prefixParts.length > urlParts.length) {
+    throw new Error(
+      `[@os.io/nest-kit] CACHE_PREFIX has ${prefixParts.length} entries but CACHE_URL only has ${urlParts.length}. ` +
+        `CACHE_PREFIX cannot have more entries than CACHE_URL.`,
+    );
+  }
 
-    const maxVal = opt?.max ?? readNum(get, storeName, 'MAX', 'CACHE_MAX') ?? 100;
-    const ttlVal = opt?.ttl ?? options?.ttl ?? readNum(get, storeName, 'TTL', 'CACHE_TTL') ?? 60;
+  return Array.from({ length: urlParts.length }, (_, i) => {
+    const raw = urlParts[i];
+    const hasUrl = raw !== undefined && raw !== '';
 
-    const base: KeyvStoreData = {
-      type,
-      name: storeName,
-      adapter: opt?.adapter,
-      max: maxVal,
-      ttl: ttlVal,
-    };
+    // Step 1: auto-detect from URL
+    let type: StoreType = hasUrl ? 'valkey' : 'memory';
+    const url = hasUrl ? raw : undefined;
+    const rdsEnabled = hasUrl ? detectRds(raw) : false;
 
-    if (type === 'memory') return base;
+    // Step 2: apply CACHE_TYPE override
+    if (typeParts[i] === 'redis' && type !== 'memory') type = 'redis';
 
-    const prefix = type === 'redis' ? 'REDIS' : 'VALKEY';
+    const keyPrefix = prefixParts[i] || undefined;
+    const adapter = loadAdapter(type);
+
+    if (type === 'memory') {
+      return { type: 'memory', adapter, max: maxVal, ttl: ttlVal };
+    }
 
     return {
-      ...base,
-      ...buildAdapterOptions(storeName, opt, get, prefix),
-      rdsEnabled: opt?.rdsEnabled ?? get.bool('RDS_CACHE_ENABLED', false),
+      type,
+      adapter,
+      url: url ?? 'redis://localhost:6379/0',
+      keyPrefix,
+      rdsEnabled,
+      max: maxVal,
+      ttl: ttlVal,
     };
   });
 }
@@ -228,80 +176,45 @@ function toMilliseconds(seconds: number): number {
   return seconds * 1000;
 }
 
+function buildAdapterOptions(store: KeyvStoreData): Record<string, unknown> {
+  const opts: Record<string, unknown> = {
+    url: store.url ?? 'redis://localhost:6379/0',
+  };
+  if (store.keyPrefix) opts.keyPrefix = store.keyPrefix;
+  if (store.rdsEnabled) opts.socket = { tls: true };
+  return opts;
+}
+
 function buildCacheConfig(get: Getter, options?: CacheConfigOptions): StoreRecord {
-  const KeyvClass = options?.keyv;
+  const KeyvClass = options?.keyv ?? resolveKeyvClass();
   const stores = parseStores(get, options);
-
-  checkDependencies(stores.map((s) => ({ type: s.type })));
-
   const base: StoreRecord = {
     ttl: options?.ttl ?? get.num('CACHE_TTL') ?? 60,
     isGlobal: options?.isGlobal ?? get.bool('CACHE_IS_GLOBAL', false),
   };
 
-  // When Keyv class is provided, build Keyv instances
-  if (KeyvClass) {
-    const keyvInstances = stores.map((s) => {
-      const ttlMs = toMilliseconds(s.ttl ?? 60);
+  const keyvInstances = stores.map((s) => {
+    const ttlMs = toMilliseconds(s.ttl ?? 60);
 
-      if (s.type === 'memory') {
-        const adapterOptions: Record<string, unknown> = {};
-        if (s.max !== undefined) adapterOptions.lruSize = s.max;
-        const adapter = s.adapter ? new s.adapter(adapterOptions) : undefined;
+    if (s.type === 'memory') {
+      const adapterOptions: Record<string, unknown> = {};
+      if (s.max !== undefined) adapterOptions.lruSize = s.max;
+      const adapter = s.adapter ? new s.adapter(adapterOptions) : undefined;
 
-        // In-memory without adapter → Keyv default (no explicit store)
-        if (!adapter) {
-          return { keyv: new KeyvClass({ ttl: ttlMs }), name: s.name };
-        }
-
-        return {
-          keyv: new KeyvClass({ store: adapter, ttl: ttlMs }),
-          name: s.name,
-        };
+      if (!adapter) {
+        return new KeyvClass({ ttl: ttlMs });
       }
 
-      // redis / valkey — always need adapter
-      if (!s.adapter) {
-        throw new Error(
-          `Cache store "${s.type}" requires an adapter. ` +
-            `Install the package and pass adapter in config. ` +
-            `e.g. { type: "${s.type}", adapter: Keyv${s.type === 'redis' ? 'Redis' : 'Valkey'} }`,
-        );
-      }
-
-      const adapterOptions = buildAdapterOptions(
-        s.name,
-        s,
-        get,
-        s.type === 'redis' ? 'REDIS' : 'VALKEY',
-      );
-      const keyvAdapter = new s.adapter(adapterOptions.url, adapterOptions);
-
-      return {
-        keyv: new KeyvClass({ store: keyvAdapter, ttl: ttlMs }),
-        name: s.name,
-      };
-    });
-
-    // Single store — flatten, include name if set
-    if (keyvInstances.length === 1) {
-      const entry = keyvInstances[0];
-      const out: StoreRecord = { store: entry.keyv, ...base };
-      if (entry.name) out.name = entry.name;
-      return out;
+      return new KeyvClass({ store: adapter, ttl: ttlMs });
     }
 
-    return { stores: keyvInstances, ...base };
-  }
+    const adapterOptions = buildAdapterOptions(s);
+    const keyvAdapter = new s.adapter!(adapterOptions.url, adapterOptions);
 
-  // Without Keyv class — return raw config data
-  if (stores.length === 1) {
-    const out: StoreRecord = { ...base, ...stores[0] };
-    if (stores[0].name) out.name = stores[0].name;
-    return out;
-  }
+    return new KeyvClass({ store: keyvAdapter, ttl: ttlMs });
+  });
 
-  return { ...base, stores };
+  return { ...base, stores: keyvInstances };
 }
 
 /* ------------------------------------------------------------------ */
@@ -311,40 +224,40 @@ function buildCacheConfig(get: Getter, options?: CacheConfigOptions): StoreRecor
 /**
  * Build cache module options from environment variables or ConfigService.
  *
- * When `configService` is provided, reads from it (which internally may read
- * `process.env` by default). Otherwise reads directly from `process.env`.
+ * Store types are auto-detected from `CACHE_URL` (empty = memory,
+ * non-empty = valkey, `rediss://` = TLS). Use `CACHE_TYPE` to
+ * override valkey → redis at a given position.
  *
- * @param options - Optional overrides (stores, Keyv, TTL, etc.).
+ * Adapters and Keyv class are loaded automatically — no need to import them.
+ * Pass `keyv` to override the auto-resolved Keyv class.
+ *
+ * @param options - Optional overrides (ttl, isGlobal, keyv).
  * @param configService - Optional ConfigService (for `registerAsync` pattern).
  *
  * @example
  * ```ts
  * // Sync — reads process.env
- * CacheModule.register(configCache({ keyv: Keyv, stores: [...] }))
+ * CacheModule.register(configCache())
  *
  * // Async — uses ConfigService
  * CacheModule.registerAsync({
  *   imports: [ConfigModule],
  *   inject: [ConfigService],
- *   useFactory: (cs) => configCache({ keyv: Keyv, stores: [...] }, cs),
+ *   useFactory: (cs) => configCache(undefined, cs),
  * })
  * ```
  *
  * Environment variables:
- * | Variable                  | Default                    | Description                               |
- * |---------------------------|----------------------------|-------------------------------------------|
- * | `CACHE_STORE`             | `memory`                   | Comma-separated store types               |
- * | `CACHE_TTL`               | `60`                       | Default TTL (seconds)                     |
- * | `CACHE_MAX`               | `100`                      | Max items (memory store)                  |
- * | `CACHE_IS_GLOBAL`         | `false`                    | Register as global module                 |
- * | `CACHE_{NAME}_URL`        | —                          | Named-store URL (overrides `REDIS_URL`)   |
- * | `CACHE_{NAME}_KEY_PREFIX` | —                          | Named-store key prefix                    |
- * | `CACHE_{NAME}_TTL`        | —                          | Named-store TTL (overrides `CACHE_TTL`)   |
- * | `CACHE_{NAME}_MAX`        | —                          | Named-store max (overrides `CACHE_MAX`)   |
- * | `REDIS_URL`               | `redis://localhost:6379/0` | Redis connection URL                      |
- * | `REDIS_KEY_PREFIX`        | —                          | Redis key prefix                          |
- * | `VALKEY_URL`              | `redis://localhost:6379/0` | Valkey connection URL                     |
- * | `VALKEY_KEY_PREFIX`       | —                          | Valkey key prefix                         |
- * | `RDS_CACHE_ENABLED`        | `false`                    | Enable TLS for Redis / Valkey             |
+ * | Variable         | Default  | Description                                                              |
+ * |------------------|----------|--------------------------------------------------------------------------|
+ * | `CACHE_URL`      | —        | Pipe-separated URLs. Empty = memory. `rediss://` = TLS. Position-based. |
+ * | `CACHE_TYPE`     | —        | Pipe-separated overrides (`redis`). Changes valkey → redis at position.  |
+ * | `CACHE_PREFIX`   | —        | Pipe-separated key prefixes. Position matches `CACHE_URL`.               |
+ * | `CACHE_TTL`      | `60`     | Default TTL (seconds)                                                    |
+ * | `CACHE_MAX`      | `100`    | Max items (memory store)                                                 |
+ * | `CACHE_IS_GLOBAL`| `false`  | Register as global module                                                |
  */
-export const configCache = withConfig<CacheConfigOptions, StoreRecord>(buildCacheConfig);
+export const configCache: (
+  options?: CacheConfigOptions,
+  configService?: ConfigService,
+) => StoreRecord = withConfig<CacheConfigOptions, StoreRecord>(buildCacheConfig);

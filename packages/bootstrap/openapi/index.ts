@@ -26,7 +26,7 @@
 // ── Central @nestjs/swagger check ──────────────────────────────
 import { createRequire } from 'node:module';
 try {
-  createRequire(process.cwd()).resolve('@nestjs/swagger');
+  createRequire(import.meta.url).resolve('@nestjs/swagger');
 } catch {
   throw new Error(
     '[@os.io/nest-kit] @nestjs/swagger is required when using the openapi module. Install: npm install @nestjs/swagger',

@@ -3,6 +3,23 @@ import type { INestApplication } from '@nestjs/common';
 const mockConfigScalar = jest.fn();
 const mockConfigSwagger = jest.fn();
 
+jest.mock('node:module', () => {
+  const installed = new Set(['@nestjs/swagger']);
+  return {
+    createRequire: () => {
+      const req = (id: string) => {
+        if (!installed.has(id)) throw new Error(`Cannot find module '${id}'`);
+        return {};
+      };
+      req.resolve = (id: string) => {
+        if (installed.has(id)) return id;
+        throw new Error(`Cannot find module '${id}'`);
+      };
+      return req;
+    },
+  };
+});
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
