@@ -1,10 +1,10 @@
 import type { INestApplication } from '@nestjs/common';
 import type { SwaggerDocumentOptions } from '@nestjs/swagger';
 import type { NestJSReferenceConfiguration } from '@scalar/nestjs-api-reference';
-import type { SecurityMethod } from '../options.js';
+import type { SecurityMethod } from './security.js';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
-import { applySecurityMethods } from '../security.js';
+import { applySecurity } from './security.js';
 
 interface Options {
   title?: string;
@@ -31,7 +31,7 @@ export function configScalarApiDoc(app: INestApplication, options?: Options): vo
     .setDescription(options?.description ?? '')
     .setVersion(options?.version ?? '1.0');
 
-  applySecurityMethods(builder, options?.securityMethods);
+  applySecurity(builder, options?.securityMethods);
 
   const config = builder.build();
   const document = SwaggerModule.createDocument(app, config, options?.swaggerDocumentOptions);

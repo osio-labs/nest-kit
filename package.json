@@ -89,6 +89,11 @@
       "import": "./dist/bootstrap/index.js",
       "require": "./dist/bootstrap/index.js"
     },
+    "./bootstrap/openapi": {
+      "types": "./dist/bootstrap/openapi/index.d.ts",
+      "import": "./dist/bootstrap/openapi/index.js",
+      "require": "./dist/bootstrap/openapi/index.js"
+    },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "import": "./dist/auth/index.js",

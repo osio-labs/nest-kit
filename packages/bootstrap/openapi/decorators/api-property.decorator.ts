@@ -1,5 +1,10 @@
 import type { Type } from '@nestjs/common';
-import { getSwagger } from './swagger.helper.js';
+import {
+  ApiParam as SwaggerApiParam,
+  ApiQuery as SwaggerApiQuery,
+  ApiBody as SwaggerApiBody,
+  ApiProperty as SwaggerApiProperty,
+} from '@nestjs/swagger';
 
 // ── Example generators ─────────────────────────────────────────
 
@@ -189,116 +194,77 @@ export interface ApiPropertyDecoratorOptions extends BaseOptions {
 /**
  * Decorator that documents a path parameter with auto-generated example.
  *
- * Extends `@nestjs/swagger`'s `@ApiParam` by auto-injecting an `example`
- * value based on the declared `type` and `format` when the user does not
- * provide one explicitly.
- *
  * @example
  * ```ts
  * @ApiParam({ name: 'id', type: String, format: 'uuid' })
  * // → example: '550e8400-e29b-41d4-a716-446655440000'
- *
- * @ApiParam({ name: 'amount', type: Number, format: 'money' })
- * // → example: '1,234.56'
  * ```
- *
- * Gracefully no-ops when `@nestjs/swagger` is not installed.
  *
  * @param options - Parameter configuration.
  */
 export function ApiParam(options: ApiParamDecoratorOptions): MethodDecorator & ClassDecorator {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   return (...args: [object, string | symbol, PropertyDescriptor] | [Function]) => {
-    const s = getSwagger();
-    if (!s) return;
-
     const example = options.example ?? resolveExample(options.type, options.format);
-    s.ApiParam({ ...options, example })(...(args as [object, string | symbol, PropertyDescriptor]));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    SwaggerApiParam({ ...options, example } as any)(
+      ...(args as [object, string | symbol, PropertyDescriptor]),
+    );
   };
 }
 
 /**
  * Decorator that documents a query parameter with auto-generated example.
  *
- * Extends `@nestjs/swagger`'s `@ApiQuery` by auto-injecting an `example`
- * value based on the declared `type` and `format`.
- *
  * @example
  * ```ts
- * @ApiQuery({ name: 'page', type: Number })
- * // → example: 1
- *
  * @ApiQuery({ name: 'email', type: String, format: 'email' })
  * // → example: 'user@example.com'
  * ```
- *
- * Gracefully no-ops when `@nestjs/swagger` is not installed.
  *
  * @param options - Query parameter configuration.
  */
 export function ApiQuery(options: ApiQueryDecoratorOptions): MethodDecorator & ClassDecorator {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   return (...args: [object, string | symbol, PropertyDescriptor] | [Function]) => {
-    const s = getSwagger();
-    if (!s) return;
-
     const example = options.example ?? resolveExample(options.type, options.format);
-    s.ApiQuery({ ...options, example })(...(args as [object, string | symbol, PropertyDescriptor]));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    SwaggerApiQuery({ ...options, example } as any)(
+      ...(args as [object, string | symbol, PropertyDescriptor]),
+    );
   };
 }
 
 /**
  * Decorator that documents a DTO property with auto-generated example.
  *
- * Extends `@nestjs/swagger`'s `@ApiProperty` with two additions:
- *
- * 1. **Auto-example** — injects a realistic `example` value based on
- *    `type` and `format` when none is provided.
- * 2. **Default `required: false`** — makes it a drop-in replacement for
- *    `@ApiPropertyOptional`.
+ * Extends `@nestjs/swagger`'s `@ApiProperty` with:
+ * 1. Auto-example injection based on `type` and `format`.
+ * 2. Default `required: false`.
  *
  * @example
  * ```ts
  * class CreateUserDto {
  *   @ApiProperty({ type: String, format: 'uuid' })
  *   id: string;                          // example: '550e8400-...'
- *
- *   @ApiProperty({ type: String, format: 'email' })
- *   email: string;                       // example: 'user@example.com'
- *
- *   @ApiProperty({ type: Number, format: 'money' })
- *   amount: string;                      // example: '1,234.56'
- *
- *   @ApiProperty({ type: Boolean })
- *   active: boolean;                     // example: true
  * }
  * ```
- *
- * Gracefully no-ops when `@nestjs/swagger` is not installed.
  *
  * @param options - Property configuration.
  */
 export function ApiProperty(options?: ApiPropertyDecoratorOptions): PropertyDecorator {
   return (target: object, propertyKey: string | symbol) => {
-    const s = getSwagger();
-    if (!s) return;
-
     const example = options?.example ?? resolveExample(options?.type, options?.format);
-    s.ApiProperty({ ...options, example, required: false })(target, propertyKey);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    SwaggerApiProperty({ ...options, example, required: false } as any)(target, propertyKey);
   };
 }
 
 /**
  * Re-export of `@nestjs/swagger`'s `@ApiBody` decorator.
- *
- * Body documentation typically uses a DTO class, so auto-example generation
- * is not applicable. This is a direct pass-through.
  */
 export function ApiBody(options: Record<string, unknown>): MethodDecorator {
   return (...args: [object, string | symbol, PropertyDescriptor]) => {
-    const s = getSwagger();
-    if (!s) return;
-
-    s.ApiBody(options)(...args);
+    SwaggerApiBody(options)(...args);
   };
 }

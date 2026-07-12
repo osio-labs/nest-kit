@@ -14,30 +14,17 @@ describe('configOpenApi', () => {
     app = { use: jest.fn() } as unknown as INestApplication;
   });
 
-  describe('when @nestjs/swagger is not available', () => {
-    it('should throw with clear message', async () => {
-      jest.resetModules();
-      jest.doMock('@nestjs/swagger', () => {
-        throw new Error('MODULE_NOT_FOUND');
-      });
-
-      const { configOpenApi } = await import('./index.js');
-
-      await expect(configOpenApi(app)).rejects.toThrow('@nestjs/swagger is required');
-    });
-  });
-
   describe('when @scalar/nestjs-api-reference is available', () => {
     beforeEach(() => {
       jest.resetModules();
       jest.doMock('@nestjs/swagger', () => ({}));
       jest.doMock('@scalar/nestjs-api-reference', () => ({}));
-      jest.doMock('./scalar/config', () => ({ configScalarApiDoc: mockConfigScalar }));
-      jest.doMock('./swagger/config', () => ({ configSwagger: mockConfigSwagger }));
+      jest.doMock('./scalar.config', () => ({ configScalarApiDoc: mockConfigScalar }));
+      jest.doMock('./swagger.config', () => ({ configSwagger: mockConfigSwagger }));
     });
 
     it('should call configScalarApiDoc', async () => {
-      const { configOpenApi } = await import('./index.js');
+      const { configOpenApi } = await import('./config.js');
 
       await configOpenApi(app);
 
@@ -46,7 +33,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass options to configScalarApiDoc', async () => {
-      const { configOpenApi } = await import('./index.js');
+      const { configOpenApi } = await import('./config.js');
       const options = { title: 'Test', path: 'docs' };
 
       await configOpenApi(app, options);
@@ -55,7 +42,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass undefined when no options given', async () => {
-      const { configOpenApi } = await import('./index.js');
+      const { configOpenApi } = await import('./config.js');
 
       await configOpenApi(app);
 
@@ -70,12 +57,12 @@ describe('configOpenApi', () => {
       jest.doMock('@scalar/nestjs-api-reference', () => {
         throw new Error('MODULE_NOT_FOUND');
       });
-      jest.doMock('./scalar/config', () => ({ configScalarApiDoc: mockConfigScalar }));
-      jest.doMock('./swagger/config', () => ({ configSwagger: mockConfigSwagger }));
+      jest.doMock('./scalar.config', () => ({ configScalarApiDoc: mockConfigScalar }));
+      jest.doMock('./swagger.config', () => ({ configSwagger: mockConfigSwagger }));
     });
 
     it('should fallback to configSwagger', async () => {
-      const { configOpenApi } = await import('./index.js');
+      const { configOpenApi } = await import('./config.js');
 
       await configOpenApi(app);
 
@@ -84,7 +71,7 @@ describe('configOpenApi', () => {
     });
 
     it('should pass options to configSwagger', async () => {
-      const { configOpenApi } = await import('./index.js');
+      const { configOpenApi } = await import('./config.js');
       const options = { title: 'Test', path: 'docs' };
 
       await configOpenApi(app, options);

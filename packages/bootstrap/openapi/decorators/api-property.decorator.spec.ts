@@ -1,18 +1,23 @@
-import { resolveExample } from './api-property.decorator.js';
-
-const mockApiParam = jest.fn().mockReturnValue(jest.fn());
-const mockApiQuery = jest.fn().mockReturnValue(jest.fn());
-const mockApiBody = jest.fn().mockReturnValue(jest.fn());
-const mockApiProperty = jest.fn().mockReturnValue(jest.fn());
-
 jest.mock('@nestjs/swagger', () => ({
-  ApiParam: mockApiParam,
-  ApiQuery: mockApiQuery,
-  ApiBody: mockApiBody,
-  ApiProperty: mockApiProperty,
+  ApiParam: jest.fn().mockReturnValue(jest.fn()),
+  ApiQuery: jest.fn().mockReturnValue(jest.fn()),
+  ApiBody: jest.fn().mockReturnValue(jest.fn()),
+  ApiProperty: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-import { ApiParam, ApiQuery, ApiBody, ApiProperty } from './api-property.decorator.js';
+import {
+  resolveExample,
+  ApiParam,
+  ApiQuery,
+  ApiBody,
+  ApiProperty,
+} from './api-property.decorator.js';
+import {
+  ApiParam as mockApiParam,
+  ApiQuery as mockApiQuery,
+  ApiBody as mockApiBody,
+  ApiProperty as mockApiProperty,
+} from '@nestjs/swagger';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -356,44 +361,5 @@ describe('ApiBody', () => {
       type: Object,
       description: 'Create user',
     });
-  });
-});
-
-// ── Graceful degradation ──────────────────────────────────────
-
-describe('when @nestjs/swagger is not installed', () => {
-  beforeEach(() => {
-    jest.resetModules();
-    jest.doMock('@nestjs/swagger', () => {
-      throw new Error('MODULE_NOT_FOUND');
-    });
-  });
-
-  it('should not throw when ApiParam is used', async () => {
-    const { ApiParam: LocalApiParam } = await import('./api-property.decorator.js');
-
-    expect(() => {
-      class TestController {
-        findOne() {}
-      }
-
-      LocalApiParam({ name: 'id', type: String })(
-        TestController.prototype,
-        'findOne',
-        Object.getOwnPropertyDescriptor(TestController.prototype, 'findOne')!,
-      );
-    }).not.toThrow();
-  });
-
-  it('should not throw when ApiProperty is used', async () => {
-    const { ApiProperty: LocalApiProperty } = await import('./api-property.decorator.js');
-
-    expect(() => {
-      class TestDto {
-        name!: string;
-      }
-
-      LocalApiProperty({ type: String })(TestDto.prototype, 'name');
-    }).not.toThrow();
   });
 });

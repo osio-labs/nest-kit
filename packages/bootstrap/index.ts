@@ -27,7 +27,6 @@
 
 /* Module registration — for app.module.ts */
 export * from './typeorm/index.js';
-export * from './swagger/index.js';
 export * from './cache/index.js';
 export * from './queue/index.js';
 export * from './sentry/index.js';

@@ -29,12 +29,12 @@ jest.mock('@scalar/nestjs-api-reference', () => ({
   apiReference: mockApiReference,
 }));
 
-import type { configScalarApiDoc as ConfigScalarFn } from './config.js';
+import type { configScalarApiDoc as ConfigScalarFn } from './scalar.config.js';
 
 let configScalarApiDoc: typeof ConfigScalarFn;
 
 beforeAll(() => {
-  const mod = jest.requireActual('./config') as unknown as {
+  const mod = jest.requireActual('./scalar.config') as unknown as {
     configScalarApiDoc: typeof ConfigScalarFn;
   };
   configScalarApiDoc = mod.configScalarApiDoc;
@@ -172,5 +172,40 @@ describe('configScalarApiDoc', () => {
 
     expect(mockAddBearerAuth).not.toHaveBeenCalled();
     expect(mockAddSecurity).not.toHaveBeenCalled();
+  });
+
+  it('should merge options on top of preset defaults', () => {
+    configScalarApiDoc(app, {
+      securityMethods: [{ name: 'jwt', preset: 'bearer', options: { bearerFormat: 'Token' } }],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledWith('jwt', {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'Token',
+    });
+  });
+
+  it('should handle custom options without preset', () => {
+    configScalarApiDoc(app, {
+      securityMethods: [{ name: 'digest', options: { type: 'http', scheme: 'digest' } }],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledWith('digest', {
+      type: 'http',
+      scheme: 'digest',
+    });
+  });
+
+  it('should handle multiple security methods', () => {
+    configScalarApiDoc(app, {
+      securityMethods: [
+        { name: 'bearer', preset: 'bearer' },
+        { name: 'api_key', preset: 'apikey' },
+        { name: 'custom', options: { type: 'http', scheme: 'digest' } },
+      ],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledTimes(3);
   });
 });

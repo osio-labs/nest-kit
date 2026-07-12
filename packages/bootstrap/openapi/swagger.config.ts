@@ -1,8 +1,8 @@
 import type { INestApplication } from '@nestjs/common';
 import type { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
-import type { SecurityMethod } from '../options.js';
+import type { SecurityMethod } from './security.js';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { applySecurityMethods } from '../security.js';
+import { applySecurity } from './security.js';
 
 const DEFAULT_FAVICON_URL = 'https://scalar.com/favicon.svg';
 
@@ -30,7 +30,7 @@ export function configSwagger(app: INestApplication, options?: Options): void {
     .setDescription(options?.description ?? '')
     .setVersion(options?.version ?? '1.0');
 
-  applySecurityMethods(builder, options?.securityMethods);
+  applySecurity(builder, options?.securityMethods);
 
   const config = builder.build();
   const document = SwaggerModule.createDocument(app, config, options?.swaggerDocumentOptions);

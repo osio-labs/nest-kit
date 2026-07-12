@@ -13,3 +13,8 @@ export type {
   ApiQueryDecoratorOptions,
   ApiPropertyDecoratorOptions,
 } from './api-property.decorator.js';
+
+export { ApiEndpoint } from './api-endpoint.decorator.js';
+export type { ApiEndpointOptions } from './api-endpoint.decorator.js';
+
+export { ApiPaginatedResponse } from './api-paginated-response.decorator.js';

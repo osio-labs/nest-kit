@@ -333,9 +333,6 @@ describe('CrudApi', () => {
 
       @Get(':id')
       findOne() {}
-
-      // Helper method — no HTTP decorator
-      private _validateInput() {}
     }
 
     // eslint-disable-next-line no-new
@@ -385,30 +382,5 @@ describe('CrudApi', () => {
     expect(mockApiConflictResponse).toHaveBeenCalledTimes(1);
     // findAll and findOne should still get success responses
     expect(mockApiOkResponse).toHaveBeenCalled();
-  });
-});
-
-// ── Graceful degradation ──────────────────────────────────────────
-
-describe('when @nestjs/swagger is not installed', () => {
-  beforeEach(() => {
-    jest.resetModules();
-    jest.doMock('@nestjs/swagger', () => {
-      throw new Error('MODULE_NOT_FOUND');
-    });
-  });
-
-  it('should not throw when ApiResponse is used', async () => {
-    const { ApiResponse: LocalApiResponse } = await import('./api-response.decorator.js');
-
-    expect(() => {
-      class TestController {
-        @Get(':id')
-        @LocalApiResponse(MockEntity)
-        findOne() {}
-      }
-      // eslint-disable-next-line no-new
-      new TestController();
-    }).not.toThrow();
   });
 });

@@ -25,12 +25,12 @@ jest.mock('@nestjs/swagger', () => ({
   },
 }));
 
-import type { configSwagger as ConfigSwaggerFn } from './config.js';
+import type { configSwagger as ConfigSwaggerFn } from './swagger.config.js';
 
 let configSwagger: typeof ConfigSwaggerFn;
 
 beforeAll(() => {
-  const mod = jest.requireActual('./config') as unknown as {
+  const mod = jest.requireActual('./swagger.config') as unknown as {
     configSwagger: typeof ConfigSwaggerFn;
   };
   configSwagger = mod.configSwagger;
@@ -215,5 +215,40 @@ describe('configSwagger', () => {
 
     expect(mockAddBearerAuth).not.toHaveBeenCalled();
     expect(mockAddSecurity).not.toHaveBeenCalled();
+  });
+
+  it('should merge options on top of preset defaults', () => {
+    configSwagger(app, {
+      securityMethods: [{ name: 'jwt', preset: 'bearer', options: { bearerFormat: 'Token' } }],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledWith('jwt', {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'Token',
+    });
+  });
+
+  it('should handle custom options without preset', () => {
+    configSwagger(app, {
+      securityMethods: [{ name: 'digest', options: { type: 'http', scheme: 'digest' } }],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledWith('digest', {
+      type: 'http',
+      scheme: 'digest',
+    });
+  });
+
+  it('should handle multiple security methods', () => {
+    configSwagger(app, {
+      securityMethods: [
+        { name: 'bearer', preset: 'bearer' },
+        { name: 'api_key', preset: 'apikey' },
+        { name: 'custom', options: { type: 'http', scheme: 'digest' } },
+      ],
+    });
+
+    expect(mockAddSecurity).toHaveBeenCalledTimes(3);
   });
 });
