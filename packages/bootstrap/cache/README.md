@@ -2,17 +2,16 @@
 
 Build `CacheModule.register()` / `registerAsync()` options from environment variables or `ConfigService`.
 
-Supports **memory** (via `cacheable`), **Redis** (`@keyv/redis`), **Valkey** (`@keyv/valkey`), and **multi‑store** with optional **RDS (ElastiCache) TLS**.
+Supports **memory** (via `cacheable`), **Redis** (`@keyv/redis`), **Valkey** (`@keyv/valkey`), and **multi-store** with optional **RDS (ElastiCache) TLS**.
+
+Store types and adapters are auto-detected from environment variables — no need to import adapters.
 
 ---
 
 - [Install](#install)
 - [Quick Start](#quick-start)
-- [Single Store](#single-store)
-  - [Memory](#memory)
-  - [Redis / Valkey](#redis--valkey)
-- [Multi‑Store](#multi-store)
-- [Named Stores](#named-stores)
+- [How It Works](#how-it-works)
+- [Multi-Store](#multi-store)
 - [RDS / ElastiCache Mode](#rds--elasticache-mode)
 - [Environment Variables](#environment-variables)
 - [API](#api)
@@ -23,208 +22,99 @@ Supports **memory** (via `cacheable`), **Redis** (`@keyv/redis`), **Valkey** (`@
 
 ```bash
 npm install @nestjs/cache-manager cache-manager keyv
-# Optional — store adapters:
+# Optional — store adapters (auto-loaded at runtime):
 npm install cacheable               # memory (KeyvCacheableMemory)
 npm install @keyv/redis             # Redis
 npm install @keyv/valkey            # Valkey
 ```
-
-The bootstrapper accepts adapter classes so your app does not need to import `keyv` or any adapter unless it actually uses them.
 
 ## Quick Start
 
 ```ts
 import { CacheModule } from '@nestjs/cache-manager';
 import { configCache } from '@os.io/nest-kit/bootstrap';
+import Keyv from 'keyv';
 
 @Module({
-  imports: [CacheModule.register(configCache())],
+  imports: [CacheModule.register(configCache({ keyv: Keyv }))],
 })
 export class AppModule {}
 ```
 
-Default: in‑memory cache, `ttl: 60s`, `max: 100`.
+Default: in-memory cache, `ttl: 60s`, `max: 100`. Adapters are loaded automatically.
+
+## How It Works
+
+Store types are auto-detected from `CACHE_URL`:
+
+| URL value      | Store type     |
+| -------------- | -------------- |
+| _(empty)_      | `memory`       |
+| `redis://...`  | `valkey`       |
+| `rediss://...` | `valkey` + TLS |
+
+`CACHE_TYPE` (optional) overrides `valkey` → `redis` at the same position.
+
+```bash
+# 3 stores: memory, redis, valkey
+CACHE_URL=|redis://host1:6379/0|redis://host2:6379/0
+CACHE_TYPE=|redis|
+```
+
+Position in `CACHE_URL` / `CACHE_TYPE` / `CACHE_PREFIX` must match.
 
 ## .env Example
 
-Copy this into your `.env` file and adjust as needed:
-
 ```bash
-# ----- Cache (default: memory) -----
-CACHE_STORE=memory
-CACHE_TTL=60
-CACHE_MAX=100
+# ----- Single Redis -----
+CACHE_URL=redis://localhost:6379/0
+CACHE_TYPE=redis
+CACHE_PREFIX=myapp:
 
-# ----- Redis -----
-# CACHE_STORE=redis
-# REDIS_URL=redis://localhost:6379/0
-# REDIS_KEY_PREFIX=myapp:
-
-# ----- Valkey -----
-# CACHE_STORE=valkey
-# VALKEY_URL=redis://localhost:6379/0
+# ----- Single Valkey (default for non-empty URL) -----
+CACHE_URL=redis://localhost:6379/0
 
 # ----- Multi-store (memory + Redis) -----
-# CACHE_STORE=memory,redis
+CACHE_URL=|redis://localhost:6379/0
+CACHE_TYPE=|redis
 
-# ----- Named stores (e.g. two Redis instances) -----
-# CACHE_STORE=redis,redis
-# CACHE_SESSIONS_URL=redis://localhost:6379/1
-# CACHE_SESSIONS_KEY_PREFIX=sessions:
-# CACHE_DATA_URL=redis://localhost:6379/2
+# ----- Multi-store (Redis + Valkey) -----
+CACHE_URL=redis://host1:6379/0|redis://host2:6379/0
+CACHE_TYPE=redis|
+CACHE_PREFIX=prefix1:|prefix2:
 
-# ----- TLS (ElastiCache) -----
-# RDS_CACHE_ENABLED=true
+# ----- RDS / ElastiCache (TLS auto-detected from rediss://) -----
+CACHE_URL=rediss://my-elasticache.cache.amazonaws.com:6379/0
 
 # ----- Global module -----
 # CACHE_IS_GLOBAL=true
 ```
 
-The connection URL format is `redis://[password@]host:port[/db]` — standard Redis connection string.
+## Multi-Store
 
-## Single Store
-
-### Memory
-
-```ts
-// Default — no extra deps required
-CacheModule.register(configCache());
-
-// Or via env:
-// CACHE_STORE=memory
-// CACHE_TTL=120
-// CACHE_MAX=500
+```bash
+CACHE_URL=|redis://localhost:6379/0
+CACHE_TYPE=|redis
 ```
-
-### Redis / Valkey
-
-Pass the `url` directly in code or via `REDIS_URL` / `VALKEY_URL` env vars.
-
-```ts
-import Keyv from 'keyv';
-import KeyvRedis from '@keyv/redis';
-
-const opts = configCache({
-  keyv: Keyv,
-  stores: [{ type: 'redis', adapter: KeyvRedis, url: 'redis://localhost:6379/0' }],
-});
-
-CacheModule.register(opts);
-// opts.store — a single Keyv instance
-```
-
-Or rely on environment variables (`CACHE_STORE=redis`, `REDIS_URL=redis://...`):
-
-```ts
-import Keyv from 'keyv';
-import KeyvRedis from '@keyv/redis';
-
-const opts = configCache({
-  keyv: Keyv,
-  stores: [{ type: 'redis', adapter: KeyvRedis }],
-});
-```
-
-Available env vars: `REDIS_URL` (connection string, e.g. `redis://localhost:6379/0`) and `REDIS_KEY_PREFIX`.  
-Valkey uses the same set with `VALKEY_*` prefix.
-
-When `keyv` is **not** provided, the function returns raw config data (strings, numbers) — useful if you want to build Keyv instances yourself or use a different caching library.
-
-## Multi‑Store
-
-Combine memory + Redis (or multiple Redis instances) for tiered caching.
-
-```ts
-import Keyv from 'keyv';
-import KeyvRedis from '@keyv/redis';
-import { KeyvCacheableMemory } from 'cacheable';
-
-const opts = configCache({
-  keyv: Keyv,
-  stores: [
-    { type: 'memory', adapter: KeyvCacheableMemory, max: 100 },
-    { type: 'redis', adapter: KeyvRedis },
-  ],
-});
-
-// opts.store — Keyv with multi-store (Keyv handles tiered reads/writes)
-CacheModule.register(opts);
-```
-
-Via env: `CACHE_STORE=memory,redis`
-
-When `keyv` is provided, the result contains a single `Keyv` instance (or `Keyv` with multi-store). Without `keyv`, multiple stores produce a `stores` array instead of flattening store keys into the root object.
-
-## Named Stores
-
-When using multiple cache instances of the same type (e.g. two Redis stores), use the `name` property to distinguish them. The `name` is included in the output and also enables `CACHE_{NAME}_*` environment variables that take priority over generic `REDIS_*` / `CACHE_*` vars.
-
-```ts
-import Keyv from 'keyv';
-import KeyvRedis from '@keyv/redis';
-
-const opts = configCache({
-  keyv: Keyv,
-  stores: [
-    { type: 'redis', name: 'sessions', adapter: KeyvRedis, url: 'redis://localhost:6379/1' },
-    { type: 'redis', name: 'data', adapter: KeyvRedis, url: 'redis://localhost:6379/2' },
-  ],
-});
-
-// opts.store — single Keyv with multi-store
-// opts.name → undefined (multiple stores, not flattened)
-// opts.stores[0].name → 'sessions'
-// opts.stores[1].name → 'data'
-```
-
-Or via environment variables:
-
-```
-CACHE_STORE=redis,redis
-# Named envs for the "sessions" store:
-CACHE_SESSIONS_URL=redis://localhost:6379/1
-CACHE_SESSIONS_KEY_PREFIX=session:
-# Named envs for the "data" store:
-CACHE_DATA_URL=redis://localhost:6379/2
-```
-
-Without `keyv`, a single named store outputs `{ ..., name }`; multiple stores produce a `stores` array where each entry carries its `name`.
 
 ## RDS / ElastiCache Mode
 
-Enable TLS (SSL) for Redis / Valkey connections to AWS ElastiCache.
+Use `rediss://` protocol to enable TLS automatically:
 
-```ts
-import Keyv from 'keyv';
-import KeyvRedis from '@keyv/redis';
-
-const opts = configCache({
-  keyv: Keyv,
-  stores: [{ type: 'redis', adapter: KeyvRedis, rdsEnabled: true }],
-});
+```bash
+CACHE_URL=rediss://my-elasticache.cache.amazonaws.com:6379/0
 ```
-
-Or via env: `RDS_CACHE_ENABLED=true`
-
-Adds `{ socket: { tls: true } }` to the adapter options.
 
 ## Environment Variables
 
-| Variable                  | Default                    | Description                             |
-| ------------------------- | -------------------------- | --------------------------------------- |
-| `CACHE_STORE`             | `memory`                   | Comma-separated store types             |
-| `CACHE_TTL`               | `60`                       | Default TTL (seconds)                   |
-| `CACHE_MAX`               | `100`                      | Max items (memory store)                |
-| `CACHE_IS_GLOBAL`         | `false`                    | Register as global module               |
-| `CACHE_{NAME}_URL`        | —                          | Named-store URL (overrides `REDIS_URL`) |
-| `CACHE_{NAME}_KEY_PREFIX` | —                          | Named-store key prefix                  |
-| `CACHE_{NAME}_TTL`        | —                          | Named-store TTL (overrides `CACHE_TTL`) |
-| `CACHE_{NAME}_MAX`        | —                          | Named-store max (overrides `CACHE_MAX`) |
-| `REDIS_URL`               | `redis://localhost:6379/0` | Redis connection URL                    |
-| `REDIS_KEY_PREFIX`        | —                          | Redis key prefix                        |
-| `VALKEY_URL`              | `redis://localhost:6379/0` | Valkey connection URL                   |
-| `VALKEY_KEY_PREFIX`       | —                          | Valkey key prefix                       |
-| `RDS_CACHE_ENABLED`       | `false`                    | Enable TLS for Redis / Valkey           |
+| Variable          | Default | Description                                                             |
+| ----------------- | ------- | ----------------------------------------------------------------------- |
+| `CACHE_URL`       | —       | Pipe-separated URLs. Empty = memory. `rediss://` = TLS. Position-based. |
+| `CACHE_TYPE`      | —       | Pipe-separated overrides (`redis`). Changes valkey → redis at position. |
+| `CACHE_PREFIX`    | —       | Pipe-separated key prefixes. Position matches `CACHE_URL`.              |
+| `CACHE_TTL`       | `60`    | Default TTL (seconds)                                                   |
+| `CACHE_MAX`       | `100`   | Max items (memory store)                                                |
+| `CACHE_IS_GLOBAL` | `false` | Register as global module                                               |
 
 ## API
 
@@ -232,46 +122,15 @@ Adds `{ socket: { tls: true } }` to the adapter options.
 configCache(options?: CacheConfigOptions, configService?: ConfigService): Record<string, unknown>
 ```
 
-### `configCache(options?, configService?)`
-
-Build cache module options from environment variables or NestJS `ConfigService`.
-
-```ts
-// Sync
-const cfg = configCache({ ttl: 120 });
-CacheModule.register(cfg);
-
-// Async with ConfigService
-CacheModule.registerAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (cs) => configCache({ keyv: Keyv, stores: [...] }, cs),
-});
-```
-
 ### `CacheConfigOptions`
 
-| Option     | Type                 | Default | Description                            |
-| ---------- | -------------------- | ------- | -------------------------------------- |
-| `ttl`      | `number`             | `60`    | Default TTL (seconds)                  |
-| `isGlobal` | `boolean`            | `false` | Register as global module              |
-| `stores`   | `CacheStoreConfig[]` | —       | One or more store configurations       |
-| `keyv`     | `Keyv` constructor   | —       | When provided, builds `Keyv` instances |
-
-### `CacheStoreConfig`
-
-| Option       | Type                              | Default                    | Description                             |
-| ------------ | --------------------------------- | -------------------------- | --------------------------------------- |
-| `type`       | `'memory' \| 'redis' \| 'valkey'` | —                          | Store type                              |
-| `name`       | `string`                          | —                          | Optional name to distinguish instances  |
-| `adapter`    | `new (...args) => unknown`        | —                          | Keyv adapter class (e.g. `KeyvRedis`)   |
-| `max`        | `number`                          | `100`                      | Max items (memory, passed as `lruSize`) |
-| `url`        | `string`                          | `redis://localhost:6379/0` | Connection URL (redis / valkey)         |
-| `keyPrefix`  | `string`                          | —                          | Key prefix                              |
-| `rdsEnabled` | `boolean`                         | `false`                    | Enable TLS for ElastiCache              |
-| `ttl`        | `number`                          | `60`                       | Store-level TTL override                |
+| Option     | Type               | Default | Description                            |
+| ---------- | ------------------ | ------- | -------------------------------------- |
+| `ttl`      | `number`           | `60`    | Default TTL (seconds)                  |
+| `isGlobal` | `boolean`          | `false` | Register as global module              |
+| `keyv`     | `Keyv` constructor | —       | When provided, builds `Keyv` instances |
 
 ### Return value
 
-- **With `keyv`**: object with a single `store` (Keyv instance) or `stores` (Keyv multi-store). Each store entry includes `name` if set.
-- **Without `keyv`**: flat raw config (`{ store?, ttl, isGlobal, url, keyPrefix, name?, ... }`) with `stores` array when multiple stores.
+- **With `keyv`**: object with a single `store` (Keyv instance) or `stores` (Keyv multi-store).
+- **Without `keyv`**: flat raw config with `stores` array when multiple stores.
