@@ -121,6 +121,39 @@ interface KeyvStoreData {
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
+import { createRequire } from 'node:module';
+
+const REQUIRED_PACKAGES: Record<string, string[]> = {
+  redis: ['cacheable', '@keyv/redis'],
+  valkey: ['cacheable', '@keyv/valkey'],
+  memory: ['cacheable'],
+};
+
+function checkDependencies(stores: CacheStoreConfig[]): void {
+  const missing = new Set<string>();
+
+  for (const store of stores) {
+    const pkgs = REQUIRED_PACKAGES[store.type];
+    if (!pkgs) continue;
+
+    for (const pkg of pkgs) {
+      try {
+        createRequire(process.cwd()).resolve(pkg);
+      } catch {
+        missing.add(pkg);
+      }
+    }
+  }
+
+  if (missing.size > 0) {
+    const packages = [...missing].join(', ');
+    throw new Error(
+      `[@os.io/nest-kit] Missing cache dependencies: ${packages}. ` +
+        `Install them: npm install ${packages}`,
+    );
+  }
+}
+
 function readStr(get: Getter, name: string | undefined, ...suffixes: string[]): string | undefined {
   for (const suffix of suffixes) {
     if (name) {
@@ -198,6 +231,8 @@ function toMilliseconds(seconds: number): number {
 function buildCacheConfig(get: Getter, options?: CacheConfigOptions): StoreRecord {
   const KeyvClass = options?.keyv;
   const stores = parseStores(get, options);
+
+  checkDependencies(stores.map((s) => ({ type: s.type })));
 
   const base: StoreRecord = {
     ttl: options?.ttl ?? get.num('CACHE_TTL') ?? 60,

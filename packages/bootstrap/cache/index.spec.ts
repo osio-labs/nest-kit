@@ -1,4 +1,17 @@
 import type { ConfigService } from '@nestjs/config';
+
+jest.mock('node:module', () => {
+  const installed = new Set(['cacheable', '@keyv/redis', '@keyv/valkey']);
+  return {
+    createRequire: () => ({
+      resolve: (id: string) => {
+        if (installed.has(id)) return id;
+        throw new Error(`Cannot find module '${id}'`);
+      },
+    }),
+  };
+});
+
 import { configCache } from './index.js';
 
 /* ---------- configCache (sync, reads process.env) ---------- */
